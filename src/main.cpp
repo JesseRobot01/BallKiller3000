@@ -7,8 +7,8 @@ int main() {
     const int screenWidth = 800;
     const int screenHeight = 450;
 
-    int playerPosX = 190;
-    int playerPosY = 200;
+    int playerPosX = screenWidth / 2;
+    int playerPosY = screenHeight / 2;
 
     InitWindow(screenWidth, screenHeight, "BallKiller3000 Test");
 
@@ -19,22 +19,29 @@ int main() {
         BeginDrawing();
         ClearBackground(RAYWHITE);
 
-        DrawText("Hello World", playerPosX, playerPosY, 20, RED);  // Example
+
+        DrawCircle(playerPosX, playerPosY, 20, RED); // makes a temp player
         EndDrawing();
 
 
         if (IsKeyDown(KEY_UP) || IsKeyDown(KEY_W)) {
-            playerPosY -= moveSpeed;
+            if (playerPosY >= 0)
+                playerPosY -= moveSpeed;
         }
         if (IsKeyDown(KEY_DOWN) || IsKeyDown(KEY_S)) {
-            playerPosY += moveSpeed;
+            if (playerPosY <= screenHeight)
+                playerPosY += moveSpeed;
         }
 
         if (IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A)) {
-            playerPosX -= moveSpeed;
+            if (playerPosX >= 0)
+                playerPosX -= moveSpeed;
+
         }
         if (IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D)) {
-            playerPosX += moveSpeed;
+            if (playerPosX <= screenWidth)
+                playerPosX += moveSpeed;
+
 
         }
     }
