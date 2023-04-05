@@ -7,8 +7,14 @@ int main() {
     const int screenWidth = 800;
     const int screenHeight = 450;
 
+
     int playerPosX = screenWidth / 2;
     int playerPosY = screenHeight / 2;
+
+    int ballCount = 3;
+    int ballPosX[] = {100, 750, 450};
+    int ballPosY[] = {100, 200, 400};
+
 
     InitWindow(screenWidth, screenHeight, "BallKiller3000 Test");
 
@@ -19,6 +25,9 @@ int main() {
         BeginDrawing();
         ClearBackground(RAYWHITE);
 
+        for (int b = 0; b < ballCount; ++b) {
+            DrawCircle(ballPosX[b], ballPosY[b], 30, BLUE); // makes a test ball
+        }
 
         DrawCircle(playerPosX, playerPosY, 20, RED); // makes a temp player
         EndDrawing();
@@ -42,6 +51,14 @@ int main() {
             if (playerPosX <= screenWidth)
                 playerPosX += moveSpeed;
 
+
+        }
+        for (int i = 0; i < ballCount; ++i) {
+            if (playerPosX <= ballPosX[i] + 30 && playerPosX >= ballPosX[i] - 30 &&
+                playerPosY <= ballPosY[i] + 30 && playerPosY >= ballPosY[i] - 30) {
+                ballPosX[i] = -100;
+                ballPosY[i] = -100;
+            }
 
         }
     }
