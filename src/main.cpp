@@ -14,8 +14,8 @@ int moveSpeed = 3;
 
 int ballCount = 3;
 int ballsOnScreen = 3;
-int ballPosX[3];
-int ballPosY[3];
+int *ballPosX = new int[1];
+int *ballPosY = new int[1];
 bool isPosGenerated = false;
 
 int main() {

@@ -8,8 +8,9 @@ extern const int screenHeight;
 extern int playerPosX;
 extern int playerPosY;
 extern int ballCount;
-extern int ballPosX[];
-extern int ballPosY[];
+extern int *ballPosX;
+extern int *ballPosY;
 extern int ballsOnScreen;
+extern bool isPosGenerated;
 
 #endif

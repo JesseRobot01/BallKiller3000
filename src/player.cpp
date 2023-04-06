@@ -31,7 +31,15 @@ void Player::movePlayer() {
             ballPosY[i] = -100;
             ballsOnScreen--;
         }
-
+        if (ballsOnScreen == 0) finishesLevel();
 
     }
 }
+
+void Player::finishesLevel() {
+    ballCount++;
+    ballsOnScreen = ballCount;
+    isPosGenerated = false;
+
+
+};
