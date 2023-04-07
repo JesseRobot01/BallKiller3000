@@ -1,8 +1,13 @@
 #include "player.h"
 #include "raylib.h"
 #include "data.h"
+#include "balls.h"
+#include "enemy.h"
 
 void Player::movePlayer() {
+    Balls ball;
+    Enemy enemy;
+
     // the basic movement
     if (IsKeyDown(KEY_UP) || IsKeyDown(KEY_W)) {
         if (playerPosY >= 0)
@@ -22,24 +27,21 @@ void Player::movePlayer() {
         if (playerPosX <= screenWidth)
             playerPosX += moveSpeed;
     }
-
-    // checks if the player is touching a ball
-    for (int i = 0; i < ballCount; ++i) {
-        if (playerPosX <= ballPosX[i] + 30 && playerPosX >= ballPosX[i] - 30 &&
-            playerPosY <= ballPosY[i] + 30 && playerPosY >= ballPosY[i] - 30) {
-            ballPosX[i] = -100;
-            ballPosY[i] = -100;
-            ballsOnScreen--;
-        }
-        if (ballsOnScreen == 0) finishesLevel();
-
-    }
+    ball.kill();
+    enemy.checkPlayerKill();
 }
 
 void Player::finishesLevel() {
     ballCount++;
+    enemyCount++;
     ballsOnScreen = ballCount;
-    isPosGenerated = false;
+    isBallPosGenerated = false;
+    isEnemyPosGenerated = false;
 
 
 };
+
+void Player::kill() {
+    lives--;
+    if (lives == 0) isGameOver = true;
+}

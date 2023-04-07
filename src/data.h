@@ -11,6 +11,13 @@ extern int ballCount;
 extern int *ballPosX;
 extern int *ballPosY;
 extern int ballsOnScreen;
-extern bool isPosGenerated;
+extern bool isBallPosGenerated;
+extern bool isEnemyPosGenerated;
+extern int lives;
+extern bool isGameOver;
+
+extern int enemyCount;
+extern int *enemyPosX;
+extern int *enemyPosY;
 
 #endif

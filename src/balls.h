@@ -5,6 +5,8 @@
 class Balls {
 public:
     int generateBallPos(char axis);
+
+    void kill();
 };
 
 

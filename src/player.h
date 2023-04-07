@@ -7,6 +7,8 @@ public:
     void movePlayer();
 
     void finishesLevel();
+
+    void kill();
 };
 
 
