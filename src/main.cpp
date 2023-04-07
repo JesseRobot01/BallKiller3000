@@ -64,7 +64,7 @@ int main() {
             }
             isEnemyPosGenerated = true;
         } else {
-            DrawText("Game Over!!!", screenWidth / 2, screenHeight / 2, 20, RED);
+            DrawText("Game Over!!!", screenWidth / 2 - 3 * 60, screenHeight / 2 - 30, 60, RED);
         };
 
         EndDrawing();
