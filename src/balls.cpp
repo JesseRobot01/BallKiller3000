@@ -13,7 +13,10 @@ int Balls::generateBallPos(char axis) {
 
     output = rand() % (maxNum - 0 + 1) + 0;
 
-    std::cout << "Output: " << output << " for axis " << axis << "\n";
+    if (output <= 100) output = 100;
+    if (tolower(axis) == 'x' && output >= screenWidth - 100) output = screenWidth - 100;
+    if (tolower(axis) == 'y' && output >= screenHeight - 100) output = screenHeight - 100;
+
 
     if (!tolower(axis) == 'x') {
         if (!tolower(axis) == 'y') {
