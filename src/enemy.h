@@ -5,6 +5,8 @@
 class Enemy {
 public:
     void checkPlayerKill();
+
+    void move();
 };
 
 
