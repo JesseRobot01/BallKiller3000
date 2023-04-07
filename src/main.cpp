@@ -13,6 +13,7 @@ int playerPosX = screenWidth / 2;
 int playerPosY = screenHeight / 2;
 int moveSpeed = 3;
 int lives = 3;
+int score = 0;
 
 int ballCount = 3;
 int ballsOnScreen = 3;
@@ -39,6 +40,10 @@ int main() {
     while (!WindowShouldClose()) {
         BeginDrawing();
         ClearBackground(RAYWHITE);
+        std::string liveMess = "Lives: " + std::to_string(lives);
+        std::string scoreMess = "Score: " + std::to_string(score);
+        DrawText(liveMess.c_str(), 20, 10, 20, RED);
+        DrawText(scoreMess.c_str(), 220, 10, 20, RED);
 
 
         for (int b = 0; b < ballCount; ++b) {

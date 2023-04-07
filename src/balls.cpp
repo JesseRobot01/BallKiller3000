@@ -38,6 +38,7 @@ void Balls::kill() {
             ballPosX[i] = -100;
             ballPosY[i] = -100;
             ballsOnScreen--;
+            score++;
         }
     };
     if (ballsOnScreen == 0) player.finishesLevel();

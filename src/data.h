@@ -15,7 +15,7 @@ extern bool isBallPosGenerated;
 extern bool isEnemyPosGenerated;
 extern int lives;
 extern bool isGameOver;
-
+extern int score;
 extern int enemyCount;
 extern int *enemyPosX;
 extern int *enemyPosY;
