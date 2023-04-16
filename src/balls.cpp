@@ -1,6 +1,7 @@
 #include "balls.h"
 #include "data.h"
 #include "player.h"
+#include "data.h"
 #include <cstdlib>
 #include <iostream>
 
@@ -24,7 +25,18 @@ int Balls::generateBallPos(char axis) {
             output = -100;
         }
     }
-
+    switch (axis) {
+        case 'x':
+            if (output <= playerPosX + 20 && output >= playerPosX) {
+                output + 100;
+            }
+            break;
+        case 'y':
+            if (output <= playerPosY + 20 && output >= playerPosY) {
+                output + 100;
+            }
+            break;
+    }
     return output;
 }
 
