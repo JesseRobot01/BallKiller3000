@@ -37,8 +37,6 @@ void Player::finishesLevel() {
     ballsOnScreen = ballCount;
     isBallPosGenerated = false;
     isEnemyPosGenerated = false;
-    playerPosX = screenWidth / 2;
-    playerPosY = screenHeight / 2;
 
 
 };

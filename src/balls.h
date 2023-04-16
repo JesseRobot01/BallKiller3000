@@ -7,6 +7,10 @@ public:
     int generateBallPos(char axis);
 
     void kill();
+
+    void push(int ballNum, int pushSteps, char axis);
+
+    bool isBallInScreen(int num, int steps, char axis);
 };
 
 
