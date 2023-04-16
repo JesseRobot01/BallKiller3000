@@ -27,13 +27,13 @@ int Balls::generateBallPos(char axis) {
     }
     switch (axis) {
         case 'x':
-            if (output <= playerPosX + 20 && output >= playerPosX) {
-                output + 100;
+            if (output <= playerPosX + 100 && output >= playerPosX - 100) {
+                output += 100;
             }
             break;
         case 'y':
-            if (output <= playerPosY + 20 && output >= playerPosY) {
-                output + 100;
+            if (output <= playerPosY + 100 && output >= playerPosY - 100) {
+                output += 100;
             }
             break;
     }
