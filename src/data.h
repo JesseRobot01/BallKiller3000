@@ -20,5 +20,6 @@ extern int enemyCount;
 extern int *enemyPosX;
 extern int *enemyPosY;
 extern int highScore;
+extern int *enemyPreference;
 
 #endif

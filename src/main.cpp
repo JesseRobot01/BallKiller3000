@@ -26,6 +26,7 @@ int *ballPosY = new int[1];
 int enemyCount;
 int *enemyPosX = new int[1];
 int *enemyPosY = new int[1];
+int *enemyPreference = new int[1];
 
 bool isBallPosGenerated;
 bool isEnemyPosGenerated;
@@ -74,6 +75,8 @@ int main() {
                 enemyPosX[e] = balls.generateBallPos(
                         'x'); //the ball pos generator works just fine for the enemy's one
                 enemyPosY[e] = balls.generateBallPos('y');
+
+                enemy.givePreference(e);
             }
             DrawRectangle(enemyPosX[e], enemyPosY[e], 60, 30, YELLOW);
         }
