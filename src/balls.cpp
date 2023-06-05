@@ -50,7 +50,7 @@ void Balls::kill() {
             ballPosX[i] = -100;
             ballPosY[i] = -100;
             ballsOnScreen--;
-            score++;
+            scoreCount++;
         }
     };
     if (ballsOnScreen == 0) player.finishesLevel();

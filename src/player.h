@@ -9,6 +9,8 @@ public:
     void finishesLevel();
 
     void kill();
+
+    void resetGame();
 };
 
 
