@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.26)
 project(Ball_Killer)
 
-set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_CXX_STANDARD 11)
 
 file(GLOB SOURCES "src/*")
 add_executable(${PROJECT_NAME} ${SOURCES})
