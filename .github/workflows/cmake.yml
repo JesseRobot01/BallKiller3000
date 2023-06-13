@@ -20,12 +20,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: Install MSYS2
-      run: |
-        curl -L -o msys2.tar.gz https://github.com/msys2/msys2-installer/releases/latest/download/msys2-base-x86_64-latest.tar.gz
-               tar -xf msys2.tar.gz
-          $env:MSYS2_PATH = "$(Get-Location)/msys64"
-         $env:PATH = "$env:MSYS2_PATH/usr/bin;$env:PATH"
+
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
       # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
