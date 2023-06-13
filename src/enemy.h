@@ -7,6 +7,8 @@ public:
     void checkPlayerKill();
 
     void move();
+
+    void givePreference(int enemyNummer);
 };
 
 

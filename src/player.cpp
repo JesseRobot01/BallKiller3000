@@ -3,6 +3,8 @@
 #include "data.h"
 #include "balls.h"
 #include "enemy.h"
+#include "score.h"
+#include "game.h"
 
 void Player::movePlayer() {
     Balls ball;
@@ -42,6 +44,16 @@ void Player::finishesLevel() {
 };
 
 void Player::kill() {
-    lives--;
-    if (lives == 0) isGameOver = true;
+    Score score;
+    liveCount--;
+    if (liveCount == 0) {
+        isGameOver = true;
+        score.saveHigh(scoreCount);
+    }
+}
+
+void Player::resetGame() {
+    Game game;
+
+    game.startGame();
 }

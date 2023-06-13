@@ -27,13 +27,13 @@ int Balls::generateBallPos(char axis) {
     }
     switch (axis) {
         case 'x':
-            if (output <= playerPosX + 100 && output >= playerPosX - 100) {
-                output += 100;
+            if (output <= playerPosX + 50 && output >= playerPosX - 50) {
+                output + 300;
             }
             break;
         case 'y':
-            if (output <= playerPosY + 100 && output >= playerPosY - 100) {
-                output += 100;
+            if (output <= playerPosY + 50 && output >= playerPosY - 50) {
+                output + 300;
             }
             break;
     }
@@ -47,10 +47,10 @@ void Balls::kill() {
     for (int i = 0; i < ballCount; ++i) {
         if (playerPosX <= ballPosX[i] + 30 && playerPosX >= ballPosX[i] - 30 &&
             playerPosY <= ballPosY[i] + 30 && playerPosY >= ballPosY[i] - 30) {
-            ballPosX[i] = -100;
-            ballPosY[i] = -100;
+            ballPosX[i] = -10000;
+            ballPosY[i] = -10000;
             ballsOnScreen--;
-            score++;
+            scoreCount++;
         }
     };
     if (ballsOnScreen == 0) player.finishesLevel();
