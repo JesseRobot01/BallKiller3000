@@ -69,7 +69,9 @@ void Enemy::move() {
                         for (int b = 0; b < ballCount; ++b) {
                             // get the closest ball on x-axis and y-axis
                             sizeBetweenCalculatedBallX = enemyPosX[i] - ballPosX[b];
+                            sizeBetweenCalculatedBallY = enemyPosY[i] - ballPosY[b];
                             if (sizeBetweenCalculatedBallX < 0) sizeBetweenCalculatedBallX * -1;
+                            if (sizeBetweenCalculatedBallY < 0) sizeBetweenCalculatedBallY * -1;
 
                             if (sizeBetweenCalculatedBallX + sizeBetweenCalculatedBallY <=
                                 sizeBetweenClosesBallX + sizeBetweenClosesBallY) {
@@ -110,7 +112,9 @@ void Enemy::move() {
                         for (int b = 0; b < ballCount; ++b) {
                             // get the closest ball on x-axis and y-axis
                             sizeBetweenCalculatedBallX = enemyPosX[i] - ballPosX[b];
+                            sizeBetweenCalculatedBallY = enemyPosY[i] - ballPosY[b];
                             if (sizeBetweenCalculatedBallX < 0) sizeBetweenCalculatedBallX * -1;
+                            if (sizeBetweenCalculatedBallY < 0) sizeBetweenCalculatedBallY * -1;
 
                             if (sizeBetweenCalculatedBallX + sizeBetweenCalculatedBallY <=
                                 sizeBetweenClosesBallX + sizeBetweenClosesBallY) {
