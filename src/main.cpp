@@ -32,7 +32,7 @@ bool isBallPosGenerated;
 bool isEnemyPosGenerated;
 bool isGameOver;
 
-// todo:  find and fix an bug that there will be no balls generated after a high score of 49. (Thanks Wei Wei for discovering this bug)
+// todo:  find and fix an bug that there will be no balls generated after a high score of 41. (Thanks Wei Wei for discovering this bug)
 int main() {
     Player player;
     Balls balls;
@@ -94,7 +94,7 @@ int main() {
             player.movePlayer();
         }
 
-        enemy.move();
+        //  enemy.move();
 
     }
     return 0;
