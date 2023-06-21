@@ -32,6 +32,7 @@ bool isBallPosGenerated;
 bool isEnemyPosGenerated;
 bool isGameOver;
 
+// todo:  find and fix an bug that there will be no balls generated after a high score of 49. (Thanks Wei Wei for discovering this bug)
 int main() {
     Player player;
     Balls balls;
@@ -84,7 +85,7 @@ int main() {
 
         if (isGameOver) {
             DrawText("Game Over!!!", screenWidth / 2 - 3 * 60, screenHeight / 2 - 30, 60, RED);
-            DrawText("Press return to restart", screenWidth / 2 - 3 * 60 - 10, screenHeight / 2 + 30, 30, RED);
+            DrawText("Press enter to restart", screenWidth / 2 - 3 * 60 - 10, screenHeight / 2 + 30, 30, RED);
             if (IsKeyPressed(KEY_ENTER)) player.resetGame();
         };
 
