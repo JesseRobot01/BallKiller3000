@@ -20,19 +20,18 @@ int highScore;
 
 int ballCount;
 int ballsOnScreen;
-int *ballPosX = new int[1];
-int *ballPosY = new int[1];
+int *ballPosX = new int[99];
+int *ballPosY = new int[99];
 
 int enemyCount;
-int *enemyPosX = new int[1];
-int *enemyPosY = new int[1];
-int *enemyPreference = new int[1];
+int *enemyPosX = new int[99];
+int *enemyPosY = new int[99];
+int *enemyPreference = new int[99];
 
 bool isBallPosGenerated;
 bool isEnemyPosGenerated;
 bool isGameOver;
 
-// todo:  find and fix an bug that there will be no balls generated after a high score of 41. (Thanks Wei Wei for discovering this bug)
 int main() {
     Player player;
     Balls balls;
@@ -94,7 +93,7 @@ int main() {
             player.movePlayer();
         }
 
-        //  enemy.move();
+        enemy.move();
 
     }
     return 0;
