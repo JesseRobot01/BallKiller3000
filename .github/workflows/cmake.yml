@@ -15,8 +15,13 @@ jobs:
     # The CMake configure and build commands are platform agnostic and should work equally well on Windows or Mac.
     # You can convert this to a matrix build if you need cross-platform coverage.
     # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
-    runs-on: windows-latest
+    strategy:
+      matrix:
+        os: [windows-latest, ubuntu-latest, macos-latest]
+        artifact_name: [BallKiller3000-Windows-x64, BallKiller3000-Linux-x64, BallKiller3000-macOS-x64]
+        executable_name: [ball_killer.exe, ball_killer, ball_killer]
 
+    runs-on: ${{ matrix.os }}
     steps:
     - uses: actions/checkout@v3
 
@@ -30,10 +35,14 @@ jobs:
       # Build your program with the given configuration
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
 
+    #temporarly list build files to see wich one to upload for each system
+    - name: List Files
+      run: ls ${{github.workspace}}/build
+  
     - name: Upload BallKiller3000
       uses: actions/upload-artifact@v3.1.1
       with:
         # Artifact name
-        name: BallKiller3000-Windows-x64
+        name: ${{ matrix.artifact_name }}
         # A file, directory or wildcard pattern that describes what to upload
-        path: ${{github.workspace}}/build/ball_killer.exe
+        path: ${{github.workspace}}/build/${{ matrix.executable_name }}
