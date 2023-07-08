@@ -16,11 +16,20 @@ jobs:
     # You can convert this to a matrix build if you need cross-platform coverage.
     # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
     strategy:
-      matrix:
-        os: [windows-latest, ubuntu-latest, macos-latest]
-        artifact_name: [BallKiller3000-Windows-x64, BallKiller3000-Linux-x64, BallKiller3000-macOS-x64]
-        executable_name: [ball_killer.exe, ball_killer, ball_killer]
-
+     matrix:
+      include:
+        - os: windows-latest
+          artifact_name: BallKiller3000-Windows-x64
+          executable_name: ball_killer.exe
+         
+        - os: ubuntu-latest
+          artifact_name: allKiller3000-Linux-x64
+          executable_name: UNKNOWN
+         
+        - os:  macos-latest
+          artifact_name: BallKiller3000-macOS-x64
+          executable_name: UNKNOWN
+        
     runs-on: ${{ matrix.os }}
     steps:
     - uses: actions/checkout@v3
