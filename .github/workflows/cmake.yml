@@ -23,7 +23,7 @@ jobs:
           executable_name: ball_killer.exe
          
         - os: ubuntu-latest
-          artifact_name: allKiller3000-Linux-x64
+          artifact_name: BallKiller3000-Linux-x64
           executable_name: UNKNOWN
          
         - os:  macos-latest
@@ -39,7 +39,7 @@ jobs:
       if: runner.os == 'Linux'
       run: |
         sudo apt-get -y update
-        sudo apt-get -y install ninja-build 
+        sudo apt-get -y install ninja-build libxrandr-dev
 
     - name: Install Dependencies (macOS)
       if: runner.os == 'macOS'
