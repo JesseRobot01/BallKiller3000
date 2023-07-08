@@ -39,13 +39,13 @@ jobs:
       if: runner.os == 'Linux'
       run: |
         sudo apt-get -y update
-        sudo apt-get -y install ninja-build libxrandr-dev
+        sudo apt-get -y install ninja-build libasound2-dev libx11-dev libxrandr-dev libxi-dev libgl1-mesa-dev libglu1-mesa-dev libxcursor-dev libxinerama-dev
 
     - name: Install Dependencies (macOS)
       if: runner.os == 'macOS'
       run: |
         brew update
-        brew install ninja
+        brew install ninja 
 
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
