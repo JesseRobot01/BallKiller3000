@@ -7,6 +7,12 @@
 #include "score.h"
 #include "game.h"
 
+#if defined(PLATFORM_WEB)
+
+#include <emscripten/emscripten.h>
+
+#endif
+
 
 const int screenWidth = 800;
 const int screenHeight = 450;

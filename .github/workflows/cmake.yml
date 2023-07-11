@@ -16,33 +16,71 @@ jobs:
     # You can convert this to a matrix build if you need cross-platform coverage.
     # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
     strategy:
-     matrix:
-      include:
-        - os: windows-latest
-          artifact_name: BallKiller3000-Windows-x64
-          executable_name: ball_killer.exe
-        
-        
+      matrix:
+        include:
+          - os: windows-latest
+            artifact_name: BallKiller3000-Windows-x64
+            executable_name: Ball_Killer.exe
+
+          - os: windows-latest
+            artifact_name: BallKiller3000-HTML5
+            executable_name: index.html
+
+
     runs-on: ${{ matrix.os }}
     steps:
-    - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
+
+      - name: Install and set up Emscripten SDK
+        if: ${{matrix.executable_name }} == 'index.html'
+
+        run: |
+          git clone https://github.com/emscripten-core/emsdk.git  
+          cd emsdk
+          emsdk install latest
+          emsdk activate latest
+          cd ..
+
+      - name: Configure CMake
+        # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
+        # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
+        if: ${{matrix.executable_name }} != 'index.html'
+
+        run: cmake -G Ninja -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+
+      - name: Configure CMake (HTML5)
+        if: ${{matrix.executable_name }} == 'index.html'
+        run: cmake cmake -H . -B build -G Ninja -DPLATFORM=Web "-DCMAKE_TOOLCHAIN_FILE=.emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake"
 
 
-    - name: Configure CMake
-      # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
-      # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
-      run: cmake -G Ninja -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
-    
+      - name: Build
+        # Build your program with the given configuration
+        run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
 
-    - name: Build
-      # Build your program with the given configuration
-      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+      - name: Rename ball_killer.html to index.html
+        run: ${{github.workspace}}/build/ballkiller.html  ${{github.workspace}}/build/index.html
 
+      - name: Upload BallKiller3000
+        if: ${{matrix.executable_name }} != 'index.html'
+        uses: actions/upload-artifact@v3.1.1
+        with:
+          # Artifact name
+          name: ${{ matrix.artifact_name }}
 
-    - name: Upload BallKiller3000
-      uses: actions/upload-artifact@v3.1.1
-      with:
-        # Artifact name
-        name: ${{ matrix.artifact_name }}
-        # A file, directory or wildcard pattern that describes what to upload
-        path: ${{github.workspace}}/build/${{ matrix.executable_name }}
+          # A file, directory or wildcard pattern that describes what to upload
+          path: ${{github.workspace}}/build/${{ matrix.executable_name }}
+
+      - name: Upload BallKiller3000 (HTML5)
+        if: ${{matrix.executable_name }} == 'index.html'
+        uses: actions/upload-artifact@v3.1.1
+        with:
+          # Artifact name
+          name: ${{ matrix.artifact_name }}
+
+          # A file, directory or wildcard pattern that describes what to upload
+          path: |
+            ${{github.workspace}}/build/${{ matrix.executable_name }}
+            ${{github.workspace}}/build/ball_killer.wasm
+            ${{github.workspace}}/build/ball_killer.js
+            ${{github.workspace}}/build/ball_killer.data
+            ${{github.workspace}}/build/ball_killer.mem
