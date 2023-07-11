@@ -64,7 +64,7 @@ jobs:
 
       - name: Rename ball_killer.html to index.html
         if: ${{ matrix.executable_name == 'index.html' }}
-        run: rn ${{github.workspace}}/build/ball_killer.html  ${{github.workspace}}/build/index.html
+        run: rename ${{github.workspace}}/build/ball_killer.html  ${{github.workspace}}/build/index.html
 
       - name: Upload BallKiller3000
         if: ${{ matrix.executable_name != 'index.html' }}
