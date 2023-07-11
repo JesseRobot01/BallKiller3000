@@ -33,7 +33,7 @@ jobs:
 
       - name: Install Dependencies (linux)
         if: ${{ matrix.executable_name == 'index.html' }}
-        run: sudo apt install libasound2-dev libx11-dev libxrandr-dev libxi-dev libgl1-mesa-dev libglu1-mesa-dev libxcursor-dev libxinerama-dev
+        run: sudo apt install ninja-build libasound2-dev libx11-dev libxrandr-dev libxi-dev libgl1-mesa-dev libglu1-mesa-dev libxcursor-dev libxinerama-dev
 
       - name: Install and set up Emscripten SDK
         if: ${{ matrix.executable_name == 'index.html' }}
