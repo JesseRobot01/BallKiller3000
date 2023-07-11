@@ -100,7 +100,7 @@ jobs:
   deploy:
     environment:
       name: BallKiller3000-nightly
-      url: ${{ steps.deployment.outputs.page_url }}_nightly
+      url: ${{ steps.deployment.outputs.page_url }}nightly/index.html
     runs-on: ubuntu-latest
     needs: build
     steps:
