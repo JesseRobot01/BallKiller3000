@@ -37,8 +37,8 @@ jobs:
         run: |
           git clone https://github.com/emscripten-core/emsdk.git  
           cd emsdk
-          emsdk install latest
-          emsdk activate latest
+          ./emsdk install latest
+          ./emsdk activate latest
           cd ..
 
       - name: Configure CMake
