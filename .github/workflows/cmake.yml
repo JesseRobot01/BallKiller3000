@@ -49,7 +49,7 @@ jobs:
 
       - name: Configure CMake (HTML5)
         if: ${{ matrix.executable_name == 'index.html' }}
-        run: cmake -B build -G Ninja -DPLATFORM=Web "-DCMAKE_TOOLCHAIN_FILE=.emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake"
+        run: cmake -B build -G Ninja -DPLATFORM=Web "-DCMAKE_TOOLCHAIN_FILE=./emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake"
 
 
       - name: Build
