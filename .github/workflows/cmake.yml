@@ -22,7 +22,7 @@ jobs:
             artifact_name: BallKiller3000-Windows-x64
             executable_name: Ball_Killer.exe
 
-          - os: windows-latest
+          - os: ubuntu-latest
             artifact_name: BallKiller3000-HTML5
             executable_name: index.html
 
@@ -30,6 +30,10 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
+
+      - name: Install Dependencies (linux)
+        if: ${{ matrix.executable_name == 'index.html' }}
+        run: sudo apt install libasound2-dev libx11-dev libxrandr-dev libxi-dev libgl1-mesa-dev libglu1-mesa-dev libxcursor-dev libxinerama-dev
 
       - name: Install and set up Emscripten SDK
         if: ${{ matrix.executable_name == 'index.html' }}
@@ -39,6 +43,8 @@ jobs:
           ./emsdk install latest
           ./emsdk activate latest
           cd ..
+
+
 
       - name: Configure CMake
         # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
