@@ -94,8 +94,7 @@ jobs:
             ${{github.workspace}}/build/${{ matrix.executable_name }}
             ${{github.workspace}}/build/Ball_Killer.wasm
             ${{github.workspace}}/build/Ball_Killer.js
-            ${{github.workspace}}/build/Ball_Killer.data
-            ${{github.workspace}}/build/Ball_Killer.mem
+
 
 
   deploy:
