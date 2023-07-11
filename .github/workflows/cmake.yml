@@ -71,6 +71,7 @@ jobs:
       - name: Rename ball_killer.html to index.html and put it a _site folder
         if: ${{ matrix.executable_name == 'index.html' }}
         run: |
+          mkdir site
           mv ${{github.workspace}}/build/Ball_Killer.html  ${{github.workspace}}/_site/${{ matrix.executable_name }}
           mv ${{github.workspace}}/build//build/Ball_Killer.wasm  ${{github.workspace}}/_site/Ball_Killer.wasm}
           mv ${{github.workspace}}/build/Ball_Killer.js  ${{github.workspace}}/_site//Ball_Killer.js }
