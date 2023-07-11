@@ -84,7 +84,7 @@ jobs:
 
       - name: Upload BallKiller3000 (HTML5)
         if: ${{ matrix.executable_name == 'index.html' }}
-        uses: actions/upload-artifact@v3.1.1
+        uses: actions/upload-pages-artifact@v2
         with:
           # Artifact name
           name: ${{ matrix.artifact_name }}
