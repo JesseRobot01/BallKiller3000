@@ -15,15 +15,23 @@ The build progress is only tested on windows with mingw and Ninja. but it should
 
 ### Building
 
-Run ```CMake -B build -G Ninja``` && ```CMake --Build build```.
+Run these commands:
+
+```
+CMake -B build -G Ninja
+CMake --Build build
+```
 
 #### For the web
 
 Run the following commands:
-```mkdir build```. <br>
-```cd build```.<br>
-``` emcmake cmake .. -DPLATFORM=Web -DCMAKE_BUILD_TYPE=Release -DCMAKE_EXE_LINKER_FLAGS="-s USE_GLFW=3" -DCMAKE_EXECUTABLE_SUFFIX=".html" -G Ninja```.<br>
-```ninja```.
+
+``` 
+mkdir build
+cd build
+emcmake cmake .. -DPLATFORM=Web -DCMAKE_BUILD_TYPE=Release -DCMAKE_EXE_LINKER_FLAGS="-s USE_GLFW=3" -DCMAKE_EXECUTABLE_SUFFIX=".html" -G Ninja
+ninja
+```
 
 ## Tools
 
@@ -36,6 +44,6 @@ If you want to build it for web there is some additional configuration needed
 
 #### Configurations for building for the web.
 
-Go to `settings -> Build, Execution, Deployment -> CMake`
-Make a new profile and set this as CMake
-option: `-DPLATFORM=Web "-DCMAKE_TOOLCHAIN_FILE=<PATH TO EMISCRIPTEN HERE>/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake"`
+- Go to `settings -> Build, Execution, Deployment -> CMake`
+- Make a new profile and set this as CMake
+  option: `-DPLATFORM=Web "-DCMAKE_TOOLCHAIN_FILE=<PATH TO EMISCRIPTEN HERE>/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake"`
