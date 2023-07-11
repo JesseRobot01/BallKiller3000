@@ -68,9 +68,14 @@ jobs:
         # Build your program with the given configuration
         run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
 
-      - name: Rename ball_killer.html to index.html
+      - name: Rename ball_killer.html to index.html and put it a _site folder
         if: ${{ matrix.executable_name == 'index.html' }}
-        run: mv ${{github.workspace}}/build/Ball_Killer.html  ${{github.workspace}}/build/${{ matrix.executable_name }}
+        run: |
+          mv ${{github.workspace}}/build/Ball_Killer.html  ${{github.workspace}}/_site/${{ matrix.executable_name }}
+          mv ${{github.workspace}}/build//build/Ball_Killer.wasm  ${{github.workspace}}/_site/Ball_Killer.wasm}
+          mv ${{github.workspace}}/build/Ball_Killer.js  ${{github.workspace}}/_site//Ball_Killer.js }
+          mv ${{github.workspace}}/build/Ball_Killer.data ${{github.workspace}}/_site//Ball_Killer.data }
+          mv ${{github.workspace}}/build/Ball_Killer.mem  ${{github.workspace}}/_site//Ball_Killer.mem }
 
       - name: Upload BallKiller3000
         if: ${{ matrix.executable_name != 'index.html' }}
@@ -91,11 +96,9 @@ jobs:
 
           # A file, directory or wildcard pattern that describes what to upload
           path: |
-            ${{github.workspace}}/build/${{ matrix.executable_name }}
-            ${{github.workspace}}/build/Ball_Killer.wasm
-            ${{github.workspace}}/build/Ball_Killer.js
-
-
+            ${{github.workspace}}/build/_site}
+  
+  
 
   deploy:
     environment:
