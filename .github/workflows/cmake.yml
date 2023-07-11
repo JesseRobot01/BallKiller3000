@@ -32,7 +32,7 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Install and set up Emscripten SDK
-        if: ${{matrix.executable_name }} == index.html
+        if: ${{ matrix.executable_name == 'index.html' }}
         run: |
           git clone https://github.com/emscripten-core/emsdk.git  
           cd emsdk
@@ -43,12 +43,12 @@ jobs:
       - name: Configure CMake
         # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
         # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
-        if: ${{matrix.executable_name }} != index.html
+        if: ${{ matrix.executable_name != 'index.html' }}
 
         run: cmake -G Ninja -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
 
       - name: Configure CMake (HTML5)
-        if: ${{matrix.executable_name }} == index.html
+        if: ${{ matrix.executable_name == 'index.html' }}
         run: cmake -B build -G Ninja -DPLATFORM=Web "-DCMAKE_TOOLCHAIN_FILE=.emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake"
 
 
@@ -57,11 +57,11 @@ jobs:
         run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
 
       - name: Rename ball_killer.html to index.html
-        if: ${{matrix.executable_name }} == index.html
+        if: ${{ matrix.executable_name == 'index.html' }}
         run: ${{github.workspace}}/build/ballkiller.html  ${{github.workspace}}/build/index.html
 
       - name: Upload BallKiller3000
-        if: ${{matrix.executable_name }} != index.html
+        if: ${{ matrix.executable_name != 'index.html' }}
         uses: actions/upload-artifact@v3.1.1
         with:
           # Artifact name
@@ -71,7 +71,7 @@ jobs:
           path: ${{github.workspace}}/build/${{ matrix.executable_name }}
 
       - name: Upload BallKiller3000 (HTML5)
-        if: ${{matrix.executable_name }} == index.html
+        if: ${{ matrix.executable_name == 'index.html' }}
         uses: actions/upload-artifact@v3.1.1
         with:
           # Artifact name
