@@ -28,7 +28,8 @@ jobs:
       - name: Set shortened commit ID
         id: commit_id
         run: |
-          echo "COMMIT_ID=$(echo ${{ github.sha }} | cut -c1-7)" >> $GITHUB_ENV
+          echo "COMMIT_ID=${{ github.sha }} | cut -c1-7" >> $GITHUB_ENV
+  
   
 
   build:
