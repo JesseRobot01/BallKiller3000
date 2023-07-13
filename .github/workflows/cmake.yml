@@ -27,8 +27,8 @@ jobs:
 
       - name: Set shortened commit ID
         run: |
-          export COMMIT_ID_SHORT=$(echo ${{ github.sha }} | cut -c1-7)
-          echo "COMMIT_ID_SHORT=$COMMIT_ID" >> $GITHUB_ENV
+          export COMMIT_ID=$(echo ${{ github.sha }} | cut -c1-7)
+          echo "COMMIT_ID=$COMMIT_ID" >> $GITHUB_ENV
 
       - name: Use shortened commit ID
         run: echo $COMMIT_ID #this is for testing for now
