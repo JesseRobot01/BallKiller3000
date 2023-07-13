@@ -15,9 +15,24 @@ permissions:
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
   BUILD_TYPE: Release
-  COMMIT_ID: ${{ github.sha:0:7 }}
   
 jobs:
+
+  shorten-commit-id:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set shortened commit ID
+        run: |
+          export COMMIT_ID_SHORT=$(echo ${{ github.sha }} | cut -c1-7)
+          echo "COMMIT_ID_SHORT=$COMMIT_ID" >> $GITHUB_ENV
+
+      - name: Use shortened commit ID
+        run: echo $COMMIT_ID #this is for testing for now
+
   build:
     # The CMake configure and build commands are platform agnostic and should work equally well on Windows or Mac.
     # You can convert this to a matrix build if you need cross-platform coverage.
