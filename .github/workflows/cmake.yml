@@ -26,12 +26,10 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Set shortened commit ID
+        id: commit_id
         run: |
-          export COMMIT_ID=$(echo ${{ github.sha }} | cut -c1-7)
-          echo "COMMIT_ID=$COMMIT_ID" >> $GITHUB_ENV
-
-      - name: Use shortened commit ID
-        run: echo $COMMIT_ID #this is for testing for now
+          echo "COMMIT_ID=$(echo ${{ github.sha }} | cut -c1-7)" >> $GITHUB_ENV
+  
 
   build:
     # The CMake configure and build commands are platform agnostic and should work equally well on Windows or Mac.
@@ -75,11 +73,10 @@ jobs:
         # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
         if: ${{ matrix.executable_name != 'index.html' }}
 
-        run: cmake -G Ninja -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCOMMIT_HASH=${{ env.COMMIT_ID }}
-
+        run: cmake -G Ninja -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCOMMIT_HASH=${{ steps.commit_id.outputs.COMMIT_ID }}
       - name: Configure CMake (HTML5)
         if: ${{ matrix.executable_name == 'index.html' }}
-        run: cmake -B build -G Ninja -DPLATFORM=Web "-DCMAKE_TOOLCHAIN_FILE=./emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake" -DCOMMIT_HASH=${{ env.COMMIT_ID }} -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+        run: cmake -B build -G Ninja -DPLATFORM=Web "-DCMAKE_TOOLCHAIN_FILE=./emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake" -DCOMMIT_HASH=${{ steps.commit_id.outputs.COMMIT_ID }} -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
 
 
       - name: Build
