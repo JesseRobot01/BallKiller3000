@@ -15,6 +15,7 @@ permissions:
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
   BUILD_TYPE: Release
+  COMMIT_ID: ${{ github.sha[0,7] }}
   
 jobs:
   build:
@@ -57,11 +58,11 @@ jobs:
         # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
         if: ${{ matrix.executable_name != 'index.html' }}
 
-        run: cmake -G Ninja -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCOMMIT_HASH=${{ github.sha }}
+        run: cmake -G Ninja -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCOMMIT_HASH=${{ COMMIT_ID }}
 
       - name: Configure CMake (HTML5)
         if: ${{ matrix.executable_name == 'index.html' }}
-        run: cmake -B build -G Ninja -DPLATFORM=Web "-DCMAKE_TOOLCHAIN_FILE=./emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake" -DCOMMIT_HASH=${{ github.sha }} -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+        run: cmake -B build -G Ninja -DPLATFORM=Web "-DCMAKE_TOOLCHAIN_FILE=./emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake" -DCOMMIT_HASH=${{ COMMIT_ID }} -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
 
 
       - name: Build
