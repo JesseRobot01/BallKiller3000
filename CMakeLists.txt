@@ -3,6 +3,34 @@ project(Ball_Killer)
 
 set(CMAKE_CXX_STANDARD 23)
 
+set(BALL_KILLER_VERSION_MAJOR 0)
+set(BALL_KILLER_VERSION_MINOR 1)
+set(BALL_KILLER_VERSION_PATCH 1)
+
+
+# Determine the target platform
+if (WIN32)
+    set(SYSTEM_NAME "win")
+elseif (EMSCRIPTEN)
+    set(SYSTEM_NAME "html")
+elseif (UNIX AND NOT APPLE)
+    set(SYSTEM_NAME "linux")
+elseif (APPLE)
+    set(SYSTEM_NAME "macos")
+else ()
+    set(SYSTEM_NAME CMAKE_SYSTEM_NAME)
+endif ()
+
+# Get the commit hash from the command line
+option(COMMIT_HASH "Commit hash" "")
+if (COMMIT_HASH)
+    set(COMMIT_HASH_STRING "-${COMMIT_HASH}")
+else ()
+    set(COMMIT_HASH_STRING "")
+endif ()
+
+configure_file(src/version.h.in ${CMAKE_CURRENT_BINARY_DIR}/version.h @ONLY)
+
 # Add the static version of raylib library
 set(BUILD_STATIC ON CACHE BOOL "" FORCE)
 set(RAYLIB_VERSION 4.5.0)
@@ -23,8 +51,10 @@ if (NOT raylib_FOUND)
     endif ()
 endif ()
 
-file(GLOB SOURCES "src/*")
+file(GLOB SOURCES "src/*.cpp")
 add_executable(${PROJECT_NAME} ${SOURCES})
+target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
+
 
 # Link against raylib statically
 target_link_libraries(${PROJECT_NAME} raylib_static)

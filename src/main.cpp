@@ -6,6 +6,7 @@
 #include "enemy.h"
 #include "score.h"
 #include "game.h"
+#include "version.h"
 
 #if defined(PLATFORM_WEB)
 
@@ -48,7 +49,15 @@ int main() {
     game.startGame();
     score.loadHigh();
 
-    InitWindow(screenWidth, screenHeight, "BallKiller3000");
+    std::string versionMess =
+            "Version: " + std::to_string(BALL_KILLER_VERSION_MAJOR) + "." +
+            std::to_string(BALL_KILLER_VERSION_MINOR) + "." +
+            std::to_string(BALL_KILLER_VERSION_PATCH) + "-" + BALL_KILLER_PLATFORM + BALL_KILLER_COMMIT;
+
+    std::string versionMessWinTitle =
+            "BallKiller3000 Version: " + versionMess;
+
+    InitWindow(screenWidth, screenHeight, versionMessWinTitle.c_str());
     SetTargetFPS(60);
 
     // Main game loop
@@ -61,6 +70,7 @@ int main() {
         DrawText(liveMess.c_str(), 20, 10, 20, RED);
         DrawText(scoreMess.c_str(), 220, 10, 20, RED);
         DrawText(highMess.c_str(), 420, 10, 20, RED);
+        DrawText(versionMess.c_str(), screenWidth - (versionMess.length() * 5) - 5, screenHeight - 15, 10, GRAY);
 
 
         for (int b = 0; b < ballCount; ++b) {
