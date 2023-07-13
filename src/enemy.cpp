@@ -169,7 +169,6 @@ void Enemy::move() {
 
                         case 5:
                         case 6:
-                        case 7:
 
                             if (sizeBetweenTarget < 0)
                                 Balls::push(b, moveCounter, 'x');
@@ -177,9 +176,8 @@ void Enemy::move() {
                                 Balls::push(b, -moveCounter, 'x');
                             break;
 
+                        case 7:
                         case 8:
-                        case 9:
-                        case 10:
                             if (sizeBetweenTarget < 0)
                                 Balls::push(b, -moveCounter, 'y');
                             else if (sizeBetweenTarget > 0)
