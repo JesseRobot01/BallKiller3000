@@ -29,7 +29,7 @@ void Enemy::move() {
         int closestBallNum;
 
         if (enemyPreference[i] == 1) moveDirection = rand() % (4 - 0 + 1) + 0;
-        else moveDirection = rand() % (10 - 0 + 1) + 0;
+        else moveDirection = rand() % (8 - 0 + 1) + 0;
         moveCounter = rand() % (30 - 0 + 1) + 0;
 
         if (enemyPosX[i] > -30 && enemyPosX[i] < screenWidth + 30 &&
@@ -59,7 +59,6 @@ void Enemy::move() {
 
                 case 5:
                 case 6:
-                case 7:
 
                     if (enemyPreference[i] == 2) {
                         sizeBetweenClosesBallX = 999;
@@ -101,9 +100,9 @@ void Enemy::move() {
 
                     }
                     break;
+
+                case 7:
                 case 8:
-                case 9:
-                case 10:
                     if (enemyPreference[i] == 2) {
                         sizeBetweenClosesBallX = 999;
                         sizeBetweenClosesBallY = 999;
@@ -179,9 +178,9 @@ void Enemy::move() {
                         case 9:
                         case 10:
                             if (sizeBetweenTarget < 0)
-                                Balls::push(b, moveCounter, 'y');
-                            else if (sizeBetweenTarget > 0)
                                 Balls::push(b, -moveCounter, 'y');
+                            else if (sizeBetweenTarget > 0)
+                                Balls::push(b, moveCounter, 'y');
                             break;
 
                     }
