@@ -4,11 +4,11 @@
 
 class Enemy {
 public:
-    void checkPlayerKill();
+    static void checkPlayerKill();
 
-    void move();
+    static void move();
 
-    void givePreference(int enemyNummer);
+    static void givePreference(int enemyNumber);
 };
 
 

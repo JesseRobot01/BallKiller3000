@@ -4,13 +4,13 @@
 
 class Player {
 public:
-    void movePlayer();
+    static void movePlayer();
 
-    void finishesLevel();
+    static void finishesLevel();
 
-    void kill();
+    static void kill();
 
-    void resetGame();
+    static void resetGame();
 };
 
 

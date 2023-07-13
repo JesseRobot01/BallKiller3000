@@ -1,4 +1,3 @@
-#include <random>
 #include <iostream>
 #include "enemy.h"
 #include "data.h"
@@ -13,9 +12,9 @@ void Enemy::checkPlayerKill() {
             playerPosY >= enemyPosY[i] && playerPosY <= enemyPosY[i] + 30) {
             enemyPosX[i] = -100;
             enemyPosY[i] = -100;
-            player.kill();
+            Player::kill();
         }
-    };
+    }
 }
 
 void Enemy::move() {
@@ -29,7 +28,7 @@ void Enemy::move() {
         int sizeBetweenClosesBallY;
         int closestBallNum;
 
-        if (enemyPreference[i] = 1) moveDirection = rand() % (4 - 0 + 1) + 0;
+        if (enemyPreference[i] == 1) moveDirection = rand() % (4 - 0 + 1) + 0;
         else moveDirection = rand() % (10 - 0 + 1) + 0;
         moveCounter = rand() % (30 - 0 + 1) + 0;
 
@@ -62,7 +61,7 @@ void Enemy::move() {
                 case 6:
                 case 7:
 
-                    if (enemyPreference[i] = 2) {
+                    if (enemyPreference[i] == 2) {
                         sizeBetweenClosesBallX = 999;
                         sizeBetweenClosesBallY = 999;
 
@@ -92,7 +91,7 @@ void Enemy::move() {
                             enemyPosX[i] -= moveCounter;
 
 
-                    } else if (enemyPreference[i] = 3) {
+                    } else if (enemyPreference[i] == 3) {
                         sizeBetweenTarget = enemyPosX[i] - playerPosX;
 
                         if (sizeBetweenTarget < 0)
@@ -105,7 +104,7 @@ void Enemy::move() {
                 case 8:
                 case 9:
                 case 10:
-                    if (enemyPreference[i] = 2) {
+                    if (enemyPreference[i] == 2) {
                         sizeBetweenClosesBallX = 999;
                         sizeBetweenClosesBallY = 999;
 
@@ -134,7 +133,7 @@ void Enemy::move() {
                         else if (sizeBetweenTarget > 0)
                             enemyPosY[i] -= moveCounter;
 
-                    } else if (enemyPreference[i] = 3) {
+                    } else if (enemyPreference[i] == 3) {
                         sizeBetweenTarget = enemyPosY[i] - playerPosY;
 
                         if (sizeBetweenTarget < 0)
@@ -154,16 +153,16 @@ void Enemy::move() {
                     Balls ball;
                     switch (moveDirection) {
                         case 1:
-                            ball.push(b, moveCounter, 'x');
+                            Balls::push(b, moveCounter, 'x');
                             break;
                         case 2:
-                            ball.push(b, -moveCounter, 'x');
+                            Balls::push(b, -moveCounter, 'x');
                             break;
                         case 3:
-                            ball.push(b, moveCounter, 'Y');
+                            Balls::push(b, moveCounter, 'Y');
                             break;
                         case 4:
-                            ball.push(b, -moveCounter, 'Y');
+                            Balls::push(b, -moveCounter, 'Y');
                             break;
 
                         case 5:
@@ -171,36 +170,36 @@ void Enemy::move() {
                         case 7:
 
                             if (sizeBetweenTarget < 0)
-                                ball.push(b, moveCounter, 'x');
+                                Balls::push(b, moveCounter, 'x');
                             else if (sizeBetweenTarget > 0)
-                                ball.push(b, -moveCounter, 'x');
+                                Balls::push(b, -moveCounter, 'x');
                             break;
 
                         case 8:
                         case 9:
                         case 10:
                             if (sizeBetweenTarget < 0)
-                                ball.push(b, moveCounter, 'y');
+                                Balls::push(b, moveCounter, 'y');
                             else if (sizeBetweenTarget > 0)
-                                ball.push(b, -moveCounter, 'y');
+                                Balls::push(b, -moveCounter, 'y');
                             break;
 
                     }
                 }
-            };
+            }
         }
     }
 }
 
-void Enemy::givePreference(int enemyNummer) {
+void Enemy::givePreference(int enemyNumber) {
     int AISetting;
     AISetting = rand() % (5 - 0 + 1) + 0;
 
-    if (AISetting = 4) AISetting = 2;
-    if (AISetting = 5) AISetting = 3;
+    if (AISetting == 4) AISetting = 2;
+    if (AISetting == 5) AISetting = 3;
 
     // 1 = neutral, 2 = ballPreferred, 3 = PlayerPreferred
 
-    enemyPreference[enemyNummer] = 2;// = AISetting;
+    enemyPreference[enemyNumber] = AISetting; // HOW DID I FORGET THIS FOR SUCH A LONG TIME!!!!!!
 
 }

@@ -4,11 +4,11 @@
 
 class Score {
 public:
-    void saveHigh(int score);
+    static void saveHigh(int score);
 
-    void loadHigh();
+    static void loadHigh();
 
-    void checkIfExtraLife();
+    static void checkIfExtraLife();
 };
 
 

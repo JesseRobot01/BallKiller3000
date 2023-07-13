@@ -7,9 +7,6 @@
 #include "game.h"
 
 void Player::movePlayer() {
-    Balls ball;
-    Enemy enemy;
-
     // the basic movement
     if (IsKeyDown(KEY_UP) || IsKeyDown(KEY_W)) {
         if (playerPosY >= 0)
@@ -29,8 +26,8 @@ void Player::movePlayer() {
         if (playerPosX <= screenWidth)
             playerPosX += moveSpeed;
     }
-    ball.kill();
-    enemy.checkPlayerKill();
+    Balls::kill();
+    Enemy::checkPlayerKill();
 }
 
 void Player::finishesLevel() {
@@ -41,19 +38,16 @@ void Player::finishesLevel() {
     isEnemyPosGenerated = false;
 
 
-};
+}
 
 void Player::kill() {
-    Score score;
     liveCount--;
     if (liveCount == 0) {
         isGameOver = true;
-        score.saveHigh(scoreCount);
+        Score::saveHigh(scoreCount);
     }
 }
 
 void Player::resetGame() {
-    Game game;
-
-    game.startGame();
+    Game::startGame();
 }

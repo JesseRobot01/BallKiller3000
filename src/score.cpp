@@ -3,12 +3,11 @@
 #include <fstream>
 
 void Score::saveHigh(int score) {
-    Score score1;
     std::ofstream highScoreFile("./highScore.txt"); // a temp file
     if (score > highScore) { highScoreFile << score; }
     else { highScoreFile << highScore; }
     highScoreFile.close();
-    score1.loadHigh();
+    Score::loadHigh();
 }
 
 void Score::loadHigh() {

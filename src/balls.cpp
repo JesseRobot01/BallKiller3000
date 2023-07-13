@@ -42,9 +42,6 @@ int Balls::generateBallPos(char axis) {
 }
 
 void Balls::kill() {
-    Player player;
-    Score score;
-
     // checks if the player is touching a ball
     for (int i = 0; i < ballCount; ++i) {
         if (playerPosX <= ballPosX[i] + 30 && playerPosX >= ballPosX[i] - 30 &&
@@ -53,30 +50,30 @@ void Balls::kill() {
             ballPosY[i] = -10000;
             ballsOnScreen--;
             scoreCount++;
-            score.checkIfExtraLife();
+            Score::checkIfExtraLife();
         }
-    };
-    if (ballsOnScreen == 0) player.finishesLevel();
+    }
+    if (ballsOnScreen == 0) Player::finishesLevel();
 }
 
 void Balls::push(int ballNum, int pushSteps, char axis) {
-    bool succes;
+    bool isSuccessfully;
     switch (axis) {
         case 'x': {
             if (isBallInScreen(ballNum, pushSteps, axis)) {
                 ballPosX[ballNum] += pushSteps;
-                succes = true;
+                isSuccessfully = true;
             }
             case 'y': {
                 if (isBallInScreen(ballNum, pushSteps, axis)) {
                     ballPosY[ballNum] += pushSteps;
-                    succes = true;
+                    isSuccessfully = true;
                 }
 
             }
         }
             // well, let's trow the ball away
-            if (!succes) {
+            if (!isSuccessfully) {
                 ballPosX[ballNum] = generateBallPos('x');
                 ballPosY[ballNum] = generateBallPos('y');
             }

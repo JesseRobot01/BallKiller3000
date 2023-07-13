@@ -40,14 +40,8 @@ bool isEnemyPosGenerated;
 bool isGameOver;
 
 int main() {
-    Player player;
-    Balls balls;
-    Enemy enemy;
-    Score score;
-    Game game;
-
-    game.startGame();
-    score.loadHigh();
+    Game::startGame();
+    Score::loadHigh();
 
     std::string versionMess =
             "Version: " + std::to_string(BALL_KILLER_VERSION_MAJOR) + "." +
@@ -75,8 +69,8 @@ int main() {
 
         for (int b = 0; b < ballCount; ++b) {
             if (!isBallPosGenerated) {
-                ballPosX[b] = balls.generateBallPos('x');
-                ballPosY[b] = balls.generateBallPos('Y');
+                ballPosX[b] = Balls::generateBallPos('x');
+                ballPosY[b] = Balls::generateBallPos('Y');
             }
             DrawCircle(ballPosX[b], ballPosY[b], 30, BLUE); // makes a test ball
         }
@@ -88,11 +82,11 @@ int main() {
         //generates enemies
         for (int e = 0; e < enemyCount; e++) {
             if (!isEnemyPosGenerated) {
-                enemyPosX[e] = balls.generateBallPos(
+                enemyPosX[e] = Balls::generateBallPos(
                         'x'); //the ball pos generator works just fine for the enemy's one
-                enemyPosY[e] = balls.generateBallPos('y');
+                enemyPosY[e] = Balls::generateBallPos('y');
 
-                enemy.givePreference(e);
+                Enemy::givePreference(e);
             }
             DrawRectangle(enemyPosX[e], enemyPosY[e], 60, 30, YELLOW);
         }
@@ -101,15 +95,15 @@ int main() {
         if (isGameOver) {
             DrawText("Game Over!!!", screenWidth / 2 - 3 * 60, screenHeight / 2 - 30, 60, RED);
             DrawText("Press enter to restart", screenWidth / 2 - 3 * 60 - 10, screenHeight / 2 + 30, 30, RED);
-            if (IsKeyPressed(KEY_ENTER)) player.resetGame();
-        };
+            if (IsKeyPressed(KEY_ENTER)) Player::resetGame();
+        }
 
         EndDrawing();
         if (!isGameOver) {
-            player.movePlayer();
+            Player::movePlayer();
         }
 
-        enemy.move();
+        Enemy::move();
 
     }
     return 0;

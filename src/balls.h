@@ -4,13 +4,13 @@
 
 class Balls {
 public:
-    int generateBallPos(char axis);
+    static int generateBallPos(char axis);
 
-    void kill();
+    static void kill();
 
-    void push(int ballNum, int pushSteps, char axis);
+    static void push(int ballNum, int pushSteps, char axis);
 
-    bool isBallInScreen(int num, int steps, char axis);
+    static bool isBallInScreen(int num, int steps, char axis);
 };
 
 
