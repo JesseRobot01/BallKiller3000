@@ -57,20 +57,21 @@ void Balls::kill() {
 }
 
 void Balls::push(int ballNum, int pushSteps, char axis) {
-    bool isSuccessfully;
+    bool isSuccessfully = false;
     switch (axis) {
         case 'x': {
-            if (isBallInScreen(ballNum, pushSteps, axis)) {
-                ballPosX[ballNum] += pushSteps;
-                isSuccessfully = true;
-            }
-            case 'y': {
-                if (isBallInScreen(ballNum, pushSteps, axis)) {
-                    ballPosY[ballNum] += pushSteps;
-                    isSuccessfully = true;
-                }
 
+            ballPosX[ballNum] += pushSteps;
+            isSuccessfully = Balls::isBallInScreen(ballNum);
+        }
+
+        case 'y': {
+            {
+                ballPosY[ballNum] += pushSteps;
+                isSuccessfully = Balls::isBallInScreen(ballNum);
             }
+
+
         }
             // well, let's trow the ball away
             if (!isSuccessfully) {
@@ -81,19 +82,12 @@ void Balls::push(int ballNum, int pushSteps, char axis) {
 
 }
 
-bool Balls::isBallInScreen(int ballNum, int movePX, char axis) {
-    switch (axis) {
-        case 'x':
-            if (ballPosX[ballNum] + movePX >= 0 && ballPosX[ballNum] + movePX <= screenWidth) {
-                return true;
-            }
-            break;
-        case 'y':
-            if (ballPosY[ballNum] + movePX >= 0 && ballPosY[ballNum] + movePX <= screenHeight) {
-                return true;
-            }
-            break;
-    }
-    return false;
 
+bool Balls::isBallInScreen(int ballNum) {
+
+    if (ballPosX[ballNum] >= 0 && ballPosX[ballNum] <= screenWidth && ballPosY[ballNum] >= 0 &&
+        ballPosY[ballNum] <= screenHeight)
+        return true;
+
+    return false;
 }

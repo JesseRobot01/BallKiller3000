@@ -10,7 +10,7 @@ public:
 
     static void push(int ballNum, int pushSteps, char axis);
 
-    static bool isBallInScreen(int num, int steps, char axis);
+    static bool isBallInScreen(int ballNum);
 };
 
 
