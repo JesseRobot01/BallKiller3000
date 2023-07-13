@@ -30,8 +30,11 @@ void Enemy::move() {
 
         if (enemyPreference[i] == 1) moveDirection = rand() % (4 - 0 + 1) + 0;
         else moveDirection = rand() % (8 - 0 + 1) + 0;
-        moveCounter = rand() % (30 - 0 + 1) + 0;
 
+        moveCounter = rand() % (30 - 0 + 1) + 0;
+        if (enemyPreference[i] == 3)
+            moveCounter = rand() % (
+                    20 - 0 + 1) + 0;
         if (enemyPosX[i] > -30 && enemyPosX[i] < screenWidth + 30 &&
             enemyPosY[i] > 0 - 30 && enemyPosY[i] < screenHeight + 30) {
             // handles the random trows
