@@ -2,6 +2,7 @@
 #include "data.h"
 #include "player.h"
 #include "data.h"
+#include "score.h"
 #include <cstdlib>
 #include <iostream>
 
@@ -42,6 +43,7 @@ int Balls::generateBallPos(char axis) {
 
 void Balls::kill() {
     Player player;
+    Score score;
 
     // checks if the player is touching a ball
     for (int i = 0; i < ballCount; ++i) {
@@ -51,6 +53,7 @@ void Balls::kill() {
             ballPosY[i] = -10000;
             ballsOnScreen--;
             scoreCount++;
+            score.checkIfExtraLife();
         }
     };
     if (ballsOnScreen == 0) player.finishesLevel();

@@ -20,3 +20,9 @@ void Score::loadHigh() {
         highScore = 0;
     }
 }
+
+void Score::checkIfExtraLife() {
+    if (scoreCount % 20 == 0) {
+        liveCount++;
+    }
+}

@@ -7,6 +7,8 @@ public:
     void saveHigh(int score);
 
     void loadHigh();
+
+    void checkIfExtraLife();
 };
 
 
