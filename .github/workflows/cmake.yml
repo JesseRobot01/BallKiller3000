@@ -28,7 +28,7 @@ jobs:
         include:
           - os: windows-latest
             artifact_name: BallKiller3000-Windows-x64
-            executable_name: Ball_Killer.exe
+            executable_name: BallKiller3000.exe
 
           - os: ubuntu-latest
             artifact_name: BallKiller3000-HTML5
@@ -77,8 +77,8 @@ jobs:
         if: ${{ matrix.executable_name == 'index.html' }}
         run: |
           mkdir _site
-          mv ${{github.workspace}}/build/Ball_Killer.html  ${{github.workspace}}/_site/${{ matrix.executable_name }}
-          mv ${{github.workspace}}/build/Ball_Killer.*  ${{github.workspace}}/_site/
+          mv ${{github.workspace}}/build/BallKiller3000.html  ${{github.workspace}}/_site/${{ matrix.executable_name }}
+          mv ${{github.workspace}}/build/BallKiller3000.*  ${{github.workspace}}/_site/
 
       - name: Upload BallKiller3000
         if: ${{ matrix.executable_name != 'index.html' }}
