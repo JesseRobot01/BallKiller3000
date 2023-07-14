@@ -1,21 +1,7 @@
 #include <iostream>
-#include "enemy.h"
-#include "data.h"
-#include "player.h"
-#include "balls.h"
-
-void Enemy::checkPlayerKill() {
-    // I use the same one as the ball one but with some little tweaks
-    Player player;
-    for (int i = 0; i < enemyCount; ++i) {
-        if (playerPosX >= enemyPosX[i] && playerPosX <= enemyPosX[i] + 60 &&
-            playerPosY >= enemyPosY[i] && playerPosY <= enemyPosY[i] + 30) {
-            enemyPosX[i] = -100;
-            enemyPosY[i] = -100;
-            Player::kill();
-        }
-    }
-}
+#include "../enemy.h"
+#include "../data.h"
+#include "../balls.h"
 
 void Enemy::move() {
     for (int i = 0; i < enemyCount; ++i) {
@@ -189,17 +175,4 @@ void Enemy::move() {
             }
         }
     }
-}
-
-void Enemy::givePreference(int enemyNumber) {
-    int AISetting;
-    AISetting = rand() % (5 - 0 + 1) + 0;
-
-    if (AISetting == 4) AISetting = 2;
-    if (AISetting == 5) AISetting = 3;
-
-    // 1 = neutral, 2 = ballPreferred, 3 = PlayerPreferred
-
-    enemyPreference[enemyNumber] = AISetting; // HOW DID I FORGET THIS FOR SUCH A LONG TIME!!!!!!
-
 }
