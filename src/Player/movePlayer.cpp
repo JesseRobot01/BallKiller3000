@@ -1,10 +1,9 @@
-#include "player.h"
+#include "../player.h"
 #include "raylib.h"
-#include "data.h"
-#include "balls.h"
-#include "enemy.h"
-#include "score.h"
-#include "game.h"
+#include "../data.h"
+#include "../balls.h"
+#include "../enemy.h"
+
 
 void Player::movePlayer() {
     // the basic movement
@@ -28,26 +27,4 @@ void Player::movePlayer() {
     }
     Balls::kill();
     Enemy::checkPlayerKill();
-}
-
-void Player::finishesLevel() {
-    ballCount++;
-    enemyCount++;
-    ballsOnScreen = ballCount;
-    isBallPosGenerated = false;
-    isEnemyPosGenerated = false;
-
-
-}
-
-void Player::kill() {
-    liveCount--;
-    if (liveCount == 0) {
-        isGameOver = true;
-        Score::saveHigh(scoreCount);
-    }
-}
-
-void Player::resetGame() {
-    Game::startGame();
 }

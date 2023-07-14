@@ -1,5 +1,5 @@
-#include "game.h"
-#include "data.h"
+#include "../game.h"
+#include "../data.h"
 
 void Game::startGame() {
     playerPosX = screenWidth / 2;

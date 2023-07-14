@@ -52,7 +52,7 @@ if (NOT raylib_FOUND)
 endif ()
 
 file(GLOB SOURCES "src/*.cpp")
-add_executable(${PROJECT_NAME} ${SOURCES} src/Unknown/generateBallPos.cpp src/Ball/kill.cpp src/Ball/push.cpp src/Ball/IsBallInScreen.cpp src/Enemy/checkPlayerKill.cpp src/Enemy/move.cpp src/Enemy/givePreference.cpp)
+add_executable(${PROJECT_NAME} ${SOURCES} src/Unknown/generateBallPos.cpp src/Ball/kill.cpp src/Ball/push.cpp src/Ball/IsBallInScreen.cpp src/Enemy/checkPlayerKill.cpp src/Enemy/move.cpp src/Enemy/givePreference.cpp src/Player/movePlayer.cpp src/game/finishLevel.cpp src/Player/kill.cpp src/game/game.cpp)
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
 
 

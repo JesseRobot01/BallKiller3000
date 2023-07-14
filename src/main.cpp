@@ -95,7 +95,7 @@ int main() {
         if (isGameOver) {
             DrawText("Game Over!!!", screenWidth / 2 - 3 * 60, screenHeight / 2 - 30, 60, RED);
             DrawText("Press enter to restart", screenWidth / 2 - 3 * 60 - 10, screenHeight / 2 + 30, 30, RED);
-            if (IsKeyPressed(KEY_ENTER)) Player::resetGame();
+            if (IsKeyPressed(KEY_ENTER)) Game::startGame();
         }
 
         EndDrawing();
