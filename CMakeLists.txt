@@ -25,7 +25,6 @@ set(SOURCES
         )
 
 add_executable(${PROJECT_NAME} ${SOURCES})
-configure_file(src/version.h.in ${CMAKE_CURRENT_BINARY_DIR}/version.h @ONLY)
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
 
 # Determine the target platform
@@ -49,6 +48,10 @@ else ()
     set(COMMIT_HASH_STRING "")
 endif ()
 
+# Create the version string with the system name
+set(FULL_VERSION "${BALL_KILLER_VERSION_MAJOR}.${BALL_KILLER_VERSION_MINOR}.${BALL_KILLER_VERSION_PATCH}-${SYSTEM_NAME}${COMMIT_HASH_STRING}")
+
+configure_file(src/version.h.in ${CMAKE_CURRENT_BINARY_DIR}/version.h @ONLY)
 
 # Install Dependencies
 # raylib
