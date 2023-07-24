@@ -89,6 +89,7 @@ jobs:
         if: ${{ matrix.executable_name == 'index.html' }}
         run: |
           mkdir _site
+          mkdir _site/beta
           mv ${{github.workspace}}/build/Ball_Killer.html  ${{github.workspace}}/_site/beta/${{ matrix.executable_name }}
           mv ${{github.workspace}}/build/Ball_Killer.*  ${{github.workspace}}/_site/beta/
 
