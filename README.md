@@ -1,9 +1,12 @@
 # **Ball Killer 3000**
 
 - You can download the newest version [here](https://github.com/JesseRobot01/Ball_Killer_3000/releases).
-- Or you can download the newest nightly build
+- Or you can download the newest beta build
   on [GitHub actions](https://github.com/JesseRobot01/Ball_Killer_3000/actions).
-
+<br>
+<br>
+- You can play the stable online version [here](https://jesserobot01.github.io/Ball_Killer_3000/)
+- Or you can play the newest beta version online [here](https://jesserobot01.github.io/Ball_Killer_3000/beta)
 ## Building
 
 ### Requirement
