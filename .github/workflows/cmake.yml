@@ -122,13 +122,13 @@ jobs:
 
       - name: Upload BallKiller3000 (github-pages)
         if: ${{ matrix.artifact_name == 'BallKiller3000-github_pages' }}
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v2
         with:
           # Artifact name
           name: ${{ matrix.artifact_name }}
 
           # A file, directory or wildcard pattern that describes what to upload
-          path: ${{github.workspace}}/_site/beta
+          path: ${{github.workspace}}/_site/*
   
 
   deploy:
