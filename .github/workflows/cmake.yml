@@ -89,13 +89,14 @@ jobs:
         if: ${{ matrix.executable_name == 'index.html' }}
         run: |
           mkdir _site
-          mkdir _site/beta
-          mv ${{github.workspace}}/build/Ball_Killer.html  ${{github.workspace}}/_site/beta/${{ matrix.executable_name }}
-          mv ${{github.workspace}}/build/Ball_Killer.*  ${{github.workspace}}/_site/beta/
+          mv ${{github.workspace}}/build/Ball_Killer.html  ${{github.workspace}}/_site/${{ matrix.executable_name }}
+          mv ${{github.workspace}}/build/Ball_Killer.*  ${{github.workspace}}/_site/
 
       - name: Move stable site files (github-pages)
         if: ${{ matrix.artifact_name == 'BallKiller3000-github_pages' }}
         run: |
+          mkdir _site/beta
+          mv ${{github.workspace}}/_site/*.* ${{github.workspace}}/_site/beta
           mv ${{github.workspace}}/build_stable/Ball_Killer.html  ${{github.workspace}}/_site/${{ matrix.executable_name }}
           mv ${{github.workspace}}/build_stable/Ball_Killer.*  ${{github.workspace}}/_site/
 
@@ -110,7 +111,7 @@ jobs:
           path: ${{github.workspace}}/build/${{ matrix.executable_name }}
 
       - name: Upload BallKiller3000 (HTML5)
-        if: ${{ matrix.executable_name == 'index.html' }}
+        if: ${{ matrix.executable_name == 'index.html' }} && ${{ matrix.artifact_name != 'BallKiller3000-github_pages' }}
         uses: actions/upload-artifact@v3.1.1
         with:
           # Artifact name
