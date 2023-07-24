@@ -31,11 +31,11 @@ jobs:
             executable_name: Ball_Killer.exe
 
           - os: ubuntu-latest
-            artifact_name: BallKiller3000-github_pages
+            artifact_name: BallKiller3000-HTML5
             executable_name: index.html
 
           - os: ubuntu-latest
-            artifact_name: BallKiller3000-HTML5
+            artifact_name: BallKiller3000-github_pages
             executable_name: index.html
 
 
@@ -134,7 +134,7 @@ jobs:
   deploy:
     environment:
       name: BallKiller3000
-      url: ${{ steps.deployment.outputs.page_url }}
+      url: ${{ steps.deployment.outputs.page_url }}/beta
     runs-on: ubuntu-latest
     needs: build
     steps:
