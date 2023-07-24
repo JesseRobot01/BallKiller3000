@@ -128,7 +128,7 @@ jobs:
           name: ${{ matrix.artifact_name }}
 
           # A file, directory or wildcard pattern that describes what to upload
-          path: ${{github.workspace}}/_site/beta
+          path: ${{github.workspace}}/_site
   
 
   deploy:
@@ -142,4 +142,4 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v2
         with:
-          artifact_name: BallKiller3000-HTML5
+          artifact_name: BallKiller3000-github_pages
