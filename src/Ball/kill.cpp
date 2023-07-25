@@ -1,20 +1,11 @@
-#include "../balls.h"
+#include "../ball.h"
 #include "../data.h"
-#include "../player.h"
-#include "../score.h"
+#include "../gameHandler.h"
 
+void Ball::kill(int ballNum, bool giveScore) {
+    ballsInScreen--;
+    ballPos[ballNum] = Vector2(-1000, -1000);
+    if (giveScore) score++;
+    GameHandler::checkLevelUp();
 
-void Balls::kill() {
-    // checks if the player is touching a ball
-    for (int i = 0; i < ballCount; ++i) {
-        if (playerPosX <= ballPosX[i] + 30 && playerPosX >= ballPosX[i] - 30 &&
-            playerPosY <= ballPosY[i] + 30 && playerPosY >= ballPosY[i] - 30) {
-            ballPosX[i] = -10000;
-            ballPosY[i] = -10000;
-            ballsOnScreen--;
-            scoreCount++;
-            Score::checkIfExtraLife();
-        }
-    }
-    if (ballsOnScreen == 0) Player::finishesLevel();
 }

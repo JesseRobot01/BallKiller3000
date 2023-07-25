@@ -1,111 +1,87 @@
 #include <iostream>
-#include "raylib.h"
-#include "data.h"
-#include "player.h"
-#include "balls.h"
-#include "enemy.h"
-#include "score.h"
-#include "game.h"
+#include "raylib-cpp.hpp"
 #include "version.h"
+#include "data.h"
+#include "pos.h"
+#include "gameHandler.h"
 
 #if defined(PLATFORM_WEB)
-
 #include <emscripten/emscripten.h>
-
 #endif
 
+// the variables
+int screenWidth = 900;
+int screenHeight = 450;
 
-const int screenWidth = 800;
-const int screenHeight = 450;
 
-int playerPosX;
-int playerPosY;
-int moveSpeed = 3;
-int liveCount;
-int scoreCount;
+raylib::Vector2 playerPos;
+raylib::Vector2 *ballPos;
+raylib::Vector2 *enemyPos;
+raylib::Vector2 *enemySize;
+float moveSpeed = 3;
+
+int score;
 int highScore;
-
+int lives;
+int level;
+int ballsInScreen;
 int ballCount;
-int ballsOnScreen;
-int *ballPosX = new int[99];
-int *ballPosY = new int[99];
-
 int enemyCount;
-int *enemyPosX = new int[99];
-int *enemyPosY = new int[99];
-int *enemyPreference = new int[99];
 
-bool isBallPosGenerated;
-bool isEnemyPosGenerated;
-bool isGameOver;
+bool isGameOver = true;
+bool isBallPosGenerated = false;
+bool isEnemyPosGenerated = false;
+
 
 int main() {
-    Game::startGame();
-    Score::loadHigh();
+//initialize the variables
+    GameHandler::startGame();
 
-    std::string versionMess =
-            "Version: " + std::to_string(BALL_KILLER_VERSION_MAJOR) + "." +
-            std::to_string(BALL_KILLER_VERSION_MINOR) + "." +
-            std::to_string(BALL_KILLER_VERSION_PATCH) + "-" + BALL_KILLER_PLATFORM + BALL_KILLER_COMMIT;
-
-    std::string versionMessWinTitle =
-            "BallKiller3000 Version: " + versionMess;
-
-    InitWindow(screenWidth, screenHeight, versionMessWinTitle.c_str());
+    //initializes the window
+    raylib::Window window(screenWidth, screenHeight, "BallKiller3000 v" BALL_KILLER_VERSION);
     SetTargetFPS(60);
 
-    // Main game loop
-    while (!WindowShouldClose()) {
+    // main game loop (executes every frame)
+    while (!window.ShouldClose()) {
         BeginDrawing();
         ClearBackground(RAYWHITE);
-        std::string liveMess = "Lives: " + std::to_string(liveCount);
-        std::string scoreMess = "Score: " + std::to_string(scoreCount);
-        std::string highMess = "High: " + std::to_string(highScore);
-        DrawText(liveMess.c_str(), 20, 10, 20, RED);
-        DrawText(scoreMess.c_str(), 220, 10, 20, RED);
-        DrawText(highMess.c_str(), 420, 10, 20, RED);
-        DrawText(versionMess.c_str(), screenWidth - (versionMess.length() * 5) - 5, screenHeight - 15, 10, GRAY);
 
-
+        // renders the balls, enemies and the player
         for (int b = 0; b < ballCount; ++b) {
-            if (!isBallPosGenerated) {
-                ballPosX[b] = Balls::generateBallPos('x');
-                ballPosY[b] = Balls::generateBallPos('Y');
-            }
-            DrawCircle(ballPosX[b], ballPosY[b], 30, BLUE); // makes a test ball
+            DrawCircleV(ballPos[b], 30, BLUE);
         }
-        isBallPosGenerated = true;
+        for (int e = 0; e < enemyCount; ++e) {
+            DrawRectangleV(enemyPos[e], enemySize[e], YELLOW);
 
-        // generate player
-        DrawCircle(playerPosX, playerPosY, 20, RED); // makes a temp player
 
-        //generates enemies
-        for (int e = 0; e < enemyCount; e++) {
-            if (!isEnemyPosGenerated) {
-                enemyPosX[e] = Balls::generateBallPos(
-                        'x'); //the ball pos generator works just fine for the enemy's one
-                enemyPosY[e] = Balls::generateBallPos('y');
-
-                Enemy::givePreference(e);
-            }
-            DrawRectangle(enemyPosX[e], enemyPosY[e], 60, 30, YELLOW);
         }
-        isEnemyPosGenerated = true;
 
+        DrawCircleV(playerPos, 20, RED);
+
+        // Draws the GUI
+        raylib::DrawText("Lives: " + std::to_string(lives), 20, 10, 20, RED);
+        raylib::DrawText("Score: " + std::to_string(score), 140, 10, 20, RED);
+        raylib::DrawText("High: " + std::to_string(highScore), 260, 10, 20, RED);
+        raylib::DrawText("Level: " + std::to_string(level), 380, 10, 20, RED);
+        raylib::DrawText("v"  BALL_KILLER_VERSION, screenWidth - (std::string(BALL_KILLER_VERSION).length() * 5) - 10,
+                         screenHeight - 15, 10, GRAY);
+
+        // The game over screen
         if (isGameOver) {
             DrawText("Game Over!!!", screenWidth / 2 - 3 * 60, screenHeight / 2 - 30, 60, RED);
             DrawText("Press enter to restart", screenWidth / 2 - 3 * 60 - 10, screenHeight / 2 + 30, 30, RED);
-            if (IsKeyPressed(KEY_ENTER)) Game::startGame();
+            if (IsKeyPressed(KEY_ENTER)) GameHandler::startGame();
         }
+
 
         EndDrawing();
+
+        // move the player
         if (!isGameOver) {
-            Player::movePlayer();
+            Pos::getPlayerMoveInput();
         }
 
-        Enemy::move();
-
     }
+
     return 0;
 }
-

@@ -7,22 +7,19 @@ set(BALL_KILLER_VERSION_MINOR 1)
 set(BALL_KILLER_VERSION_PATCH 2)
 
 set(SOURCES
-        src/Ball/IsBallInScreen.cpp
-        src/Ball/kill.cpp
-        src/Ball/push.cpp
-        src/Enemy/CheckPlayerKill.cpp
-        src/Enemy/givePreference.cpp
-        src/Enemy/move.cpp
-        src/game/finishLevel.cpp
-        src/game/startGame.cpp
-        src/Player/kill.cpp
-        src/Player/movePlayer.cpp
-        src/Score/loadHigh.cpp
-        src/Score/saveHigh.cpp
-        src/Unknown/checkIfExtraLife.cpp
-        src/Unknown/generateBallPos.cpp
         src/main.cpp
-        )
+        src/Unknown/randomPosGenerator.cpp
+        src/GameHandler/startGame.cpp
+        src/Unknown/loadHigh.cpp
+        src/GameHandler/levelUp.cpp
+        src/player/move.cpp
+        src/Util/isPosInScreen.cpp
+        src/Util/random.cpp
+        src/Util/checkCollision.cpp
+        src/Ball/kill.cpp
+        src/Enemy/generateSize.cpp
+        src/Enemy/kill.cpp
+        src/GameHandler/endGame.cpp)
 
 add_executable(${PROJECT_NAME} ${SOURCES})
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
