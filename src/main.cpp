@@ -4,6 +4,7 @@
 #include "data.h"
 #include "pos.h"
 #include "gameHandler.h"
+#include "enemyAi.h"
 
 #if defined(PLATFORM_WEB)
 #include <emscripten/emscripten.h>
@@ -27,6 +28,7 @@ int level;
 int ballsInScreen;
 int ballCount;
 int enemyCount;
+int *enemyPreference;
 
 bool isGameOver = true;
 bool isBallPosGenerated = false;
@@ -81,6 +83,7 @@ int main() {
             Pos::getPlayerMoveInput();
         }
 
+        EnemyAi::generateMove();
     }
 
     return 0;

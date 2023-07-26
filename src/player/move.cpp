@@ -9,22 +9,18 @@ void Pos::getPlayerMoveInput() {
     if (IsKeyDown(KEY_UP) || IsKeyDown(KEY_W)) {
         Pos::movePlayer(-moveSpeed, Data::y);
         Utils::checkAllCollisions(Data::player, Data::ball);
-        Utils::checkAllCollisions(Data::player, Data::enemy);
     }
     if (IsKeyDown(KEY_DOWN) || IsKeyDown(KEY_S)) {
         Pos::movePlayer(moveSpeed, Data::y);
         Utils::checkAllCollisions(Data::player, Data::ball);
-        Utils::checkAllCollisions(Data::player, Data::enemy);
     }
     if (IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A)) {
         Pos::movePlayer(-moveSpeed, Data::x);
         Utils::checkAllCollisions(Data::player, Data::ball);
-        Utils::checkAllCollisions(Data::player, Data::enemy);
     }
     if (IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D)) {
         Pos::movePlayer(moveSpeed, Data::x);
         Utils::checkAllCollisions(Data::player, Data::ball);
-        Utils::checkAllCollisions(Data::player, Data::enemy);
     }
 
 }

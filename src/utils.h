@@ -47,6 +47,32 @@ public:
     static bool haveCollision(Data::Types targetType, Data::Types hasCollisionWith, int hasCollisionWithNumber) {
        return Utils::haveCollision(targetType, hasCollisionWith, 0, hasCollisionWithNumber);
     }
+
+    /**
+ * Find the nearest x in a specific pos.
+ *
+ * @param findNearest What to find.
+ * @param pos The pos to start looking for.
+ * @param ignoreNumber A number to ignore, useful for when the given pos is an enemy pos and you need to find the nearest enemy
+ *
+ * @example Utils::getNearest(Data::enemy, enemyPos[3], 3);
+ * @return The nearest enemy number from the given pos (except 3).
+ */
+    static int getNearest(Data::Types findNearest, raylib::Vector2 pos, int ignoreNumber);
+
+
+    /**
+* Find the nearest x in a specific pos.
+*
+* @param findNearest What to find.
+* @param pos The pos to start looking for.
+
+* @example Utils::getNearest(Data::ball, enemyPos[3]);
+* @return The nearest ball number from the given pos.
+*/
+    static int getNearest(Data::Types findNearest, raylib::Vector2 pos) {
+       return getNearest(findNearest, pos, -1);
+    };
 };
 
 

@@ -5,7 +5,7 @@
 void GameHandler::startGame() {
     // first time run things
     score = 0;
-    lives = 0; // there will be another while loading the rest
+    lives = 2; // there will be another while loading the rest
     level = 0;
     highScore = GameHandler::loadHigh();
     playerPos = Vector2(screenWidth / 2, screenHeight / 2);

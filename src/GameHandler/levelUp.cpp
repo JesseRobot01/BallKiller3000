@@ -8,8 +8,9 @@ void GameHandler::checkLevelUp(bool firstTimeRun) {
         delete[] ballPos;
         delete[] enemyPos;
         delete[] enemySize;
+        delete[] enemyPreference;
         level++;
-        lives++;
+       if(level % 2) lives++;
 
         ballCount = level + 2;
         enemyCount = level;
@@ -18,6 +19,7 @@ void GameHandler::checkLevelUp(bool firstTimeRun) {
         ballPos = new raylib::Vector2[ballCount];
         enemyPos = new raylib::Vector2[enemyCount];
         enemySize = new raylib::Vector2[enemyCount];
+        enemyPreference = new int[enemyCount];
 
         // generate random ball and enemy pos
         for (int b = 0; b < ballCount; ++b) {
@@ -25,7 +27,7 @@ void GameHandler::checkLevelUp(bool firstTimeRun) {
         }
         for (int e = 0; e < enemyCount; ++e) {
             enemyPos[e] = Pos::generateRandomPos(Data::enemy);
-            enemySize[e] = EnemyAi::generateEnemySize();
+            EnemyAi::initializeEnemyAi(e);
         }
     }
 }
