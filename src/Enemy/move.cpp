@@ -68,7 +68,7 @@ void EnemyAi::generateMove() {
 
             }
             for (int b = 0; b < ballCount; ++b) {
-                if (Utils::haveCollision(Data::enemy, Data::ball, enemy, b)) {
+                if (Utils::hasCollision(Data::enemy, Data::ball, enemy, b)) {
                     Ball::push(b, pushBall);
                 }
             }

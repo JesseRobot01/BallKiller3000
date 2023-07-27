@@ -46,7 +46,7 @@ void Utils::checkAllCollisions(Data::Types targetType, Data::Types hasCollisionW
             for (int e = 0; e < enemyCount; ++e) {
                 for (int b = 0; e < ballCount; ++e) {
 
-                    if (Utils::haveCollision(targetType, hasCollisionWith, b, e)) {
+                    if (Utils::hasCollision(targetType, hasCollisionWith, b, e)) {
                         std::cout << "Ball number " + std::to_string(b) + " has collision with enemy number " +
                                      std::to_string(e) + "\n";
 
@@ -82,8 +82,8 @@ void Utils::checkAllCollisions(Data::Types targetType, Data::Types hasCollisionW
  * @param hasCollisionWithNumber the number from the thing i may touch
  */
 bool
-Utils::haveCollision(Data::Types targetType, Data::Types hasCollisionWith, int targetTypeNumber,
-                     int hasCollisionWithNumber) {
+Utils::hasCollision(Data::Types targetType, Data::Types hasCollisionWith, int targetTypeNumber,
+                    int hasCollisionWithNumber) {
     if (targetType == Data::player) {
         if (hasCollisionWith == Data::ball) {
             if (playerPos.CheckCollision(ballPos[hasCollisionWithNumber], 45)) return true;
@@ -113,7 +113,7 @@ Utils::haveCollision(Data::Types targetType, Data::Types hasCollisionWith, int t
     if (targetType == Data::ball) {
         if (hasCollisionWith == Data::enemy) {
 
-            return Utils::haveCollision(hasCollisionWith, targetType, hasCollisionWithNumber, targetTypeNumber);
+            return Utils::hasCollision(hasCollisionWith, targetType, hasCollisionWithNumber, targetTypeNumber);
         }
         if (hasCollisionWith == Data::player)
             return Utils::haveCollision(hasCollisionWith, targetType, targetTypeNumber);

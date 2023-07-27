@@ -8,18 +8,20 @@ set(BALL_KILLER_VERSION_PATCH 2)
 
 set(SOURCES
         src/main.cpp
-        src/Unknown/randomPosGenerator.cpp
+        src/Util/posGenerator.cpp
         src/GameHandler/startGame.cpp
-        src/Unknown/loadHigh.cpp
+        src/GameHandler/highScore.cpp
         src/GameHandler/levelUp.cpp
-        src/player/move.cpp
+        src/player/movePlayer.cpp
         src/Util/isPosInScreen.cpp
         src/Util/random.cpp
         src/Util/checkCollision.cpp
-        src/Ball/kill.cpp
-        src/Enemy/generateSize.cpp
-        src/Enemy/kill.cpp
-        src/GameHandler/endGame.cpp src/Enemy/move.cpp src/Util/getNearest.cpp)
+        src/ball.cpp
+        src/Enemy/initialize.cpp
+        src/Enemy/killPlayer.cpp
+        src/GameHandler/endGame.cpp
+        src/Enemy/move.cpp
+        src/Util/getNearest.cpp)
 
 add_executable(${PROJECT_NAME} ${SOURCES})
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_BINARY_DIR})

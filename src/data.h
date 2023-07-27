@@ -39,8 +39,7 @@ extern int enemyCount;
 extern int *enemyPreference;
 
 extern bool isGameOver;
-extern bool isBallPosGenerated;
-extern bool isEnemyPosGenerated;
+
 
 
 #endif

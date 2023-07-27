@@ -31,8 +31,7 @@ int enemyCount;
 int *enemyPreference;
 
 bool isGameOver = true;
-bool isBallPosGenerated = false;
-bool isEnemyPosGenerated = false;
+
 
 
 int main() {

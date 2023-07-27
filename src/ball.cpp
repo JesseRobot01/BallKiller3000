@@ -1,9 +1,9 @@
-#include "../ball.h"
-#include "../data.h"
-#include "../gameHandler.h"
+#include "ball.h"
+#include "data.h"
+#include "gameHandler.h"
 #include "raylib-cpp.hpp"
-#include "../pos.h"
-#include "../utils.h"
+#include "pos.h"
+#include "utils.h"
 
 
 void Ball::kill(int ballNum, bool giveScore) {

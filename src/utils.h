@@ -34,8 +34,8 @@ public:
  * @param targetTypeNumber My number (ignored if i'm the player)
  * @param hasCollisionWithNumber the number from the thing i may touch
  */
-    static bool haveCollision(Data::Types targetType, Data::Types hasCollisionWith, int targetTypeNumber,
-                              int hasCollisionWithNumber);
+    static bool hasCollision(Data::Types targetType, Data::Types hasCollisionWith, int targetTypeNumber,
+                             int hasCollisionWithNumber);
 
     /**
  * This checks for collision with the given types and returns a boolean.
@@ -45,7 +45,7 @@ public:
  * @param hasCollisionWithNumber the number from the thing i may touch
  */
     static bool haveCollision(Data::Types targetType, Data::Types hasCollisionWith, int hasCollisionWithNumber) {
-       return Utils::haveCollision(targetType, hasCollisionWith, 0, hasCollisionWithNumber);
+       return Utils::hasCollision(targetType, hasCollisionWith, 0, hasCollisionWithNumber);
     }
 
     /**
