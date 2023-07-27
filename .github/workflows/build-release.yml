@@ -3,6 +3,10 @@ name: Build Release Files
 on:
   workflow_dispatch
 
+env:
+  # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
+  BUILD_TYPE: Release
+
 jobs:
   build:
     # The CMake configure and build commands are platform agnostic and should work equally well on Windows or Mac.
@@ -46,11 +50,11 @@ jobs:
         # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
         # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
         if: ${{ matrix.executable_name != 'index.html' }}
-        run: cmake -G Ninja -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCOMMIT_HASH=${{env.VERSION }}
+        run: cmake -G Ninja -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
 
       - name: Configure CMake (HTML5)
         if: ${{ matrix.executable_name == 'index.html' }}
-        run: cmake -B build -G Ninja -DPLATFORM=Web "-DCMAKE_TOOLCHAIN_FILE=./emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake" -DCOMMIT_HASH=${{ env.VERSION }} -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+        run: cmake -B build -G Ninja -DPLATFORM=Web "-DCMAKE_TOOLCHAIN_FILE=./emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake"  -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
 
 
       - name: Build
