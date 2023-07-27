@@ -31,6 +31,10 @@ jobs:
             executable_name: BallKiller3000.exe
 
           - os: ubuntu-latest
+            artifact_name: BallKiller3000-linux
+            executable_name: BallKiller3000
+
+          - os: ubuntu-latest
             artifact_name: BallKiller3000-HTML5
             executable_name: index.html
 

@@ -1,4 +1,4 @@
-# **Ball Killer 3000**
+# **BallKiller3000**
 
 - You can download the newest version [here](https://github.com/JesseRobot01/BallKiller3000/releases).
 - Or you can download the newest beta build
@@ -21,8 +21,9 @@ The build progress is only tested on windows with mingw and Ninja. but it should
 Run these commands:
 
 ```
-CMake -B build -G Ninja
-CMake --Build build
+mkdir build
+cmake -B build -G Ninja
+cmake --Build build
 ```
 
 #### For the web
@@ -34,6 +35,18 @@ mkdir build
 cd build
 emcmake cmake .. -DPLATFORM=Web -DCMAKE_BUILD_TYPE=Release -DCMAKE_EXE_LINKER_FLAGS="-s USE_GLFW=3" -DCMAKE_EXECUTABLE_SUFFIX=".html" -G Ninja
 ninja
+```
+
+
+#### For Ubuntu
+
+Run the following commands:
+
+``` 
+sudo apt install ninja-build libasound2-dev libx11-dev libxrandr-dev libxi-dev libgl1-mesa-dev libglu1-mesa-dev libxcursor-dev libxinerama-dev
+mkdir build
+cmake -B build
+cmake --build build
 ```
 
 ## Tools
