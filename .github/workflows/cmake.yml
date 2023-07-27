@@ -87,7 +87,7 @@ jobs:
           cd BallKiller3000
           git checkout $(git describe --abbrev=0 --tags)
           cmake -B build_stable -G Ninja -DPLATFORM=Web "-DCMAKE_TOOLCHAIN_FILE=../emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake" -DCMAKE_BUILD_TYPE=Release
-          cmake --build ${{github.workspace}}/build_stable --config Release
+          cmake --build build_stable --config Release
 
       - name: Move site files (html5)
         if: ${{ matrix.executable_name == 'index.html' }}
