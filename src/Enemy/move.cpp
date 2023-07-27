@@ -38,13 +38,15 @@ void EnemyAi::generateMove() {
 
                     moveDistance = Utils::random(1, 30);
                     EnemyAi::moveTo(enemy, ballPos[nearest], moveDistance);
-                    pushBall = enemyPos[enemy].MoveTowards(ballPos[nearest], moveDistance)- enemyPos[enemy];
+                    pushBall = enemyPos[enemy].MoveTowards(ballPos[nearest], moveDistance) - enemyPos[enemy];
                 }
                 if (enemyPreference[enemy] == 3) {
-                    moveDistance = Utils::random(-1, 15);
-                    EnemyAi::moveTo(enemy, playerPos, moveDistance);
-                    pushBall = enemyPos[enemy].MoveTowards(playerPos, moveDistance)- enemyPos[enemy];
+                    if (!isGameOver) {
+                        moveDistance = Utils::random(-1, 15);
+                        EnemyAi::moveTo(enemy, playerPos, moveDistance);
+                        pushBall = enemyPos[enemy].MoveTowards(playerPos, moveDistance) - enemyPos[enemy];
 
+                    }
                 }
                 if (enemyPreference[enemy] == 4) {
                     nearest = Utils::getNearest(Data::enemy, enemyPos[enemy], enemy);

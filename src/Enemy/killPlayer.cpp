@@ -3,9 +3,10 @@
 #include "../gameHandler.h"
 
 void EnemyAi::killPlayer(int enemyNum) {
-    if (lives > 0)
+    if (!isGameOver) {
         lives--;
-    enemyPos[enemyNum] = Vector2(-1000, -1000);
+        enemyPos[enemyNum] = Vector2(-1000, -1000);
 
-    GameHandler::endGame();
+        GameHandler::endGame();
+    }
 }
