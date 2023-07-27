@@ -15,6 +15,18 @@ public:
     static bool isPosInScreen(Vector2 pos);
 
     static bool isPosInScreen(float pos, Data::Axis axis);
+
+    /**
+ * A safe pos is an pos where nothing should clip (partially) outside the screen.
+ * This function checks for that.
+ * Useful to reduce the balls got pushed outside the screen or enemies spawning partially outside the screen.
+ * @param pos The pos to check if it is in a safe screen space
+ *
+ */
+    static bool isPosSafePos(Vector2 pos);
+
+private:
+    static Vector2 generateRandomPos();
 };
 
 #endif

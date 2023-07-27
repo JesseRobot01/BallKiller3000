@@ -4,28 +4,27 @@
 
 Vector2 Pos::generateRandomPos(Data::Types type) {
 
-    float posX = Utils::random(1, screenWidth);
-    float posY = Utils::random(1, screenHeight);
+    Vector2 pos = Pos::generateRandomPos();
 
 
     // check if the ball is not in a specific radius of the player. if yes, regenerate the positions
     if (type == Data::ball) {
-        while (playerPos.CheckCollision(Vector2(posX, posY), 120)) {
-            posX = Utils::random(1, screenWidth);
-            posY = Utils::random(1, screenHeight);
+        while (playerPos.CheckCollision(pos, 120)) {
+            pos = Pos::generateRandomPos();
         }
     }
 
     // same for the enemy
     if (type == Data::enemy) {
-        while (playerPos.CheckCollision(Vector2(posX, posY), 150)) {
-            posX = Utils::random(1, screenWidth);
-            posY = Utils::random(1, screenHeight);
+        while (playerPos.CheckCollision(pos, 150)) {
+            pos = Pos::generateRandomPos();
         }
     }
 
-    return Vector2(posX, posY);
-
-
+    return pos;
 }
 
+Vector2 Pos::generateRandomPos() {
+    return Vector2(Utils::random(60, screenWidth - 60),
+                   Utils::random(60, screenHeight - 60));
+}

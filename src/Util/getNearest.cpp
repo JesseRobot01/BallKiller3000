@@ -20,7 +20,7 @@ int Utils::getNearest(Data::Types findNearest, raylib::Vector2 pos, int ignoreNu
     if (findNearest == Data::enemy) {
         for (int e = 0; e < enemyCount; ++e) {
             if (e != ignoreNumber) {
-                if (Pos::isPosInScreen(enemyPos[e])) {
+                if (Pos::isPosSafePos(enemyPos[e])) {
 
                     distance = pos.Distance(enemyPos[e]);
                     if (distance < closestDistance) {
@@ -34,7 +34,7 @@ int Utils::getNearest(Data::Types findNearest, raylib::Vector2 pos, int ignoreNu
     if (findNearest == Data::ball) {
         for (int b = 0; b < ballCount; ++b) {
             if (b != ignoreNumber) {
-                if (Pos::isPosInScreen(ballPos[b])) {
+                if (Pos::isPosSafePos(ballPos[b])) {
 
                     distance = pos.Distance(ballPos[b]);
                     if (distance <= closestDistance) {

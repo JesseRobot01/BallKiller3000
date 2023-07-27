@@ -82,7 +82,7 @@ void EnemyAi::generateMove() {
 }
 
 void EnemyAi::move(int enemyNum, raylib::Vector2 distance) {
-    if (Pos::isPosInScreen(enemyPos[enemyNum] + distance))
+    if (Pos::isPosSafePos(enemyPos[enemyNum] + distance))
         enemyPos[enemyNum] += distance;
 }
 
