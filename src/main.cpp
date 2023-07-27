@@ -11,7 +11,7 @@
 #endif
 
 // the variables
-int screenWidth = 900;
+int screenWidth = 800;
 int screenHeight = 450;
 
 
