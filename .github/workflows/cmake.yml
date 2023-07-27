@@ -96,11 +96,12 @@ jobs:
 
       - name: Move stable site files (github-pages)
         if: ${{ matrix.artifact_name == 'BallKiller3000-github_pages' }}
+        #TODO when release version 0.2.0, change the name under here back to BallKiller
         run: |
           mkdir _site/beta
           mv ${{github.workspace}}/_site/*.* ${{github.workspace}}/_site/beta
-          mv ${{github.workspace}}/build_stable/BallKiller3000.html  ${{github.workspace}}/_site/${{ matrix.executable_name }}
-          mv ${{github.workspace}}/build_stable/BallKiller3000.*  ${{github.workspace}}/_site/
+          mv ${{github.workspace}}/build_stable/ball_killer.html  ${{github.workspace}}/_site/${{ matrix.executable_name }}
+          mv ${{github.workspace}}/build_stable/ball_killer.*  ${{github.workspace}}/_site/
 
       - name: Upload BallKiller3000
         if: ${{ matrix.executable_name != 'index.html' }}
