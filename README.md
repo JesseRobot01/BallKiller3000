@@ -7,7 +7,6 @@
 - You can play the stable online version [here](https://jesserobot01.github.io/BallKiller3000/).
 - Or you can play the newest beta version online [here](https://jesserobot01.github.io/BallKiller3000/beta).
 
-
 ## Building
 
 ### Requirement

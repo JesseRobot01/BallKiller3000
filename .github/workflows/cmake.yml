@@ -77,7 +77,9 @@ jobs:
         # Build your program with the given configuration
         run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
 
+
       - name: Install and build stable version of BallKiller3000 (github-pages)
+
         if: ${{ matrix.artifact_name == 'BallKiller3000-github_pages' }}
 
         run: |
@@ -99,6 +101,14 @@ jobs:
           mv ${{github.workspace}}/_site/*.* ${{github.workspace}}/_site/beta
           mv ${{github.workspace}}/build_stable/BallKiller3000.html  ${{github.workspace}}/_site/${{ matrix.executable_name }}
           mv ${{github.workspace}}/build_stable/BallKiller3000.*  ${{github.workspace}}/_site/
+
+      - name: Move stable site files (github-pages)
+        if: ${{ matrix.artifact_name == 'BallKiller3000-github_pages' }}
+        run: |
+          mkdir _site/beta
+          mv ${{github.workspace}}/_site/*.* ${{github.workspace}}/_site/beta
+          mv ${{github.workspace}}/build_stable/Ball_Killer.html  ${{github.workspace}}/_site/${{ matrix.executable_name }}
+          mv ${{github.workspace}}/build_stable/Ball_Killer.*  ${{github.workspace}}/_site/
 
       - name: Upload BallKiller3000
         if: ${{ matrix.executable_name != 'index.html' }}
