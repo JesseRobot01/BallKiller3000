@@ -13,27 +13,12 @@ permissions:
   id-token: write
 
 jobs:
-  get-build-number:
-    name: Get Build Number
-    runs-on: ubuntu-latest
-    outputs:
-      version: ${{ steps.set-version.outputs.version }}
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Get Build Number
-        run: |
-          ver_short=`git rev-parse --short HEAD`
-          echo "VERSION=$ver_short" >> $GITHUB_ENV
-          echo "VERSION=$ver_short" >> $GITHUB_STATE
-
   build-beta:
     name: Build Beta
-    needs: get-build-number
     uses: ./.github/workflows/build.yml
     with:
       build_type: Release #Yeah, don't need debug information on beta build, so build as release.
-      extra-version: ${{ needs.get-build-number.outputs.version }}
+      need-commit-id: 1
 
   create-beta:
     name: Create Beta
@@ -83,9 +68,10 @@ jobs:
 
 
   upload-beta:
+    name: Upload Beta
     environment:
       name: BallKiller3000
-      url: ${{ steps.deployment.outputs.page_url }}
+      url: ${{ steps.deployment.outputs.page_url }}/beta
     runs-on: ubuntu-latest
     needs: create-beta
     steps:
