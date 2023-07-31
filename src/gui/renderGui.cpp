@@ -52,12 +52,22 @@ void Gui::renderControlStick() {
         if (!isTouchingScreen) {
             controlStickStartPos = GetMousePosition();
             isTouchingScreen = true;
+
+            if (controlStickStartPos.CheckCollision(playerPos, 30)) isControlStickBasePlayer = true;
         }
         controlStickCurrentPos = controlStickStartPos.MoveTowards(GetMousePosition(), 50);
 
-        DrawCircleV(controlStickStartPos, 50, ColorAlpha(GRAY, 0.75));
-        DrawCircleV(controlStickCurrentPos, 30, ColorAlpha(BLACK, 0.75));
+        if (!isControlStickBasePlayer) {
+            controlStickCurrentPos = controlStickStartPos.MoveTowards(GetMousePosition(), 50);
+            DrawCircleV(controlStickStartPos, 50, ColorAlpha(GRAY, 0.75));
+            DrawCircleV(controlStickCurrentPos, 30, ColorAlpha(BLACK, 0.75));
+        } else {
+            controlStickStartPos = playerPos;
+            controlStickCurrentPos = playerPos.MoveTowards(GetMousePosition(), 50);
+            DrawCircleV(GetMousePosition(), 30, ColorAlpha(BLACK, 0.75));
+        }
     } else {
         isTouchingScreen = false;
+        isControlStickBasePlayer = false;
     }
 };

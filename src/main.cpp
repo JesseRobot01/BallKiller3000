@@ -34,6 +34,7 @@ int *enemyPreference;
 bool isGameOver = true;
 
 bool isTouchingScreen = false;
+bool isControlStickBasePlayer = false;
 raylib::Vector2 controlStickStartPos;
 raylib::Vector2 controlStickCurrentPos;
 
