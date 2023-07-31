@@ -29,11 +29,26 @@ void Gui::renderDefaultScreen() {
         raylib::DrawText("Game Over!!!", screenWidth / 2 - 3 * 60, screenHeight / 2 - 30, 60, RED);
         raylib::DrawText("Press enter to restart", screenWidth / 2 - 3 * 60 - 10, screenHeight / 2 + 30, 30, RED);
         if (IsKeyPressed(KEY_ENTER)) GameHandler::startGame();
+
+        // draws a restart button
+        DrawRectangle(GetRenderWidth() / 2 - MeasureText("Restart", 30) / 2 - 10, GetRenderHeight() / 2 + 65,
+                      MeasureText("Restart", 30) + 20, 50, ColorAlpha(RED, 0.25));
+
+        raylib::DrawText("Restart", GetRenderWidth() / 2 - MeasureText("Restart", 30) / 2, GetRenderHeight() / 2 + 75,
+                         30, RED);
+
+        if (IsGestureDetected(GESTURE_TAP) &&
+            CheckCollisionPointRec(GetMousePosition(),
+                                   Rectangle(GetRenderWidth() / 2 - MeasureText("Restart", 30) / 2 - 10,
+                                             GetRenderHeight() / 2 + 65,
+                                             MeasureText("Restart", 30) + 20, 50))) {
+            GameHandler::startGame();
+        }
     }
 }
 
 void Gui::renderControlStick() {
-    if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
+    if (IsGestureDetected(GESTURE_DRAG)) {
         if (!isTouchingScreen) {
             controlStickStartPos = GetMousePosition();
             isTouchingScreen = true;
