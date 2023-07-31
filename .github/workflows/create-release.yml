@@ -12,7 +12,7 @@ permissions:
   contents: write
 
 jobs:
-  build_release:
+  build-release:
     name: Build Release
     uses: ./.github/workflows/build.yml
     with:
@@ -20,7 +20,7 @@ jobs:
 
   create-release:
     name: Create Release
-    needs: build_release
+    needs: build-release
     runs-on: ubuntu-latest
     outputs:
       upload_url: ${{ steps.Create-Release.outputs.upload_url }}
