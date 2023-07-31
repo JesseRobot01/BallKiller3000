@@ -53,3 +53,29 @@ jobs:
             BallKiller3000-v${{inputs.version}}-Windows-x64.exe
             BallKiller3000-v${{inputs.version}}-linux
             BallKiller3000-v${{inputs.version}}-HTML5.zip
+
+  Deploy-Release:
+    needs: build-release
+    runs-on: ubuntu-latest
+    environment:
+      name: BallKiller3000
+      url: ${{ steps.deployment.outputs.page_url }}/beta
+
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
+
+      - name: Repack site files
+        uses: actions/upload-pages-artifact@v2
+        with:
+          # Artifact name
+          name: BallKiller3000-github_pages
+
+          # A file, directory or wildcard pattern that describes what to upload
+          path: ${{github.workspace}}/BallKiller3000-HTML5
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
+        with:
+          artifact_name: BallKiller3000-github_pages

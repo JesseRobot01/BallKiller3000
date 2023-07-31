@@ -14,10 +14,17 @@ permissions:
 
 jobs:
   build-beta:
-    name: Build Beta
-    uses: ./.github/workflows/build.yml
-    with:
-      build_type: Release #Yeah, don't need debug information on beta build, so build as release.
+    steps:
+    - name: Get Build Number
+      run: |
+        ver_short=`git rev-parse --short HEAD`
+        echo "VERSION=$ver_short" >> $GITHUB_ENV
+
+    - name: Build Beta
+      uses: ./.github/workflows/build.yml
+      with:
+        build_type: Release #Yeah, don't need debug information on beta build, so build as release.
+        extra-version: ${{env.VERSION}}
 
   create-beta:
     needs: build-beta
@@ -46,6 +53,7 @@ jobs:
 
       - name: Prepare site files
         run: |
+          tree #debug for error
           mkdir BallKiller3000-HTML5/beta
           mv ${{github.workspace}}/_site/*.* ${{github.workspace}}/BallKiller3000-HTML5/beta
           mv ${{github.workspace}}/BallKiller3000/build_stable/BallKiller3000.html  ${{github.workspace}}/BallKiller3000-HTML5/index.html
