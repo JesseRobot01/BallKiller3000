@@ -72,7 +72,7 @@ jobs:
   upload-beta:
     environment:
       name: BallKiller3000
-      url: ${{ steps.deployment.outputs.page_url }}/beta
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     needs: create-beta
     steps:
