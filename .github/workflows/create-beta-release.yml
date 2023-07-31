@@ -15,6 +15,8 @@ permissions:
 jobs:
   get-build-number:
     runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.set-version.outputs.version }}
     steps:
       - uses: actions/checkout@v3
 
@@ -29,7 +31,7 @@ jobs:
     uses: ./.github/workflows/build.yml
     with:
       build_type: Release #Yeah, don't need debug information on beta build, so build as release.
-      extra-version: ${{env.VERSION}}
+      extra-version: ${{ needs.get-build-number.outputs.version }}
 
   create-beta:
     needs: build-beta
