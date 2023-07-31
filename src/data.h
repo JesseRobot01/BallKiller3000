@@ -40,6 +40,10 @@ extern int *enemyPreference;
 
 extern bool isGameOver;
 
+extern bool isTouchingScreen;
+extern raylib::Vector2 controlStickStartPos;
+extern raylib::Vector2 controlStickCurrentPos;
+
 
 
 #endif

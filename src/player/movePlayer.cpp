@@ -5,36 +5,37 @@
 #include "../utils.h"
 
 void Pos::getPlayerMoveInput() {
+    raylib::Vector2 moveTo;
 
     if (IsKeyDown(KEY_UP) || IsKeyDown(KEY_W)) {
-        Pos::movePlayer(-moveSpeed, Data::y);
-        Utils::checkAllCollisions(Data::player, Data::ball);
+        moveTo.y = -moveSpeed;
     }
+
     if (IsKeyDown(KEY_DOWN) || IsKeyDown(KEY_S)) {
-        Pos::movePlayer(moveSpeed, Data::y);
-        Utils::checkAllCollisions(Data::player, Data::ball);
+        moveTo.y = moveSpeed;
     }
+
     if (IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A)) {
-        Pos::movePlayer(-moveSpeed, Data::x);
-        Utils::checkAllCollisions(Data::player, Data::ball);
+        moveTo.x = -moveSpeed;
     }
+
     if (IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D)) {
-        Pos::movePlayer(moveSpeed, Data::x);
-        Utils::checkAllCollisions(Data::player, Data::ball);
+        moveTo.x = moveSpeed;
     }
+
+
+    // calculates the axis he wants with control stick
+    if (isTouchingScreen) {
+        moveTo = controlStickStartPos.MoveTowards(controlStickCurrentPos, moveSpeed) - controlStickStartPos;
+    }
+
+    Pos::movePlayer(moveTo);
 
 }
 
-void Pos::movePlayer(float moveDistance, Data::Axis axis) {
-
-    switch (axis) {
-        case Data::x:
-            if (Pos::isPosInScreen(Vector2(playerPos.x + moveDistance, playerPos.y))) playerPos.x += moveDistance;
-            break;
-
-        case Data::y:
-            if (Pos::isPosInScreen(Vector2(playerPos.x, playerPos.y + moveDistance))) playerPos.y += moveDistance;
-            break;
+void Pos::movePlayer(Vector2 moveDistance) {
+    if (Pos::isPosInScreen(playerPos + moveDistance)) {
+        playerPos += moveDistance;
+        Utils::checkAllCollisions(Data::player, Data::ball);
     }
-
 }

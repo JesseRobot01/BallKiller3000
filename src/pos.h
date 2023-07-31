@@ -10,7 +10,7 @@ public:
 
     static void getPlayerMoveInput();
 
-    static void movePlayer(float moveDistance, Data::Axis axis);
+    static void movePlayer(Vector2 moveDistance);
 
     static bool isPosInScreen(Vector2 pos);
 
