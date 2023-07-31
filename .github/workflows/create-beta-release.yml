@@ -19,47 +19,46 @@ jobs:
     with:
       build_type: Release #Yeah, don't need debug information on beta build, so build as release.
 
-    create-beta:
-      needs: build-beta
-      runs-on: ubuntu-latest
+  create-beta:
+    needs: build-beta
+    runs-on: ubuntu-latest
 
-      steps:
+    steps:
 
-        - name: Install Dependencies
-          run: |
-            sudo apt install ninja-build libasound2-dev libx11-dev libxrandr-dev libxi-dev libgl1-mesa-dev libglu1-mesa-dev libxcursor-dev libxinerama-dev
-            git clone https://github.com/emscripten-core/emsdk.git
-            cd emsdk
-            ./emsdk install latest
-            ./emsdk activate latest
-            cd ..
+      - name: Install Dependencies
+        run: |
+          sudo apt install ninja-build libasound2-dev libx11-dev libxrandr-dev libxi-dev libgl1-mesa-dev libglu1-mesa-dev libxcursor-dev libxinerama-dev
+          git clone https://github.com/emscripten-core/emsdk.git
+          cd emsdk
+          ./emsdk install latest
+          ./emsdk activate latest
+          cd ..
 
-        - name: Install and build stable version of BallKiller3000
-          run: |
-            git clone https://github.com/JesseRobot01/BallKiller3000.git
-            cd BallKiller3000
-            git checkout $(git describe --abbrev=0 --tags)
-            cmake -B build_stable -G Ninja -DPLATFORM=Web "-DCMAKE_TOOLCHAIN_FILE=../emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake" -DCMAKE_BUILD_TYPE=Release
-            cmake --build build_stable --config Release
-            cd ..
+      - name: Install and build stable version of BallKiller3000
+        run: |
+          git clone https://github.com/JesseRobot01/BallKiller3000.git
+          cd BallKiller3000
+          git checkout $(git describe --abbrev=0 --tags)
+          cmake -B build_stable -G Ninja -DPLATFORM=Web "-DCMAKE_TOOLCHAIN_FILE=../emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake" -DCMAKE_BUILD_TYPE=Release
+          cmake --build build_stable --config Release
+          cd ..
 
 
-        - name: Prepare site files
-          run: |
-            mkdir BallKiller3000-HTML5/beta
-            mv ${{github.workspace}}/_site/*.* ${{github.workspace}}/BallKiller3000-HTML5/beta
-            mv ${{github.workspace}}/BallKiller3000/build_stable/BallKiller3000.html  ${{github.workspace}}/BallKiller3000-HTML5/index.html
-            mv ${{github.workspace}}/BallKiller3000/build_stable/BallKiller3000.*  ${{github.workspace}}/BallKiller3000-HTML5/
+      - name: Prepare site files
+        run: |
+          mkdir BallKiller3000-HTML5/beta
+          mv ${{github.workspace}}/_site/*.* ${{github.workspace}}/BallKiller3000-HTML5/beta
+          mv ${{github.workspace}}/BallKiller3000/build_stable/BallKiller3000.html  ${{github.workspace}}/BallKiller3000-HTML5/index.html
+          mv ${{github.workspace}}/BallKiller3000/build_stable/BallKiller3000.*  ${{github.workspace}}/BallKiller3000-HTML5/
 
-        - name: Upload beta release to github pages
-          if: ${{ matrix.artifact_name == 'BallKiller3000-github_pages' }}
-          uses: actions/upload-pages-artifact@v2
-          with:
-            # Artifact name
-            name: BallKiller3000-github_pages
+      - name: Upload beta release to github pages
+        uses: actions/upload-pages-artifact@v2
+        with:
+          # Artifact name
+          name: BallKiller3000-github_pages
 
-            # A file, directory or wildcard pattern that describes what to upload
-            path: ${{github.workspace}}/BallKiller3000-HTML5
+          # A file, directory or wildcard pattern that describes what to upload
+          path: ${{github.workspace}}/BallKiller3000-HTML5
 
 
   upload-beta:
