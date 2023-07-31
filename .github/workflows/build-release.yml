@@ -13,6 +13,9 @@ env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
   BUILD_TYPE: Release
 
+permissions:
+  contents: write
+
 jobs:
   build:
     # The CMake configure and build commands are platform agnostic and should work equally well on Windows or Mac.
@@ -100,7 +103,7 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     outputs:
-      upload_url: ${{ steps.create_release.outputs.upload_url }}
+      upload_url: ${{ steps.Create-Release.outputs.upload_url }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -112,7 +115,7 @@ jobs:
         run: |
           mv BallKiller3000-Windows-x64/BallKiller3000.exe BallKiller3000-v${{inputs.version}}-Windows-x64.exe
           mv BallKiller3000-linux/BallKiller3000 BallKiller3000-v${{inputs.version}}-linux
-          zip -r BallKiller3000-v${inputs-version}}-HTML5.zip BallKiller3000-HTML5
+          zip -r BallKiller3000-v${{inputs-version}}-HTML5.zip BallKiller3000-HTML5
 
 
 
@@ -135,4 +138,4 @@ jobs:
           files: |
             BallKiller3000-v${{inputs.version}}-Windows-x64.exe
             BallKiller3000-v${{inputs.version}}-linux
-            BallKiller3000-v${inputs-version}}-HTML5.zip
+            BallKiller3000-v${{inputs-version}}-HTML5.zip
