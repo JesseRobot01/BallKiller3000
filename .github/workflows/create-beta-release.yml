@@ -25,7 +25,7 @@ jobs:
         run: |
           ver_short=`git rev-parse --short HEAD`
           echo "VERSION=$ver_short" >> $GITHUB_ENV
-          echo "::set-output name=version::$ver_short"
+          echo "${ver_short}" >> $GITHUB_STATE
 
   build-beta:
     name: Build Beta
@@ -50,6 +50,9 @@ jobs:
           ./emsdk install latest
           ./emsdk activate latest
           cd ..
+
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
 
       - name: Install and build stable version of BallKiller3000
         run: |
