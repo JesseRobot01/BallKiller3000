@@ -52,8 +52,9 @@ jobs:
           ./emsdk activate latest
           cd ..
 
-      - name: Get version
+      - name: Set build number
         if: ${{inputs.need-commit-id == '1' }}
+        shell: bash
         run: |
           ver_short=`git rev-parse --short HEAD`
           echo "VERSION=$ver_short" >> $GITHUB_ENV
