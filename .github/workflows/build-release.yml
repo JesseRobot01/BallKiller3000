@@ -110,9 +110,9 @@ jobs:
 
       - name: Prepare the files
         run: |
-          mv BallKiller3000-Windows-x64/BallKiller3000.exe BallKiller3000-v${{input.version}}-Windows-x64.exe
-          mv BallKiller3000-linux/BallKiller3000 BallKiller3000-v${{input.version}}-linux
-          zip -r BallKiller3000-v${input-version}}-HTML5.zip BallKiller3000-HTML5
+          mv BallKiller3000-Windows-x64/BallKiller3000.exe BallKiller3000-v${{inputs.version}}-Windows-x64.exe
+          mv BallKiller3000-linux/BallKiller3000 BallKiller3000-v${{inputs.version}}-linux
+          zip -r BallKiller3000-v${inputs-version}}-HTML5.zip BallKiller3000-HTML5
 
 
 
@@ -128,11 +128,11 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
         with:
-          tag_name: BallKiller3000-v${{input.version}}
-          name: BallKiller3000-v${{input.version}}
+          tag_name: BallKiller3000-v${{inputs.version}}
+          name: BallKiller3000-v${{inputs.version}}
           draft: true
           prerelease: false
           files: |
-            BallKiller3000-v${{input.version}}-Windows-x64.exe
-            BallKiller3000-v${{input.version}}-linux
-            BallKiller3000-v${input-version}}-HTML5.zip
+            BallKiller3000-v${{inputs.version}}-Windows-x64.exe
+            BallKiller3000-v${{inputs.version}}-linux
+            BallKiller3000-v${inputs-version}}-HTML5.zip
