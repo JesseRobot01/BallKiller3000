@@ -118,11 +118,6 @@ jobs:
           zip -r BallKiller3000-v${{inputs.version}}-HTML5.zip BallKiller3000-HTML5
 
 
-
-      - name: View the tree (DEBUG)
-        run: tree
-
-
       - name: Create release
         id: create_release
         uses: softprops/action-gh-release@v1
