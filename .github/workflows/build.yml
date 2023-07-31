@@ -1,20 +1,17 @@
-name: Build Release Files
+name: Build
+
 
 on:
-  workflow_dispatch:
+  workflow_call:
     inputs:
-      version:
-        description: "Version"
-        required: true
+      BUILD_TYPE:
+        description: Type of build (Debug, Release, RelWithDebInfo, MinSizeRel)
         type: string
+        default: Release
 
-
-env:
-  # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
-  BUILD_TYPE: Release
-
-permissions:
-  contents: write
+      extra-version:
+        description: The commit-id for extra version info, can be kept empty for release builds
+        type: string
 
 jobs:
   build:
@@ -59,19 +56,19 @@ jobs:
         # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
         # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
         if: ${{ matrix.executable_name != 'index.html' }}
-        run: cmake -G Ninja -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+        run: cmake -G Ninja -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{inputs.BUILD_TYPE}} -DCOMMIT_HASH=${{inputs.extra-version }}
 
       - name: Configure CMake (HTML5)
         if: ${{ matrix.executable_name == 'index.html' }}
-        run: cmake -B build -G Ninja -DPLATFORM=Web "-DCMAKE_TOOLCHAIN_FILE=./emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake"  -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+        run: cmake -B build -G Ninja -DPLATFORM=Web "-DCMAKE_TOOLCHAIN_FILE=./emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake"  -DCMAKE_BUILD_TYPE=${{inputs.BUILD_TYPE}}  -DCOMMIT_HASH=${{inputs.extra-version }}
 
 
       - name: Build
         # Build your program with the given configuration
-        run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+        run: cmake --build ${{github.workspace}}/build --config ${{inputs.BUILD_TYPE}}
 
 
-      - name: Move site files (html5)
+      - name: Prepare site files (HTML5)
         if: ${{ matrix.executable_name == 'index.html' }}
         run: |
           mkdir _site
@@ -98,39 +95,3 @@ jobs:
 
           # A file, directory or wildcard pattern that describes what to upload
           path: ${{github.workspace}}/_site
-
-  Create-Release:
-    needs: build
-    runs-on: ubuntu-latest
-    outputs:
-      upload_url: ${{ steps.Create-Release.outputs.upload_url }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Download artifacts
-        uses: actions/download-artifact@v3
-
-      - name: Prepare the files
-        run: |
-          mv BallKiller3000-Windows-x64/BallKiller3000.exe BallKiller3000-v${{inputs.version}}-Windows-x64.exe
-          mv BallKiller3000-linux/BallKiller3000 BallKiller3000-v${{inputs.version}}-linux
-          zip -r BallKiller3000-v${{inputs.version}}-HTML5.zip BallKiller3000-HTML5
-
-
-      - name: Create release
-        id: create_release
-        uses: softprops/action-gh-release@v1
-
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-        with:
-          tag_name: BallKiller3000-v${{inputs.version}}
-          name: BallKiller3000 v${{inputs.version}}
-          draft: true
-          prerelease: false
-          files: |
-            BallKiller3000-v${{inputs.version}}-Windows-x64.exe
-            BallKiller3000-v${{inputs.version}}-linux
-            BallKiller3000-v${{inputs.version}}-HTML5.zip

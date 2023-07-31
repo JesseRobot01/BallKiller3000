@@ -1,0 +1,55 @@
+name: Create Releases
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version"
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  build_release:
+    name: Build Release
+    uses: ./.github/workflows/build.yml
+    with:
+      build_type: Release
+
+  Create-Release:
+    needs: build_release
+    runs-on: ubuntu-latest
+    outputs:
+      upload_url: ${{ steps.Create-Release.outputs.upload_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
+
+      - name: Prepare the files
+        run: |
+          mv BallKiller3000-Windows-x64/BallKiller3000.exe BallKiller3000-v${{inputs.version}}-Windows-x64.exe
+          mv BallKiller3000-linux/BallKiller3000 BallKiller3000-v${{inputs.version}}-linux
+          zip -r BallKiller3000-v${{inputs.version}}-HTML5.zip BallKiller3000-HTML5
+
+
+      - name: Create release
+        id: create_release
+        uses: softprops/action-gh-release@v1
+
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+        with:
+          tag_name: BallKiller3000-v${{inputs.version}}
+          name: BallKiller3000 v${{inputs.version}}
+          draft: true
+          prerelease: false
+          files: |
+            BallKiller3000-v${{inputs.version}}-Windows-x64.exe
+            BallKiller3000-v${{inputs.version}}-linux
+            BallKiller3000-v${{inputs.version}}-HTML5.zip
