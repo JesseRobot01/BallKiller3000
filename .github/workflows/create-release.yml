@@ -63,7 +63,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: BallKiller3000
-      url: ${{ steps.deployment.outputs.page_url }}/beta
+      url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
       - name: Download artifacts
