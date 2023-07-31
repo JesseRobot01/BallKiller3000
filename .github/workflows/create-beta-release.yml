@@ -14,18 +14,21 @@ permissions:
 
 jobs:
   build-beta:
+
     runs-on: ubuntu-latest
     steps:
-    - name: Get Build Number
-      run: |
-        ver_short=`git rev-parse --short HEAD`
-        echo "VERSION=$ver_short" >> $GITHUB_ENV
+      - uses: actions/checkout@v3
 
-    - name: Build Beta
-      uses: ./.github/workflows/build.yml
-      with:
-        build_type: Release #Yeah, don't need debug information on beta build, so build as release.
-        extra-version: ${{env.VERSION}}
+      - name: Get Build Number
+        run: |
+         ver_short=`git rev-parse --short HEAD`
+          echo "VERSION=$ver_short" >> $GITHUB_ENV
+
+      - name: Build Beta
+        uses: ./.github/workflows/build.yml
+        with:
+          build_type: Release #Yeah, don't need debug information on beta build, so build as release.
+          extra-version: ${{env.VERSION}}
 
   create-beta:
     needs: build-beta
