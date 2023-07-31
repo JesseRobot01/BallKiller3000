@@ -132,7 +132,7 @@ jobs:
 
         with:
           tag_name: BallKiller3000-v${{inputs.version}}
-          name: BallKiller3000-v${{inputs.version}}
+          name: BallKiller3000 v${{inputs.version}}
           draft: true
           prerelease: false
           files: |
