@@ -18,7 +18,8 @@ jobs:
     with:
       build_type: Release
 
-  Create-Release:
+  create-release:
+    name: Create Release
     needs: build_release
     runs-on: ubuntu-latest
     outputs:
@@ -54,7 +55,8 @@ jobs:
             BallKiller3000-v${{inputs.version}}-linux
             BallKiller3000-v${{inputs.version}}-HTML5.zip
 
-  Deploy-Release:
+  deploy-release:
+    name: Deploy Release
     needs: build-release
     runs-on: ubuntu-latest
     environment:

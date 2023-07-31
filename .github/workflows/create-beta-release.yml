@@ -14,6 +14,7 @@ permissions:
 
 jobs:
   get-build-number:
+    name: Get Build Number
     runs-on: ubuntu-latest
     outputs:
       version: ${{ steps.set-version.outputs.version }}
@@ -24,6 +25,7 @@ jobs:
         run: |
           ver_short=`git rev-parse --short HEAD`
           echo "VERSION=$ver_short" >> $GITHUB_ENV
+          echo "::set-output name=version::$ver_short"
 
   build-beta:
     name: Build Beta
@@ -34,6 +36,7 @@ jobs:
       extra-version: ${{ needs.get-build-number.outputs.version }}
 
   create-beta:
+    name: Create Beta
     needs: build-beta
     runs-on: ubuntu-latest
 
@@ -62,7 +65,7 @@ jobs:
         run: |
           tree #debug for error
           mkdir BallKiller3000-HTML5/beta
-          mv ${{github.workspace}}/_site/*.* ${{github.workspace}}/BallKiller3000-HTML5/beta
+          mv ${{github.workspace}}/BallKiller3000-HTML5/*.* ${{github.workspace}}/BallKiller3000-HTML5/beta
           mv ${{github.workspace}}/BallKiller3000/build_stable/BallKiller3000.html  ${{github.workspace}}/BallKiller3000-HTML5/index.html
           mv ${{github.workspace}}/BallKiller3000/build_stable/BallKiller3000.*  ${{github.workspace}}/BallKiller3000-HTML5/
 
