@@ -53,7 +53,7 @@ void Gui::renderControlStick() {
             controlStickStartPos = GetMousePosition();
             isTouchingScreen = true;
 
-            if (controlStickStartPos.CheckCollision(playerPos, 30)) isControlStickBasePlayer = true;
+            if (controlStickStartPos.CheckCollision(playerPos, 50)) isControlStickBasePlayer = true;
         }
         controlStickCurrentPos = controlStickStartPos.MoveTowards(GetMousePosition(), 50);
 
