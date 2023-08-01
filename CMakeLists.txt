@@ -22,7 +22,8 @@ set(SOURCES
         src/GameHandler/endGame.cpp
         src/Enemy/move.cpp
         src/Util/getNearest.cpp
-        src/gui/renderGui.cpp)
+        src/gui/renderGui.cpp
+        src/gui/resizeWindow.cpp)
 
 add_executable(${PROJECT_NAME} ${SOURCES})
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_BINARY_DIR})

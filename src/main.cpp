@@ -35,6 +35,7 @@ bool isGameOver = true;
 
 bool isTouchingScreen = false;
 bool isControlStickBasePlayer = false;
+
 raylib::Vector2 controlStickStartPos;
 raylib::Vector2 controlStickCurrentPos;
 
@@ -50,8 +51,11 @@ int main() {
 
     // main game loop (executes every frame)
     while (!window.ShouldClose()) {
-        screenWidth = window.GetRenderWidth();
-        screenHeight = window.GetRenderHeight();
+        if (screenWidth != window.GetRenderWidth() && screenHeight != window.GetRenderHeight()) {
+            screenWidth = window.GetRenderWidth();
+            screenHeight = window.GetRenderHeight();
+            Gui::resizeWindow();
+        }
 
         BeginDrawing();
         ClearBackground(RAYWHITE);
