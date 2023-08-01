@@ -31,16 +31,16 @@ void Gui::renderDefaultScreen() {
         if (IsKeyPressed(KEY_ENTER)) GameHandler::startGame();
 
         // draws a restart button
-        DrawRectangle(GetRenderWidth() / 2 - MeasureText("Restart", 30) / 2 - 10, GetRenderHeight() / 2 + 65,
+        DrawRectangle(screenWidth / 2 - MeasureText("Restart", 30) / 2 - 10, screenHeight/ 2 + 65,
                       MeasureText("Restart", 30) + 20, 50, ColorAlpha(RED, 0.25));
 
-        raylib::DrawText("Restart", GetRenderWidth() / 2 - MeasureText("Restart", 30) / 2, GetRenderHeight() / 2 + 75,
+        raylib::DrawText("Restart", screenWidth / 2 - MeasureText("Restart", 30) / 2, screenHeight / 2 + 75,
                          30, RED);
 
         if (IsGestureDetected(GESTURE_TAP) &&
             CheckCollisionPointRec(GetMousePosition(),
-                                   Rectangle(GetRenderWidth() / 2 - MeasureText("Restart", 30) / 2 - 10,
-                                             GetRenderHeight() / 2 + 65,
+                                   Rectangle(screenWidth / 2 - MeasureText("Restart", 30) / 2 - 10,
+                                             screenHeight / 2 + 65,
                                              MeasureText("Restart", 30) + 20, 50))) {
             GameHandler::startGame();
         }

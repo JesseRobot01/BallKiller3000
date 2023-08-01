@@ -39,7 +39,9 @@ raylib::Vector2 controlStickStartPos;
 raylib::Vector2 controlStickCurrentPos;
 
 int main() {
-//initialize the variables
+    SetConfigFlags(FLAG_WINDOW_RESIZABLE);
+
+    //initialize the variables
     GameHandler::startGame();
 
     //initializes the window
@@ -48,6 +50,9 @@ int main() {
 
     // main game loop (executes every frame)
     while (!window.ShouldClose()) {
+        screenWidth = window.GetRenderWidth();
+        screenHeight = window.GetRenderHeight();
+
         BeginDrawing();
         ClearBackground(RAYWHITE);
 
