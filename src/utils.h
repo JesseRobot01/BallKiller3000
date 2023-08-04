@@ -45,7 +45,7 @@ public:
  * @param hasCollisionWithNumber the number from the thing i may touch
  */
     static bool haveCollision(Data::Types targetType, Data::Types hasCollisionWith, int hasCollisionWithNumber) {
-       return Utils::hasCollision(targetType, hasCollisionWith, 0, hasCollisionWithNumber);
+        return Utils::hasCollision(targetType, hasCollisionWith, 0, hasCollisionWithNumber);
     }
 
     /**
@@ -71,7 +71,7 @@ public:
 * @return The nearest ball number from the given pos.
 */
     static int getNearest(Data::Types findNearest, raylib::Vector2 pos) {
-       return getNearest(findNearest, pos, -1);
+        return getNearest(findNearest, pos, -1);
     };
 };
 

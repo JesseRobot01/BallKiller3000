@@ -47,5 +47,4 @@ extern raylib::Vector2 controlStickStartPos;
 extern raylib::Vector2 controlStickCurrentPos;
 
 
-
 #endif

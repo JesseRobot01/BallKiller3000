@@ -29,9 +29,9 @@ bool Pos::isPosInScreen(float pos, Data::Axis axis) {
  * @param pos The pos to check if it is in a safe screen space
  *
  */
-bool Pos::isPosSafePos(Vector2 pos){
-    if(pos.x >= 60 && pos.x <= screenWidth - 60){
-        if(pos.y >= 60 && pos.y <= screenHeight - 60){
+bool Pos::isPosSafePos(Vector2 pos) {
+    if (pos.x >= 60 && pos.x <= screenWidth - 60) {
+        if (pos.y >= 60 && pos.y <= screenHeight - 60) {
             return true;
         }
     }

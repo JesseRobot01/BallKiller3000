@@ -31,7 +31,7 @@ void Gui::renderDefaultScreen() {
         if (IsKeyPressed(KEY_ENTER)) GameHandler::startGame();
 
         // draws a restart button
-        DrawRectangle(screenWidth / 2 - MeasureText("Restart", 30) / 2 - 10, screenHeight/ 2 + 65,
+        DrawRectangle(screenWidth / 2 - MeasureText("Restart", 30) / 2 - 10, screenHeight / 2 + 65,
                       MeasureText("Restart", 30) + 20, 50, ColorAlpha(RED, 0.25));
 
         raylib::DrawText("Restart", screenWidth / 2 - MeasureText("Restart", 30) / 2, screenHeight / 2 + 75,

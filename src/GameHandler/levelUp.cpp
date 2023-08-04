@@ -10,7 +10,7 @@ void GameHandler::checkLevelUp(bool firstTimeRun) {
         delete[] enemySize;
         delete[] enemyPreference;
         level++;
-       if(level % 2) lives++;
+        if (level % 2) lives++;
 
         ballCount = level + 2;
         enemyCount = level;

@@ -12,7 +12,7 @@ set(SOURCES
         src/GameHandler/startGame.cpp
         src/GameHandler/highScore.cpp
         src/GameHandler/levelUp.cpp
-        src/player/movePlayer.cpp
+        src/Player/movePlayer.cpp
         src/Util/isPosInScreen.cpp
         src/Util/random.cpp
         src/Util/checkCollision.cpp
@@ -22,8 +22,8 @@ set(SOURCES
         src/GameHandler/endGame.cpp
         src/Enemy/move.cpp
         src/Util/getNearest.cpp
-        src/gui/renderGui.cpp
-        src/gui/resizeWindow.cpp)
+        src/Gui/renderGui.cpp
+        src/Gui/resizeWindow.cpp)
 
 add_executable(${PROJECT_NAME} ${SOURCES})
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_BINARY_DIR})

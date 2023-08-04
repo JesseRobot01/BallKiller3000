@@ -37,7 +37,6 @@ emcmake cmake .. -DPLATFORM=Web -DCMAKE_BUILD_TYPE=Release -DCMAKE_EXE_LINKER_FL
 ninja
 ```
 
-
 #### For Ubuntu
 
 Run the following commands:

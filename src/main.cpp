@@ -43,10 +43,10 @@ raylib::Vector2 controlStickCurrentPos;
 int main() {
     SetConfigFlags(FLAG_WINDOW_RESIZABLE);
 
-    //initialize the variables
+    //initialise the variables
     GameHandler::startGame();
 
-    //initializes the window
+    //initialises the window
     raylib::Window window(screenWidth, screenHeight, "BallKiller3000 v" BALL_KILLER_VERSION);
     SetTargetFPS(60);
 

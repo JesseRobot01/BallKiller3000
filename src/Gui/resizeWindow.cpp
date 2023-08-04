@@ -2,7 +2,7 @@
 #include "../data.h"
 #include "../pos.h"
 
-void Gui::resizeWindow(){
+void Gui::resizeWindow() {
     // reset all the positions
     playerPos = Vector2(screenWidth / 2, screenHeight / 2);
 
