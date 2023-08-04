@@ -29,6 +29,7 @@ int level;
 int ballsInScreen;
 int ballCount;
 int enemyCount;
+int enemiesInScreen;
 int *enemyPreference;
 
 bool isGameOver = true;

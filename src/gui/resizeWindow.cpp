@@ -9,7 +9,7 @@ void Gui::resizeWindow(){
     for (int b = 0; b < ballsInScreen; ++b) {
         ballPos[b] = Pos::generateRandomPos(Data::ball);
     }
-    for (int e = 0; e < enemyCount; ++e) {
+    for (int e = 0; e < enemiesInScreen; ++e) {
         enemyPos[e] = Pos::generateRandomPos(Data::enemy);
     }
 

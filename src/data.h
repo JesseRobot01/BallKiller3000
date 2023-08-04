@@ -36,6 +36,7 @@ extern int level;
 extern int ballsInScreen;
 extern int ballCount;
 extern int enemyCount;
+extern int enemiesInScreen;
 extern int *enemyPreference;
 
 extern bool isGameOver;

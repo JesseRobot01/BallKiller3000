@@ -15,6 +15,7 @@ void GameHandler::checkLevelUp(bool firstTimeRun) {
         ballCount = level + 2;
         enemyCount = level;
         ballsInScreen = ballCount;
+        enemiesInScreen = enemyCount;
 
         ballPos = new raylib::Vector2[ballCount];
         enemyPos = new raylib::Vector2[enemyCount];
