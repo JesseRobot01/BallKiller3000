@@ -50,6 +50,7 @@ void EnemyAi::generateMove() {
                 }
                 if (enemyPreference[enemy] == 4) {
                     nearest = Utils::getNearest(Data::enemy, enemyPos[enemy], enemy);
+                    if (nearest == -1) return;
 
                     moveDistance = Utils::random(1, 30);
                     EnemyAi::moveTo(enemy, enemyPos[nearest], moveDistance);
