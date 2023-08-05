@@ -28,6 +28,7 @@ int lives;
 int level;
 int ballsInScreen;
 int ballCount;
+int *ballSize;
 int enemyCount;
 int enemiesInScreen;
 int *enemyPreference;

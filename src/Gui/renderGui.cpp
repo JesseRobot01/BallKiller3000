@@ -8,7 +8,7 @@ void Gui::renderDefaultScreen() {
 
     // renders the balls, enemies and the player
     for (int b = 0; b < ballCount; ++b) {
-        DrawCircleV(ballPos[b], 30, BLUE);
+        DrawCircleV(ballPos[b], ballSize[b], BLUE);
     }
     for (int e = 0; e < enemyCount; ++e) {
         DrawRectangleV(enemyPos[e], enemySize[e], YELLOW);

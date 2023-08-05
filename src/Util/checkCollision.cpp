@@ -86,7 +86,7 @@ Utils::hasCollision(Data::Types targetType, Data::Types hasCollisionWith, int ta
                     int hasCollisionWithNumber) {
     if (targetType == Data::player) {
         if (hasCollisionWith == Data::ball) {
-            if (playerPos.CheckCollision(ballPos[hasCollisionWithNumber], 45)) return true;
+            if (playerPos.CheckCollision(ballPos[hasCollisionWithNumber], 15 + ballSize[hasCollisionWithNumber])) return true;
         }
         if (hasCollisionWith == Data::enemy) {
             if (playerPos.CheckCollision(

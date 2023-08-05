@@ -31,7 +31,7 @@ public:
  *
  * @param targetType the type to check for it
  * @param position the position to check for.
- * @param targetNumber the number for the target, ignored if it's the player or a ball in this case, because the ballPos needs to be included, so no need for the ballNumber
+ * @param targetNumber the number for the target, ignored if it's the player.
  *
 */
     static bool isClippingOutsideScreen(Data::Types targetType, Vector2 position, int targetNumber);

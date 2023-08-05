@@ -9,6 +9,7 @@ void GameHandler::checkLevelUp(bool firstTimeRun) {
         delete[] enemyPos;
         delete[] enemySize;
         delete[] enemyPreference;
+        delete[] ballSize;
         level++;
         if (level % 2) lives++;
 
@@ -21,10 +22,12 @@ void GameHandler::checkLevelUp(bool firstTimeRun) {
         enemyPos = new raylib::Vector2[enemyCount];
         enemySize = new raylib::Vector2[enemyCount];
         enemyPreference = new int[enemyCount];
+        ballSize = new int[ballCount];
 
         // generate random ball and enemy pos
         for (int b = 0; b < ballCount; ++b) {
             ballPos[b] = Pos::generateRandomPos(Data::ball);
+            ballSize[b] = 30;
         }
         for (int e = 0; e < enemyCount; ++e) {
             enemyPos[e] = Pos::generateRandomPos(Data::enemy);
