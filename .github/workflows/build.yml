@@ -41,7 +41,9 @@ jobs:
 
       - name: Install Dependencies (linux)
         if: ${{ matrix.os == 'ubuntu-latest' }}
-        run: sudo apt install ninja-build libasound2-dev libx11-dev libxrandr-dev libxi-dev libgl1-mesa-dev libglu1-mesa-dev libxcursor-dev libxinerama-dev
+        run: |
+          sudo apt update
+          sudo apt install ninja-build libasound2-dev libx11-dev libxrandr-dev libxi-dev libgl1-mesa-dev libglu1-mesa-dev libxcursor-dev libxinerama-dev
 
       - name: Install and set up Emscripten SDK (HTML5)
         if: ${{ matrix.executable_name == 'index.html' }}
