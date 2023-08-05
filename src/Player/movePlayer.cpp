@@ -37,5 +37,18 @@ void Pos::movePlayer(Vector2 moveDistance) {
     if (!Pos::isClippingOutsideScreen(Data::player, playerPos + moveDistance)) {
         playerPos += moveDistance;
         Utils::checkAllCollisions(Data::player, Data::ball);
+        return;
+    }
+
+    // if it can't move altogether, try moving it by axis.
+    if (!Pos::isClippingOutsideScreen(Data::player, playerPos + Vector2(moveDistance.x, 0))) {
+        playerPos += Vector2(moveDistance.x, 0);
+        Utils::checkAllCollisions(Data::player, Data::ball);
+    }
+
+    // if it can't move altogether, try moving it by axis.
+    if (!Pos::isClippingOutsideScreen(Data::player, playerPos + Vector2(0, moveDistance.y))) {
+        playerPos += Vector2(0, moveDistance.y);
+        Utils::checkAllCollisions(Data::player, Data::ball);
     }
 }
