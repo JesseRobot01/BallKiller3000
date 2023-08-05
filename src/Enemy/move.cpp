@@ -83,13 +83,13 @@ void EnemyAi::generateMove() {
 }
 
 void EnemyAi::move(int enemyNum, raylib::Vector2 distance) {
-    if (Pos::isPosSafePos(enemyPos[enemyNum] + distance))
+    if (!Pos::isClippingOutsideScreen(Data::enemy, enemyPos[enemyNum] + distance, enemyNum))
         enemyPos[enemyNum] += distance;
 }
 
 void EnemyAi::moveTo(int enemyNum, raylib::Vector2 targetPos, float maxSteps) {
     if (Pos::isPosInScreen(targetPos)) {
-        if (Pos::isPosInScreen(enemyPos[enemyNum].MoveTowards(targetPos, maxSteps))) {
+        if (!Pos::isClippingOutsideScreen(Data::enemy, enemyPos[enemyNum].MoveTowards(targetPos, maxSteps), enemyNum)) {
             enemyPos[enemyNum] = enemyPos[enemyNum].MoveTowards(targetPos, maxSteps);
         }
     }

@@ -38,3 +38,42 @@ bool Pos::isPosSafePos(Vector2 pos) {
 
     return false;
 }
+
+/**
+* A function to check if something is clipping outside the screen.
+ *
+ * @param targetType the type to check for it
+ * @param position the position to check for.
+ * @param targetNumber the number for the target, ignored if it's the player or a ball in this case, because the ballPos needs to be included, so no need for the ballNumber
+ *
+*/
+bool Pos::isClippingOutsideScreen(Data::Types targetType, Vector2 position, int targetNumber) {
+    switch (targetType) {
+        case Data::player:
+            if (position.x >= 20 && position.x <= screenWidth - 20) {
+                if (position.y >= 20 && position.y <= screenHeight - 20) {
+                    return false;
+                }
+            }
+
+            break;
+        case Data::ball:
+            if (position.x >= 30 && position.x <= screenWidth - 30) {
+                if (position.y >= 30 && position.y <= screenHeight - 30) {
+                    return false;
+                }
+            }
+            break;
+        case Data::enemy:
+            if (position.x - enemySize[targetNumber].x >= 30 &&
+                position.x + enemySize[targetNumber].x <= screenWidth - 30) {
+                if (position.y - enemySize[targetNumber].y >= 30 &&
+                    position.y + enemySize[targetNumber].y <= screenHeight - 30) {
+                    return false;
+                }
+            }
+            break;
+    }
+
+    return true;
+}

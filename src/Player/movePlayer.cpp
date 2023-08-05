@@ -34,7 +34,7 @@ void Pos::getPlayerMoveInput() {
 }
 
 void Pos::movePlayer(Vector2 moveDistance) {
-    if (Pos::isPosInScreen(playerPos + moveDistance)) {
+    if (!Pos::isClippingOutsideScreen(Data::player, playerPos + moveDistance)) {
         playerPos += moveDistance;
         Utils::checkAllCollisions(Data::player, Data::ball);
     }

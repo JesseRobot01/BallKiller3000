@@ -25,8 +25,67 @@ public:
  */
     static bool isPosSafePos(Vector2 pos);
 
+
+    /**
+* A function to check if something is clipping outside the screen.
+ *
+ * @param targetType the type to check for it
+ * @param position the position to check for.
+ * @param targetNumber the number for the target, ignored if it's the player or a ball in this case, because the ballPos needs to be included, so no need for the ballNumber
+ *
+*/
+    static bool isClippingOutsideScreen(Data::Types targetType, Vector2 position, int targetNumber);
+
+    /**
+* A function to check if something is clipping outside the screen.
+ *
+ * @param targetType the type to check for it
+ * @param targetNumber the number for the target, ignored if it's the player.
+ *
+*/
+    static bool isClippingOutsideScreen(Data::Types targetType, int targetNumber) {
+        switch (targetType) {
+
+            case Data::player:
+                return Pos::isClippingOutsideScreen(targetType, playerPos, -1);
+                break;
+            case Data::ball:
+                Pos::isClippingOutsideScreen(targetType, ballPos[targetNumber], targetNumber);
+                break;
+            case Data::enemy:
+                Pos::isClippingOutsideScreen(targetType, enemyPos[targetNumber], targetNumber);
+                break;
+        }
+
+    };
+
+    /**
+* A function to check if something is clipping outside the screen.
+*
+* @param targetType the type to check for it
+ * @param position the position to check for.
+*
+*/
+    static bool isClippingOutsideScreen(Data::Types targetType, Vector2 position) {
+        return Pos::isClippingOutsideScreen(targetType, position, -1);
+
+    };
+
+    /**
+* A function to check if something is clipping outside the screen.
+ *
+ * @param targetType the type to check for it
+ *
+*/
+    static bool isClippingOutsideScreen(Data::Types targetType) {
+        return Pos::isClippingOutsideScreen(targetType, -1);
+
+    };
+
 private:
     static Vector2 generateRandomPos();
+
+
 };
 
 #endif
