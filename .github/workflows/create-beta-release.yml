@@ -52,7 +52,6 @@ jobs:
 
       - name: Prepare site files
         run: |
-          tree #debug for error
           mkdir BallKiller3000-HTML5/beta
           mv ${{github.workspace}}/BallKiller3000-HTML5/*.* ${{github.workspace}}/BallKiller3000-HTML5/beta
           mv ${{github.workspace}}/BallKiller3000/build_stable/BallKiller3000.html  ${{github.workspace}}/BallKiller3000-HTML5/index.html
