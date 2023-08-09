@@ -69,6 +69,11 @@ jobs:
       - name: Download artifacts
         uses: actions/download-artifact@v3
 
+      - name: Fix beta version
+        run: |
+          mkdir BallKiller3000-HTML5/beta
+          cp BallKiller3000-HTML5/* BallKiller3000-HTML5/beta 
+
       - name: Repack site files
         uses: actions/upload-pages-artifact@v2
         with:
