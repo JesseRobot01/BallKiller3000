@@ -26,6 +26,11 @@ jobs:
             artifact_name: BallKiller3000-Windows-x64
             executable_name: BallKiller3000.exe
 
+          - os: windows-latest
+            artifact_name: BallKiller3000-Windows-MSVC-x64
+            executable_name: BallKiller3000.exe
+
+
           - os: ubuntu-latest
             artifact_name: BallKiller3000-linux
             executable_name: BallKiller3000
@@ -65,6 +70,10 @@ jobs:
         # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
         # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
         if: ${{ matrix.executable_name != 'index.html' }}
+        run: cmake -G Ninja -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{inputs.BUILD_TYPE}} -DCOMMIT_HASH=${{env.VERSION}}
+
+      - name: Configure CMake (MSVC
+        if: ${{   matrix.artifact_name == 'BallKiller3000-Windows-MSVC-x64'}}
         run: cmake -G Ninja -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{inputs.BUILD_TYPE}} -DCOMMIT_HASH=${{env.VERSION}}
 
       - name: Configure CMake (HTML5)
