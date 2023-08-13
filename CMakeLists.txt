@@ -99,7 +99,9 @@ endif ()
 
 # fix missing DLL files
 if (WIN32)
-    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -static-libgcc -static-libstdc++ -static -pthread")
+    if (NOT MSVC)
+        set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -static-libgcc -static-libstdc++ -static -pthread")
+    endif ()
 endif ()
 
 # Checks if OSX and links appropriate frameworks (only required on MacOS)
