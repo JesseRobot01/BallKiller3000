@@ -1,6 +1,6 @@
 #include "../gameHandler.h"
 #include "../data.h"
-#include "../pos.h"
+
 
 void GameHandler::startGame() {
     // first time run things

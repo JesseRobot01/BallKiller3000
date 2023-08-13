@@ -4,9 +4,12 @@
 
 Vector2 EnemyAi::generateEnemySize() {
     if (Utils::random(0, 1) == 1) {
-        return Vector2(Utils::random(20, 40), Utils::random(50, 70));
+        return Vector2(Utils::randomFloat(minimalEnemySizeY, maximalEnemySizeY),
+                       Utils::randomFloat(minimalEnemySizeX, maximalEnemySizeX));
+
     } else {
-        return Vector2(Utils::random(50, 70), Utils::random(20, 40));
+        return Vector2(Utils::random(minimalEnemySizeX, maximalEnemySizeX),
+                       Utils::randomFloat(minimalEnemySizeY, maximalEnemySizeY));
 
     }
 }

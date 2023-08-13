@@ -73,6 +73,17 @@ public:
     static int getNearest(Data::Types findNearest, raylib::Vector2 pos) {
         return getNearest(findNearest, pos, -1);
     };
+
+    static float random(float min, float max);
+
+    // this 2 is to make sure if I really want an int, I get an int, or float
+    static float randomFloat(float min, float max) {
+        return random(min, max);
+    }
+
+    [[maybe_unused]] static int randomInt(int min, int max) {
+        return random(min, max);
+    }
 };
 
 

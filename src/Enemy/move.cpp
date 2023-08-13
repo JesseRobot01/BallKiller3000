@@ -1,6 +1,4 @@
-#include <iostream>
 #include "../enemyAi.h"
-#include "../data.h"
 #include "../utils.h"
 #include "../pos.h"
 #include "../ball.h"
@@ -18,6 +16,7 @@ void EnemyAi::generateMove() {
             // 1,2 = neutral move, 3,4,5 = ai move, 6 = rotation, 7,8 failed
             moveType = Utils::random(1, 8);
 
+
             // there are no AI moves for the neutral one, so set the move to neutral;
             if (enemyPreference[enemy] == 1 && (moveType == 3 || moveType == 4 || moveType == 5)) {
                 moveType = 1;
@@ -25,7 +24,7 @@ void EnemyAi::generateMove() {
 
 
             if (moveType == 1 || moveType == 2) {
-                moveTo = Vector2(Utils::random(-30, 30), Utils::random(-30, 30));
+                moveTo = Vector2(Utils::randomFloat(-30, 30), Utils::randomFloat(-30, 30));
                 EnemyAi::move(enemy, moveTo);
                 pushBall = moveTo;
             }
@@ -36,13 +35,13 @@ void EnemyAi::generateMove() {
                 if (enemyPreference[enemy] == 2) {
                     nearest = Utils::getNearest(Data::ball, enemyPos[enemy]);
 
-                    moveDistance = Utils::random(1, 30);
+                    moveDistance = Utils::randomFloat(1, 30);
                     EnemyAi::moveTo(enemy, ballPos[nearest], moveDistance);
                     pushBall = enemyPos[enemy].MoveTowards(ballPos[nearest], moveDistance) - enemyPos[enemy];
                 }
                 if (enemyPreference[enemy] == 3) {
                     if (!isGameOver) {
-                        moveDistance = Utils::random(-1, 15);
+                        moveDistance = Utils::randomFloat(-1, 15);
                         EnemyAi::moveTo(enemy, playerPos, moveDistance);
                         pushBall = enemyPos[enemy].MoveTowards(playerPos, moveDistance) - enemyPos[enemy];
 
@@ -52,7 +51,7 @@ void EnemyAi::generateMove() {
                     nearest = Utils::getNearest(Data::enemy, enemyPos[enemy], enemy);
                     if (nearest == -1) return;
 
-                    moveDistance = Utils::random(1, 30);
+                    moveDistance = Utils::randomFloat(1, 30);
                     EnemyAi::moveTo(enemy, enemyPos[nearest], moveDistance);
                     pushBall = enemyPos[enemy].MoveTowards(enemyPos[nearest], moveDistance) - enemyPos[enemy];
 

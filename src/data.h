@@ -18,6 +18,8 @@ public:
     enum Axis {
         x, y
     };
+
+
 };
 
 extern int screenWidth;
@@ -38,7 +40,7 @@ extern int ballCount;
 extern int enemyCount;
 extern int enemiesInScreen;
 extern int *enemyPreference;
-extern int *ballSize;
+extern float *ballSize;
 
 extern bool isGameOver;
 
@@ -47,5 +49,12 @@ extern bool isControlStickBasePlayer;
 extern raylib::Vector2 controlStickStartPos;
 extern raylib::Vector2 controlStickCurrentPos;
 
+extern float playerSize;
+extern float minimalEnemySizeX;
+extern float minimalEnemySizeY;
+extern float maximalEnemySizeX;
+extern float maximalEnemySizeY;
+extern float minimalBallSize;
+extern float maximalBallSize;
 
 #endif

@@ -1,7 +1,5 @@
-#include <iostream>
 #include "raylib-cpp.hpp"
 #include "version.h"
-#include "data.h"
 #include "pos.h"
 #include "gameHandler.h"
 #include "enemyAi.h"
@@ -28,7 +26,7 @@ int lives;
 int level;
 int ballsInScreen;
 int ballCount;
-int *ballSize;
+float *ballSize;
 int enemyCount;
 int enemiesInScreen;
 int *enemyPreference;
@@ -40,6 +38,17 @@ bool isControlStickBasePlayer = false;
 
 raylib::Vector2 controlStickStartPos;
 raylib::Vector2 controlStickCurrentPos;
+
+float playerSize = 20;
+
+float minimalEnemySizeX = 50;
+float minimalEnemySizeY = 20;
+
+float maximalEnemySizeX = 70;
+float maximalEnemySizeY = 40;
+
+float minimalBallSize = 20;
+float maximalBallSize = 40;
 
 int main() {
     SetConfigFlags(FLAG_WINDOW_RESIZABLE);

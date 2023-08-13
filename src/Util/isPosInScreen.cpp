@@ -12,12 +12,12 @@ bool Pos::isPosInScreen(float pos, Data::Axis axis) {
         case Data::x:
             if (pos >= 0 && pos <= screenWidth) return true;
             return false;
-            break;
+
 
         case Data::y:
             if (pos >= 0 && pos <= screenHeight) return true;
             return false;
-            break;
+
     }
     return false;
 }
@@ -49,8 +49,8 @@ bool Pos::isPosSafePos(Vector2 pos) {
 bool Pos::isClippingOutsideScreen(Data::Types targetType, Vector2 position, int targetNumber) {
     switch (targetType) {
         case Data::player:
-            if (position.x >= 20 && position.x <= screenWidth - 20) {
-                if (position.y >= 20 && position.y <= screenHeight - 20) {
+            if (position.x >= playerSize && position.x <= screenWidth - playerSize) {
+                if (position.y >= playerSize && position.y <= screenHeight - playerSize) {
                     return false;
                 }
             }

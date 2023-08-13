@@ -15,7 +15,7 @@ void Gui::renderDefaultScreen() {
 
 
     }
-    DrawCircleV(playerPos, 20, RED);
+    DrawCircleV(playerPos, playerSize, RED);
 
     raylib::DrawText("Lives: " + std::to_string(lives), 20, 10, 20, RED);
     raylib::DrawText("Score: " + std::to_string(score), 140, 10, 20, RED);
@@ -70,4 +70,4 @@ void Gui::renderControlStick() {
         isTouchingScreen = false;
         isControlStickBasePlayer = false;
     }
-};
+}

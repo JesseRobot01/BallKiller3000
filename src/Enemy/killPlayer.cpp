@@ -1,5 +1,4 @@
 #include "../enemyAi.h"
-#include "../data.h"
 #include "../gameHandler.h"
 
 void EnemyAi::killPlayer(int enemyNum) {

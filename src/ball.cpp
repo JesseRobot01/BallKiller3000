@@ -17,7 +17,7 @@ void Ball::kill(int ballNum, bool giveScore) {
 void Ball::push(int ballNum, Vector2 pushSteps) {
 
     while (Pos::isClippingOutsideScreen(Data::ball, ballPos[ballNum] + pushSteps, ballNum)) {
-        if (!Pos::isPosInScreen(ballPos[ballNum])){
+        if (!Pos::isPosInScreen(ballPos[ballNum])) {
             break;
         }
         if (ballSize[ballNum] <= 10) {
@@ -26,8 +26,7 @@ void Ball::push(int ballNum, Vector2 pushSteps) {
         ballSize[ballNum]--;
     }
 
-        ballPos[ballNum] += pushSteps;
-
+    ballPos[ballNum] += pushSteps;
 
 
     if (Utils::haveCollision(Data::player, Data::ball, ballNum)) {

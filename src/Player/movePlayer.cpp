@@ -1,7 +1,5 @@
-#include <iostream>
 #include "../data.h"
 #include "../pos.h"
-#include "../ball.h"
 #include "../utils.h"
 
 void Pos::getPlayerMoveInput() {

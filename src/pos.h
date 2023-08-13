@@ -48,13 +48,10 @@ public:
 
             case Data::player:
                 return Pos::isClippingOutsideScreen(targetType, playerPos, -1);
-                break;
             case Data::ball:
                 Pos::isClippingOutsideScreen(targetType, ballPos[targetNumber], targetNumber);
-                break;
             case Data::enemy:
                 Pos::isClippingOutsideScreen(targetType, enemyPos[targetNumber], targetNumber);
-                break;
         }
 
     };
