@@ -62,11 +62,14 @@ int main() {
 
     // main game loop (executes every frame)
     while (!window.ShouldClose()) {
-        if (screenWidth != window.GetRenderWidth() && screenHeight != window.GetRenderHeight()) {
-            screenWidth = window.GetRenderWidth();
-            screenHeight = window.GetRenderHeight();
+        if (screenWidth != window.GetRenderWidth()) {
             Gui::resizeWindow();
         }
+        if (screenHeight != window.GetRenderHeight()) {
+
+            Gui::resizeWindow();
+        }
+
 
         BeginDrawing();
         ClearBackground(RAYWHITE);

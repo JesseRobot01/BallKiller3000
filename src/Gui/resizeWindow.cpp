@@ -3,6 +3,10 @@
 #include "../pos.h"
 
 void Gui::resizeWindow() {
+    //reset screenHeights and withs
+    screenWidth = GetRenderWidth();
+    screenHeight = GetRenderHeight();
+
     // reset all the positions
     playerPos = Vector2(screenWidth / 2, screenHeight / 2);
 
