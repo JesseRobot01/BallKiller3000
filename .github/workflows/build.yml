@@ -72,7 +72,7 @@ jobs:
         if: ${{ matrix.executable_name != 'index.html' }}
         run: cmake -G Ninja -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{inputs.BUILD_TYPE}} -DCOMMIT_HASH=${{env.VERSION}}
 
-      - name: Configure CMake (MSVC
+      - name: Configure CMake (MSVC)
         if: ${{   matrix.artifact_name == 'BallKiller3000-Windows-MSVC-x64'}}
         run: cmake -G Ninja -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{inputs.BUILD_TYPE}} -DCOMMIT_HASH=${{env.VERSION}}
 

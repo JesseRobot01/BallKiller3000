@@ -3,12 +3,17 @@
 
 class Gui {
 public:
-    static void renderDefaultScreen();
+    static void renderGameGui();
 
     static void renderControlStick();
 
     static void resizeWindow();
 
+    static void renderGameContent();
+
+    static void renderGameOver();
+
+    static void renderStartScreen();
 };
 
 #endif

@@ -4,8 +4,21 @@
 #include "version.h"
 #include "raylib-cpp.hpp"
 
-void Gui::renderDefaultScreen() {
+void Gui::renderGameGui() {
 
+
+    raylib::DrawText("Lives: " + std::to_string(lives), 20, 10, 20, RED);
+    raylib::DrawText("Score: " + std::to_string(score), 140, 10, 20, RED);
+    raylib::DrawText("High: " + std::to_string(highScore), 260, 10, 20, RED);
+    raylib::DrawText("Level: " + std::to_string(level), 380, 10, 20, RED);
+    raylib::DrawText("v"  BALL_KILLER_VERSION, screenWidth - (std::string(BALL_KILLER_VERSION).length() * 5) - 10,
+                     screenHeight - 15, 10, GRAY);
+
+
+}
+
+
+void Gui::renderGameContent() {
     // renders the balls, enemies and the player
     for (int b = 0; b < ballCount; ++b) {
         DrawCircleV(ballPos[b], ballSize[b], BLUE);
@@ -16,36 +29,53 @@ void Gui::renderDefaultScreen() {
 
     }
     DrawCircleV(playerPos, playerSize, RED);
+}
 
-    raylib::DrawText("Lives: " + std::to_string(lives), 20, 10, 20, RED);
-    raylib::DrawText("Score: " + std::to_string(score), 140, 10, 20, RED);
-    raylib::DrawText("High: " + std::to_string(highScore), 260, 10, 20, RED);
-    raylib::DrawText("Level: " + std::to_string(level), 380, 10, 20, RED);
-    raylib::DrawText("v"  BALL_KILLER_VERSION, screenWidth - (std::string(BALL_KILLER_VERSION).length() * 5) - 10,
-                     screenHeight - 15, 10, GRAY);
-
+void Gui::renderGameOver() {
     // The game over screen
-    if (isGameOver) {
-        raylib::DrawText("Game Over!!!", screenWidth / 2 - 3 * 60, screenHeight / 2 - 30, 60, RED);
-        raylib::DrawText("Press enter to restart", screenWidth / 2 - 3 * 60 - 10, screenHeight / 2 + 30, 30, RED);
-        if (IsKeyPressed(KEY_ENTER)) GameHandler::startGame();
 
-        // draws a restart button
-        DrawRectangle(screenWidth / 2 - MeasureText("Restart", 30) / 2 - 10, screenHeight / 2 + 65,
-                      MeasureText("Restart", 30) + 20, 50, ColorAlpha(RED, 0.25));
+    raylib::DrawText("Game Over!!!", screenWidth / 2 - 3 * 60, screenHeight / 2 - 30, 60, RED);
+    raylib::DrawText("Press enter to restart", screenWidth / 2 - 3 * 60 - 10, screenHeight / 2 + 30, 30, RED);
+    if (IsKeyPressed(KEY_ENTER)) GameHandler::startGame();
 
-        raylib::DrawText("Restart", screenWidth / 2 - MeasureText("Restart", 30) / 2, screenHeight / 2 + 75,
-                         30, RED);
 
-        if (IsGestureDetected(GESTURE_TAP) &&
-            CheckCollisionPointRec(GetMousePosition(),
-                                   Rectangle(screenWidth / 2 - MeasureText("Restart", 30) / 2 - 10,
-                                             screenHeight / 2 + 65,
-                                             MeasureText("Restart", 30) + 20, 50))) {
-            GameHandler::startGame();
-        }
+    // draws a restart button
+    raylib::Rectangle restartButton(screenWidth / 2 - MeasureText("Restart", 30) / 2 - 10, screenHeight / 2 + 65,
+                                    MeasureText("Restart", 30) + 20, 50);
+    DrawRectangleRec(restartButton, ColorAlpha(RED, 0.25));
+
+    raylib::DrawText("Restart", screenWidth / 2 - MeasureText("Restart", 30) / 2, screenHeight / 2 + 75,
+                     30, RED);
+
+    if (IsGestureDetected(GESTURE_TAP) &&
+        CheckCollisionPointRec(GetMousePosition(),
+                               restartButton)) {
+        GameHandler::startGame();
     }
 }
+
+void Gui::renderStartScreen() {
+    raylib::DrawText("BallKiller3000", screenWidth / 2 - MeasureText("BallKiller3000", 60) / 2, screenHeight / 2 - 50,
+                     60, RED);
+    raylib::DrawText("By JesseRobot01", screenWidth / 2 - MeasureText("By JesseRobot01", 15) / 2, screenHeight / 2 + 10,
+                     15, GRAY);
+
+    raylib::Rectangle playButton(screenWidth / 2 - MeasureText("Play", 30) / 2 - 10, screenHeight / 2 + 35,
+                                 MeasureText("Play", 30) + 20, 50);
+
+    DrawRectangleRec(playButton, ColorAlpha(RED, 0.25));
+
+    raylib::DrawText("Play", screenWidth / 2 - MeasureText("Play", 30) / 2, screenHeight / 2 + 45,
+                     30, RED);
+
+    if (IsGestureDetected(GESTURE_TAP) &&
+        CheckCollisionPointRec(GetMousePosition(),
+                               playButton)) {
+        hasGameStarted = true;
+        GameHandler::startGame();
+    }
+}
+
 
 void Gui::renderControlStick() {
     if (IsGestureDetected(GESTURE_DRAG)) {

@@ -31,7 +31,9 @@ int enemyCount;
 int enemiesInScreen;
 int *enemyPreference;
 
-bool isGameOver = true;
+bool isGameOver = false;
+bool hasGameStarted = false;
+bool isGamePaused = true;
 
 bool isTouchingScreen = false;
 bool isControlStickBasePlayer = false;
@@ -74,19 +76,28 @@ int main() {
         BeginDrawing();
         ClearBackground(RAYWHITE);
 
-        Gui::renderDefaultScreen();
+        Gui::renderGameGui();
+
+        if (hasGameStarted) {
+            Gui::renderGameContent();
+        } else { Gui::renderStartScreen(); }
 
         // move the player
-        if (!isGameOver) {
-            Gui::renderControlStick();
-            Pos::getPlayerMoveInput();
+        if (hasGameStarted) {
+            if (!isGameOver) {
+                Gui::renderControlStick();
+                Pos::getPlayerMoveInput();
+            } else {
+                Gui::renderGameOver();
+            }
         }
 
 
         EndDrawing();
 
-
-        EnemyAi::generateMove();
+        if (hasGameStarted) {
+            EnemyAi::generateMove();
+        }
     }
 
     return 0;

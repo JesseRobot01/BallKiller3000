@@ -43,6 +43,8 @@ extern int *enemyPreference;
 extern float *ballSize;
 
 extern bool isGameOver;
+extern bool hasGameStarted;
+extern bool isGamePaused;
 
 extern bool isTouchingScreen;
 extern bool isControlStickBasePlayer;
