@@ -33,7 +33,7 @@ int *enemyPreference;
 
 bool isGameOver = false;
 bool hasGameStarted = false;
-bool isGamePaused = true;
+bool isGamePaused = false;
 
 bool isTouchingScreen = false;
 bool isControlStickBasePlayer = false;
@@ -60,7 +60,9 @@ int main() {
 
     //initialises the window
     raylib::Window window(screenWidth, screenHeight, "BallKiller3000 v" BALL_KILLER_VERSION);
-    SetTargetFPS(60);
+
+    SetExitKey(KEY_NULL); // Disable exit key, replace it with a pause menu
+    window.SetTargetFPS(60);
 
     // main game loop (executes every frame)
     while (!window.ShouldClose()) {
@@ -72,6 +74,14 @@ int main() {
             Gui::resizeWindow();
         }
 
+        //fetch pause button
+        if (IsKeyPressed(KEY_ESCAPE) && !isGameOver && hasGameStarted) {
+            if (!isGamePaused) {
+                isGamePaused = true;
+            } else {
+                isGamePaused = false;
+            }
+        }
 
         BeginDrawing();
         ClearBackground(RAYWHITE);
@@ -82,8 +92,12 @@ int main() {
             Gui::renderGameContent();
         } else { Gui::renderStartScreen(); }
 
+        if(isGamePaused){
+            Gui::renderPauseMenu();
+        }
+
         // move the player
-        if (hasGameStarted) {
+        if (hasGameStarted && !isGamePaused) {
             if (!isGameOver) {
                 Gui::renderControlStick();
                 Pos::getPlayerMoveInput();
@@ -95,7 +109,7 @@ int main() {
 
         EndDrawing();
 
-        if (hasGameStarted) {
+        if (hasGameStarted && !isGamePaused) {
             EnemyAi::generateMove();
         }
     }

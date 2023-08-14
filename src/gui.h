@@ -14,6 +14,8 @@ public:
     static void renderGameOver();
 
     static void renderStartScreen();
+
+    static void renderPauseMenu();
 };
 
 #endif
