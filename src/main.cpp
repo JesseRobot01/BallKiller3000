@@ -92,7 +92,7 @@ int main() {
             Gui::renderGameContent();
         } else { Gui::renderStartScreen(); }
 
-        if(isGamePaused){
+        if (isGamePaused) {
             Gui::renderPauseMenu();
         }
 
@@ -106,6 +106,7 @@ int main() {
             }
         }
 
+        Gui::renderGameGui();
 
         EndDrawing();
 
