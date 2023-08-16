@@ -113,6 +113,11 @@ int main() {
         if (hasGameStarted && !isGamePaused) {
             EnemyAi::generateMove();
         }
+
+        if (window.ShouldClose()) {
+            GameHandler::saveHigh();
+            window.Close();
+        }
     }
 
     return 0;

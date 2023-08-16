@@ -142,7 +142,7 @@ void Gui::renderPauseMenu() {
     if (IsGestureDetected(GESTURE_TAP) &&
         CheckCollisionPointRec(GetMousePosition(),
                                quitButton)) {
-        Score
+        GameHandler::saveHigh();
         CloseWindow();
     }
 
