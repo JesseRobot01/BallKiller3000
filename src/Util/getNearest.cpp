@@ -45,6 +45,20 @@ int Utils::getNearest(Data::Types findNearest, raylib::Vector2 pos, int ignoreNu
             }
         }
     }
+    if (findNearest == Data::player) {
+        if (!isGameMultiPlayerGame) return 0; // no need to scan if the second player isn't present
+        else {
+            for (int p = 0; p < 1; ++p) {
+                if (p != ignoreNumber) {
+                    distance = pos.Distance(playerPos[p]);
+                    if (distance <= closestDistance) {
+                        closestDistance = distance;
+                        closestNumber = p;
+                    }
+                }
+            }
+        }
+    }
 
     return closestNumber;
 }
