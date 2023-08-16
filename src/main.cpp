@@ -14,15 +14,15 @@ int screenWidth = 800;
 int screenHeight = 450;
 
 
-raylib::Vector2 playerPos;
+raylib::Vector2 playerPos[2];
 raylib::Vector2 *ballPos;
 raylib::Vector2 *enemyPos;
 raylib::Vector2 *enemySize;
 float moveSpeed = 3;
 
-int score;
+int score[2];
 int highScore;
-int lives;
+int lives[2];
 int level;
 int ballsInScreen;
 int ballCount;
@@ -34,14 +34,15 @@ int *enemyPreference;
 bool isGameOver = false;
 bool hasGameStarted = false;
 bool isGamePaused = false;
+bool isGameMultiPlayerGame = false;
 
-bool isTouchingScreen = false;
+bool isTouchingScreen[2] = {false, false};
 bool isControlStickBasePlayer = false;
 
 raylib::Vector2 controlStickStartPos;
 raylib::Vector2 controlStickCurrentPos;
 
-float playerSize = 20;
+float playerSize[2] = {20, 20};
 
 float minimalEnemySizeX = 50;
 float minimalEnemySizeY = 20;

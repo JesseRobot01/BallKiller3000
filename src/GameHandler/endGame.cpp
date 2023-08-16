@@ -2,7 +2,7 @@
 #include "../data.h"
 
 void GameHandler::endGame(bool forced) {
-    if (lives <= 0 || forced) {
+    if ((lives[0] <= 0 && lives[1] <= 0) || forced) {
         GameHandler::saveHigh();
         isGameOver = true;
     }

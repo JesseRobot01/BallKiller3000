@@ -26,13 +26,21 @@ void Utils::checkAllCollisions(Data::Types targetType, Data::Types hasCollisionW
         if (hasCollisionWith == Data::ball) {
             for (int B = 0; B < ballCount; ++B) {
                 if (Utils::haveCollision(targetType, hasCollisionWith, B)) { Ball::kill(B); }
+                if (isGameMultiPlayerGame) {
+                    if (Utils::hasCollision(targetType, hasCollisionWith, 1, B)) { Ball::kill(B, 1); }
+                }
             }
 
 
         }
         if (hasCollisionWith == Data::enemy) {
             for (int e = 0; e < enemyCount; ++e) {
-                if (Utils::haveCollision(targetType, hasCollisionWith, e)) { EnemyAi::killPlayer(e); }
+                if (Utils::haveCollision(targetType, hasCollisionWith, e)) {
+                    EnemyAi::killPlayer(e, 0);
+                }
+                if (isGameMultiPlayerGame) {
+                    if (Utils::hasCollision(targetType, hasCollisionWith, 1, e)) { EnemyAi::killPlayer(e, 1); }
+                }
             }
         }
     }
@@ -78,7 +86,7 @@ void Utils::checkAllCollisions(Data::Types targetType, Data::Types hasCollisionW
  *
  * @param targetType Do i have collision?
  * @param hasCollisionWith With who do i have collision
- * @param targetTypeNumber My number (ignored if i'm the player)
+ * @param targetTypeNumber My number
  * @param hasCollisionWithNumber the number from the thing i may touch
  */
 bool
@@ -86,16 +94,17 @@ Utils::hasCollision(Data::Types targetType, Data::Types hasCollisionWith, int ta
                     int hasCollisionWithNumber) {
     if (targetType == Data::player) {
         if (hasCollisionWith == Data::ball) {
-            if (playerPos.CheckCollision(ballPos[hasCollisionWithNumber],
-                                         playerSize - 5 + ballSize[hasCollisionWithNumber]))
+            if (playerPos[targetTypeNumber].CheckCollision(ballPos[hasCollisionWithNumber],
+                                                           playerSize[targetTypeNumber] - 5 +
+                                                           ballSize[hasCollisionWithNumber]))
                 return true;
         }
         if (hasCollisionWith == Data::enemy) {
-            if (playerPos.CheckCollision(
-                    Rectangle(enemyPos[hasCollisionWithNumber].x - playerSize - 5,
-                              enemyPos[hasCollisionWithNumber].y - playerSize - 5,
-                              enemySize[hasCollisionWithNumber].x + playerSize + 10,
-                              enemySize[hasCollisionWithNumber].y + playerSize + 10)))
+            if (playerPos[targetTypeNumber].CheckCollision(
+                    Rectangle(enemyPos[hasCollisionWithNumber].x - playerSize[targetTypeNumber] - 5,
+                              enemyPos[hasCollisionWithNumber].y - playerSize[targetTypeNumber] - 5,
+                              enemySize[hasCollisionWithNumber].x + playerSize[targetTypeNumber] + 10,
+                              enemySize[hasCollisionWithNumber].y + playerSize[targetTypeNumber] + 10)))
 
                 return true;
         }

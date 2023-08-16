@@ -7,7 +7,7 @@
 class EnemyAi {
 public:
 
-    static void killPlayer(int enemyNum);
+    static void killPlayer(int enemyNum, int playerNum);
 
     static void initializeEnemyAi(int enemyNum);
 

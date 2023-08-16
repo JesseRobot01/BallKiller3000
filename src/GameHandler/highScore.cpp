@@ -18,7 +18,7 @@ int GameHandler::loadHigh() {
 
 void GameHandler::saveHigh(bool forced) {
     std::ofstream highScoreFile("./highScore.txt"); // a temp file
-    if (score > highScore || forced) { highScoreFile << score; }
+    if ((score[0] > highScore && !isGameMultiPlayerGame) || forced) { highScoreFile << score; }
     else { highScoreFile << highScore; }
 
     highScoreFile.close();

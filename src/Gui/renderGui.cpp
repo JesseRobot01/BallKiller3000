@@ -6,14 +6,24 @@
 
 void Gui::renderGameGui() {
 
+    if (!isGameMultiPlayerGame) {
+        raylib::DrawText("Lives: " + std::to_string(lives[0]), 20, 10, 20, RED);
+        raylib::DrawText("Score: " + std::to_string(score[0]), 140, 10, 20, RED);
+        raylib::DrawText("High: " + std::to_string(highScore), 260, 10, 20, RED);
+        raylib::DrawText("Level: " + std::to_string(level), 380, 10, 20, RED);
+    }
+    if (isGameMultiPlayerGame) {
+        raylib::DrawText("Lives: " + std::to_string(lives[0]), 20, 10, 20, RED);
+        raylib::DrawText("Lives: " + std::to_string(lives[1]), 20, 40, 20, GREEN);
 
-    raylib::DrawText("Lives: " + std::to_string(lives), 20, 10, 20, RED);
-    raylib::DrawText("Score: " + std::to_string(score), 140, 10, 20, RED);
-    raylib::DrawText("High: " + std::to_string(highScore), 260, 10, 20, RED);
-    raylib::DrawText("Level: " + std::to_string(level), 380, 10, 20, RED);
+        raylib::DrawText("Score: " + std::to_string(score[0]), 140, 10, 20, RED);
+        raylib::DrawText("Score: " + std::to_string(score[1]), 140, 40, 20, GREEN);
+
+        raylib::DrawText("High: " + std::to_string(highScore), 260, 10, 20, RED);
+        raylib::DrawText("Level: " + std::to_string(level), 380, 10, 20, RED);
+    }
     raylib::DrawText("v"  BALL_KILLER_VERSION, screenWidth - (std::string(BALL_KILLER_VERSION).length() * 5) - 10,
                      screenHeight - 15, 10, GRAY);
-
 
 }
 
@@ -28,7 +38,11 @@ void Gui::renderGameContent() {
 
 
     }
-    DrawCircleV(playerPos, playerSize, RED);
+    DrawCircleV(playerPos[0], playerSize[0], RED);
+
+    if (isGameMultiPlayerGame) {
+        DrawCircleV(playerPos[1], playerSize[1], GREEN);
+    }
 }
 
 void Gui::renderGameOver() {
@@ -63,17 +77,37 @@ void Gui::renderStartScreen() {
     raylib::DrawText("By JesseRobot01", screenWidth / 2 - MeasureText("By JesseRobot01", 15) / 2, screenHeight / 2 + 10,
                      15, GRAY);
 
-    raylib::Rectangle playButton(screenWidth / 2 - MeasureText("Play", 30) / 2 - 10, screenHeight / 2 + 35,
-                                 MeasureText("Play", 30) + 20, 50);
+    raylib::Rectangle singlePlayerButton(screenWidth / 2 - MeasureText("Single-Player", 30) - 10,
+                                         screenHeight / 2 + 35,
+                                         MeasureText("Single-Player", 30) + 20, 50);
 
-    DrawRectangleRec(playButton, ColorAlpha(RED, 0.25));
+    raylib::Rectangle multiPlayerButton(screenWidth / 2 + 30 - 10,
+                                        screenHeight / 2 + 35,
+                                        MeasureText("Single-Player", 30) + 20, 50);
 
-    raylib::DrawText("Play", screenWidth / 2 - MeasureText("Play", 30) / 2, screenHeight / 2 + 45,
+
+    DrawRectangleRec(singlePlayerButton, ColorAlpha(RED, 0.25));
+    DrawRectangleRec(multiPlayerButton, ColorAlpha(RED, 0.25));
+
+    raylib::DrawText("Single-Player", screenWidth / 2 - MeasureText("Single-Player", 30), screenHeight / 2 + 45,
+                     30, RED);
+
+    raylib::DrawText("Multi-Player",
+                     screenWidth / 2 - MeasureText("Multi-Player", 30) / 2 + MeasureText("Single-Player", 30) / 2 + 30,
+                     screenHeight / 2 + 45,
                      30, RED);
 
     if (IsGestureDetected(GESTURE_TAP) &&
         CheckCollisionPointRec(GetMousePosition(),
-                               playButton)) {
+                               singlePlayerButton)) {
+        isGameMultiPlayerGame = false;
+        hasGameStarted = true;
+        GameHandler::startGame();
+    }
+    if (IsGestureDetected(GESTURE_TAP) &&
+        CheckCollisionPointRec(GetMousePosition(),
+                               multiPlayerButton)) {
+        isGameMultiPlayerGame = true;
         hasGameStarted = true;
         GameHandler::startGame();
     }
@@ -81,27 +115,29 @@ void Gui::renderStartScreen() {
 
 
 void Gui::renderControlStick() {
-    if (IsGestureDetected(GESTURE_DRAG)) {
-        if (!isTouchingScreen) {
-            controlStickStartPos = GetMousePosition();
-            isTouchingScreen = true;
+    if (!isGameMultiPlayerGame) {
+        if (IsGestureDetected(GESTURE_DRAG)) {
+            if (!isTouchingScreen[0]) {
+                controlStickStartPos = GetMousePosition();
+                isTouchingScreen[0] = true;
 
-            if (controlStickStartPos.CheckCollision(playerPos, 50)) isControlStickBasePlayer = true;
-        }
-        controlStickCurrentPos = controlStickStartPos.MoveTowards(GetMousePosition(), 50);
-
-        if (!isControlStickBasePlayer) {
+                if (controlStickStartPos.CheckCollision(playerPos[0], 50)) isControlStickBasePlayer = true;
+            }
             controlStickCurrentPos = controlStickStartPos.MoveTowards(GetMousePosition(), 50);
-            DrawCircleV(controlStickStartPos, 50, ColorAlpha(GRAY, 0.75));
-            DrawCircleV(controlStickCurrentPos, 30, ColorAlpha(BLACK, 0.75));
+
+            if (!isControlStickBasePlayer) {
+                controlStickCurrentPos = controlStickStartPos.MoveTowards(GetMousePosition(), 50);
+                DrawCircleV(controlStickStartPos, 50, ColorAlpha(GRAY, 0.75));
+                DrawCircleV(controlStickCurrentPos, 30, ColorAlpha(BLACK, 0.75));
+            } else {
+                controlStickStartPos = playerPos[0];
+                controlStickCurrentPos = playerPos[0].MoveTowards(GetMousePosition(), 50);
+                DrawCircleV(GetMousePosition(), 30, ColorAlpha(BLACK, 0.75));
+            }
         } else {
-            controlStickStartPos = playerPos;
-            controlStickCurrentPos = playerPos.MoveTowards(GetMousePosition(), 50);
-            DrawCircleV(GetMousePosition(), 30, ColorAlpha(BLACK, 0.75));
+            isTouchingScreen[0] = false;
+            isControlStickBasePlayer = false;
         }
-    } else {
-        isTouchingScreen = false;
-        isControlStickBasePlayer = false;
     }
 }
 
@@ -124,11 +160,12 @@ void Gui::renderPauseMenu() {
     DrawRectangleRec(continueButton, ColorAlpha(RED, 0.25));
     DrawRectangleRec(quitButton, ColorAlpha(RED, 0.25));
 
-    raylib::DrawText("Continue", screenWidth / 2 - MeasureText("Continue", 30) / 2 - MeasureText("Continue", 30) / 2,
+    raylib::DrawText("Continue", screenWidth / 2 - MeasureText("Continue", 30),
                      screenHeight / 2 + 45,
                      30, RED);
 
-    raylib::DrawText("Quit", screenWidth / 2 - MeasureText("Quit", 30) / 2 + MeasureText("Continue", 30) / 2 + 30,
+    raylib::DrawText("Quit",
+                     screenWidth / 2 - MeasureText("Quit", 30) / 2 + MeasureText("Continue", 30) / 2 + 30,
                      screenHeight / 2 + 45,
                      30, RED);
 

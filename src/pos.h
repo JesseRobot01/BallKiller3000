@@ -10,7 +10,7 @@ public:
 
     static void getPlayerMoveInput();
 
-    static void movePlayer(Vector2 moveDistance);
+    static void movePlayer(Vector2 moveDistance, int playerNum);
 
     static bool isPosInScreen(Vector2 pos);
 
@@ -40,14 +40,14 @@ public:
 * A function to check if something is clipping outside the screen.
  *
  * @param targetType the type to check for it
- * @param targetNumber the number for the target, ignored if it's the player.
+ * @param targetNumber the number for the target.
  *
 */
     static bool isClippingOutsideScreen(Data::Types targetType, int targetNumber) {
         switch (targetType) {
 
             case Data::player:
-                return Pos::isClippingOutsideScreen(targetType, playerPos, -1);
+                return Pos::isClippingOutsideScreen(targetType, playerPos[targetNumber], -1);
             case Data::ball:
                 Pos::isClippingOutsideScreen(targetType, ballPos[targetNumber], targetNumber);
             case Data::enemy:

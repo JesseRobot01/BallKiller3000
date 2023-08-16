@@ -44,13 +44,13 @@ bool Pos::isPosSafePos(Vector2 pos) {
  *
  * @param targetType the type to check for it.
  * @param position the position to check for.
- * @param targetNumber the number for the target, ignored if it's the player.
+ * @param targetNumber the number for the target.
 */
 bool Pos::isClippingOutsideScreen(Data::Types targetType, Vector2 position, int targetNumber) {
     switch (targetType) {
         case Data::player:
-            if (position.x >= playerSize && position.x <= screenWidth - playerSize) {
-                if (position.y >= playerSize && position.y <= screenHeight - playerSize) {
+            if (position.x >= playerSize[targetNumber] && position.x <= screenWidth - playerSize[targetNumber]) {
+                if (position.y >= playerSize[targetNumber] && position.y <= screenHeight - playerSize[targetNumber]) {
                     return false;
                 }
             }

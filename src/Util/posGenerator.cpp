@@ -10,7 +10,8 @@ Vector2 Pos::generateRandomPos(Data::Types type) {
     // check if the ball is not in a specific radius of the player. if yes, regenerate the positions
     if (type == Data::ball) {
         // after a specific number of tries, just get out of here
-        while (playerPos.CheckCollision(pos, 100 + playerSize) && tries < 100) {
+        while (playerPos[0].CheckCollision(pos, 100 + playerSize[0]) &&
+               playerPos[1].CheckCollision(pos, 100 + playerSize[1]) && tries < 100) {
             pos = Pos::generateRandomPos();
             tries++;
         }
@@ -18,7 +19,8 @@ Vector2 Pos::generateRandomPos(Data::Types type) {
 
     // same for the enemy
     if (type == Data::enemy) {
-        while (playerPos.CheckCollision(pos, 130 + playerSize) && tries < 100) {
+        while (playerPos[0].CheckCollision(pos, 130 + playerSize[0]) &&
+               playerPos[1].CheckCollision(pos, 130 + playerSize[1]) && tries < 100) {
             pos = Pos::generateRandomPos();
             tries++;
         }

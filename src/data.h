@@ -25,15 +25,15 @@ public:
 extern int screenWidth;
 extern int screenHeight;
 
-extern raylib::Vector2 playerPos;
+extern raylib::Vector2 playerPos[2];
 extern raylib::Vector2 *ballPos;
 extern raylib::Vector2 *enemyPos;
 extern raylib::Vector2 *enemySize;
 extern float moveSpeed;
 
-extern int score;
+extern int score[2];
 extern int highScore;
-extern int lives;
+extern int lives[2];
 extern int level;
 extern int ballsInScreen;
 extern int ballCount;
@@ -45,13 +45,14 @@ extern float *ballSize;
 extern bool isGameOver;
 extern bool hasGameStarted;
 extern bool isGamePaused;
+extern bool isGameMultiPlayerGame;
 
-extern bool isTouchingScreen;
+extern bool isTouchingScreen[2];
 extern bool isControlStickBasePlayer;
 extern raylib::Vector2 controlStickStartPos;
 extern raylib::Vector2 controlStickCurrentPos;
 
-extern float playerSize;
+extern float playerSize[2];
 extern float minimalEnemySizeX;
 extern float minimalEnemySizeY;
 extern float maximalEnemySizeX;
