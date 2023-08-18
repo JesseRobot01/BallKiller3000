@@ -101,8 +101,8 @@ Utils::hasCollision(Data::Types targetType, Data::Types hasCollisionWith, int ta
         }
         if (hasCollisionWith == Data::enemy) {
             if (playerPos[targetTypeNumber].CheckCollision(
-                    Rectangle(enemyPos[hasCollisionWithNumber].x - playerSize[targetTypeNumber] - 5,
-                              enemyPos[hasCollisionWithNumber].y - playerSize[targetTypeNumber] - 5,
+                    Rectangle(enemies[hasCollisionWithNumber].pos.x - playerSize[targetTypeNumber] - 5,
+                              enemies[hasCollisionWithNumber].pos.y - playerSize[targetTypeNumber] - 5,
                               enemySize[hasCollisionWithNumber].x + playerSize[targetTypeNumber] + 10,
                               enemySize[hasCollisionWithNumber].y + playerSize[targetTypeNumber] + 10)))
 
@@ -113,8 +113,8 @@ Utils::hasCollision(Data::Types targetType, Data::Types hasCollisionWith, int ta
     if (targetType == Data::enemy) {
         if (hasCollisionWith == Data::ball) {
             if (ballPos[hasCollisionWithNumber].CheckCollision(
-                    Rectangle(enemyPos[targetTypeNumber].x - ballSize[hasCollisionWithNumber] - 5,
-                              enemyPos[targetTypeNumber].y - ballSize[hasCollisionWithNumber] - 5,
+                    Rectangle(enemies[targetTypeNumber].pos.x - ballSize[hasCollisionWithNumber] - 5,
+                              enemies[targetTypeNumber].pos.y - ballSize[hasCollisionWithNumber] - 5,
                               enemySize[targetTypeNumber].x + ballSize[hasCollisionWithNumber] + 10,
                               enemySize[targetTypeNumber].y + ballSize[hasCollisionWithNumber] + 10))) { return true; }
 

@@ -5,7 +5,7 @@
 
 void EnemyAi::generateMove() {
     for (int enemy = 0; enemy < enemyCount; ++enemy) {
-        if (Pos::isPosInScreen(enemyPos[enemy])) {
+        if (Pos::isPosInScreen(enemies[enemy].pos)) {
 
             int moveType;
             raylib::Vector2 moveTo;
@@ -18,7 +18,7 @@ void EnemyAi::generateMove() {
 
 
             // there are no AI moves for the neutral one, so set the move to neutral;
-            if (enemyPreference[enemy] == 1 && (moveType == 3 || moveType == 4 || moveType == 5)) {
+            if (enemies[enemy].preference == 1 && (moveType == 3 || moveType == 4 || moveType == 5)) {
                 moveType = 1;
             }
 
@@ -32,29 +32,30 @@ void EnemyAi::generateMove() {
 
             if (moveType == 3 || moveType == 4 || moveType == 5) {
                 int nearest;
-                if (enemyPreference[enemy] == 2) {
-                    nearest = Utils::getNearest(Data::ball, enemyPos[enemy]);
+                if (enemies[enemy].preference == 2) {
+                    nearest = Utils::getNearest(Data::ball, enemies[enemy].pos);
 
                     moveDistance = Utils::randomFloat(1, 30);
                     EnemyAi::moveTo(enemy, ballPos[nearest], moveDistance);
-                    pushBall = enemyPos[enemy].MoveTowards(ballPos[nearest], moveDistance) - enemyPos[enemy];
+                    pushBall = enemies[enemy].pos.MoveTowards(ballPos[nearest], moveDistance) - enemies[enemy].pos;
                 }
-                if (enemyPreference[enemy] == 3) {
+                if (enemies[enemy].preference == 3) {
                     if (!isGameOver) {
-                        nearest = Utils::getNearest(Data::player, enemyPos[enemy], enemy);
+                        nearest = Utils::getNearest(Data::player, enemies[enemy].pos, enemy);
                         moveDistance = Utils::randomFloat(-1, 15);
                         EnemyAi::moveTo(enemy, playerPos[nearest], moveDistance);
-                        pushBall = enemyPos[enemy].MoveTowards(playerPos[nearest], moveDistance) - enemyPos[enemy];
+                        pushBall =
+                                enemies[enemy].pos.MoveTowards(playerPos[nearest], moveDistance) - enemies[enemy].pos;
 
                     }
                 }
-                if (enemyPreference[enemy] == 4) {
-                    nearest = Utils::getNearest(Data::enemy, enemyPos[enemy], enemy);
+                if (enemies[enemy].preference == 4) {
+                    nearest = Utils::getNearest(Data::enemy, enemies[enemy].pos, enemy);
                     if (nearest == -1) return;
 
                     moveDistance = Utils::randomFloat(1, 30);
-                    EnemyAi::moveTo(enemy, enemyPos[nearest], moveDistance);
-                    pushBall = enemyPos[enemy].MoveTowards(enemyPos[nearest], moveDistance) - enemyPos[enemy];
+                    EnemyAi::moveTo(enemy, enemies[nearest].pos, moveDistance);
+                    pushBall = enemies[enemy].pos.MoveTowards(enemies[nearest].pos, moveDistance) - enemies[enemy].pos;
 
                 }
 
@@ -83,14 +84,15 @@ void EnemyAi::generateMove() {
 }
 
 void EnemyAi::move(int enemyNum, raylib::Vector2 distance) {
-    if (!Pos::isClippingOutsideScreen(Data::enemy, enemyPos[enemyNum] + distance, enemyNum))
-        enemyPos[enemyNum] += distance;
+    if (!Pos::isClippingOutsideScreen(Data::enemy, enemies[enemyNum].pos + distance, enemyNum))
+        enemies[enemyNum].pos += distance;
 }
 
 void EnemyAi::moveTo(int enemyNum, raylib::Vector2 targetPos, float maxSteps) {
     if (Pos::isPosInScreen(targetPos)) {
-        if (!Pos::isClippingOutsideScreen(Data::enemy, enemyPos[enemyNum].MoveTowards(targetPos, maxSteps), enemyNum)) {
-            enemyPos[enemyNum] = enemyPos[enemyNum].MoveTowards(targetPos, maxSteps);
+        if (!Pos::isClippingOutsideScreen(Data::enemy, enemies[enemyNum].pos.MoveTowards(targetPos, maxSteps),
+                                          enemyNum)) {
+            enemies[enemyNum].pos = enemies[enemyNum].pos.MoveTowards(targetPos, maxSteps);
         }
     }
 }

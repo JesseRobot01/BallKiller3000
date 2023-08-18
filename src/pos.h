@@ -51,7 +51,7 @@ public:
             case Data::ball:
                 Pos::isClippingOutsideScreen(targetType, ballPos[targetNumber], targetNumber);
             case Data::enemy:
-                Pos::isClippingOutsideScreen(targetType, enemyPos[targetNumber], targetNumber);
+                Pos::isClippingOutsideScreen(targetType, enemies[targetNumber].pos, targetNumber);
         }
 
     };

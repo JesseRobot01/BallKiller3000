@@ -2,6 +2,7 @@
 #define BALLKILLER3000_DATA_H
 
 #include "raylib-cpp.hpp"
+#include "enemy.h"
 
 
 class Data {
@@ -27,7 +28,6 @@ extern int screenHeight;
 
 extern raylib::Vector2 playerPos[2];
 extern raylib::Vector2 *ballPos;
-extern raylib::Vector2 *enemyPos;
 extern raylib::Vector2 *enemySize;
 extern float moveSpeed;
 
@@ -37,11 +37,9 @@ extern int lives[2];
 extern int level;
 extern int ballsInScreen;
 extern int ballCount;
-extern int enemyCount;
 extern int enemiesInScreen;
-extern int *enemyPreference;
 extern float *ballSize;
-
+extern int enemyCount;
 extern bool isGameOver;
 extern bool hasGameStarted;
 extern bool isGamePaused;
@@ -53,11 +51,9 @@ extern raylib::Vector2 controlStickStartPos[2];
 extern raylib::Vector2 controlStickCurrentPos[2];
 
 extern float playerSize[2];
-extern float minimalEnemySizeX;
-extern float minimalEnemySizeY;
-extern float maximalEnemySizeX;
-extern float maximalEnemySizeY;
 extern float minimalBallSize;
 extern float maximalBallSize;
+
+extern Enemy *enemies;
 
 #endif

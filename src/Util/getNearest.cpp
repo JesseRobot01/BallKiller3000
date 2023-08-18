@@ -20,9 +20,9 @@ int Utils::getNearest(Data::Types findNearest, raylib::Vector2 pos, int ignoreNu
     if (findNearest == Data::enemy) {
         for (int e = 0; e < enemyCount; ++e) {
             if (e != ignoreNumber) {
-                if (Pos::isPosSafePos(enemyPos[e])) {
+                if (Pos::isPosSafePos(enemies[e].pos)) {
 
-                    distance = pos.Distance(enemyPos[e]);
+                    distance = pos.Distance(enemies[e].pos);
                     if (distance < closestDistance) {
                         closestDistance = distance;
                         closestNumber = e;

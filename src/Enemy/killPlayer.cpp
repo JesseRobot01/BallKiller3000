@@ -4,7 +4,7 @@
 void EnemyAi::killPlayer(int enemyNum, int playerNum) {
     if (!isGameOver) {
         lives[playerNum]--;
-        enemyPos[enemyNum] = Vector2(-1000, -1000);
+        enemies[enemyNum].pos = Vector2(-1000, -1000);
         enemiesInScreen--;
         GameHandler::endGame();
     }

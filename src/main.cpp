@@ -16,7 +16,6 @@ int screenHeight = 450;
 
 raylib::Vector2 playerPos[2];
 raylib::Vector2 *ballPos;
-raylib::Vector2 *enemyPos;
 raylib::Vector2 *enemySize;
 float moveSpeed = 3;
 
@@ -29,7 +28,7 @@ int ballCount;
 float *ballSize;
 int enemyCount;
 int enemiesInScreen;
-int *enemyPreference;
+
 
 bool isGameOver = false;
 bool hasGameStarted = false;
@@ -44,14 +43,12 @@ raylib::Vector2 controlStickCurrentPos[2];
 
 float playerSize[2] = {20, 20};
 
-float minimalEnemySizeX = 50;
-float minimalEnemySizeY = 20;
 
-float maximalEnemySizeX = 70;
-float maximalEnemySizeY = 40;
 
 float minimalBallSize = 20;
 float maximalBallSize = 40;
+
+Enemy *enemies;
 
 int main() {
     SetConfigFlags(FLAG_WINDOW_RESIZABLE);
