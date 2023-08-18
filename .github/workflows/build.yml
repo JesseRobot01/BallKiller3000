@@ -26,9 +26,9 @@ jobs:
             artifact_name: BallKiller3000-Windows-x64
             executable_name: BallKiller3000.exe
 
-          - os: windows-latest
-            artifact_name: BallKiller3000-Windows-MSVC-x64
-            executable_name: BallKiller3000.exe
+          #   - os: windows-latest
+          #     artifact_name: BallKiller3000-Windows-MSVC-x64
+          #     executable_name: BallKiller3000.exe
 
 
           - os: ubuntu-latest
