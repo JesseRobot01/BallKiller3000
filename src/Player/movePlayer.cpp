@@ -25,7 +25,8 @@ void Pos::getPlayerMoveInput() {
 
         // calculates the axis he wants with control stick
         if (isTouchingScreen[0]) {
-            moveTo = controlStickStartPos.MoveTowards(controlStickCurrentPos, moveSpeed) - controlStickStartPos;
+            moveTo =
+                    controlStickStartPos[0].MoveTowards(controlStickCurrentPos[0], moveSpeed) - controlStickStartPos[0];
         }
 
         Pos::movePlayer(moveTo, 0);
@@ -44,6 +45,16 @@ void Pos::getPlayerMoveInput() {
             if (IsKeyDown(KEY_LEFT)) { moveTo[1].x = -moveSpeed; }
             if (IsKeyDown(KEY_DOWN)) { moveTo[1].y = moveSpeed; }
             if (IsKeyDown(KEY_RIGHT)) { moveTo[1].x = moveSpeed; }
+        }
+
+        // calculates the axis he wants with control stick
+        if (isTouchingScreen[0]) {
+            moveTo[0] =
+                    controlStickStartPos[0].MoveTowards(controlStickCurrentPos[0], moveSpeed) - controlStickStartPos[0];
+        }
+        if (isTouchingScreen[1]) {
+            moveTo[1] =
+                    controlStickStartPos[1].MoveTowards(controlStickCurrentPos[1], moveSpeed) - controlStickStartPos[1];
         }
 
         Pos::movePlayer(moveTo[0], 0);

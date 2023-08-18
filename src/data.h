@@ -49,8 +49,8 @@ extern bool isGameMultiPlayerGame;
 
 extern bool isTouchingScreen[2];
 extern bool isControlStickBasePlayer;
-extern raylib::Vector2 controlStickStartPos;
-extern raylib::Vector2 controlStickCurrentPos;
+extern raylib::Vector2 controlStickStartPos[2];
+extern raylib::Vector2 controlStickCurrentPos[2];
 
 extern float playerSize[2];
 extern float minimalEnemySizeX;

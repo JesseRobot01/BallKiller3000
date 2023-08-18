@@ -39,8 +39,8 @@ bool isGameMultiPlayerGame = false;
 bool isTouchingScreen[2] = {false, false};
 bool isControlStickBasePlayer = false;
 
-raylib::Vector2 controlStickStartPos;
-raylib::Vector2 controlStickCurrentPos;
+raylib::Vector2 controlStickStartPos[2];
+raylib::Vector2 controlStickCurrentPos[2];
 
 float playerSize[2] = {20, 20};
 
