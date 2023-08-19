@@ -8,7 +8,7 @@ void Gui::renderGameContent() {
         DrawCircleV(ballPos[b], ballSize[b], BLUE);
     }
     for (int e = 0; e < enemyCount; ++e) {
-        DrawRectangleV(enemies[e].pos, enemySize[e], YELLOW);
+        DrawRectangleV(enemies[e].pos, enemies[e].size, YELLOW);
 
 
     }

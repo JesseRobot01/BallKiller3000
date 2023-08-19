@@ -28,7 +28,6 @@ extern int screenHeight;
 
 extern raylib::Vector2 playerPos[2];
 extern raylib::Vector2 *ballPos;
-extern raylib::Vector2 *enemySize;
 extern float moveSpeed;
 
 extern int score[2];

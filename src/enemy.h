@@ -7,6 +7,8 @@ class Enemy {
 public:
     raylib::Vector2 pos;
     int preference;
+    raylib::Vector2 size;
+
     float minimalSizeX = 50;
     float minimalSizeY = 20;
     float maximaSizeX = 70;

@@ -64,11 +64,11 @@ void EnemyAi::generateMove() {
             if (moveType == 6) {
                 float oldSizeX;
                 float oldSizeY;
-                oldSizeX = enemySize[enemy].x;
-                oldSizeY = enemySize[enemy].y;
+                oldSizeX = enemies[enemy].size.x;
+                oldSizeY = enemies[enemy].size.y;
 
-                enemySize[enemy].x = oldSizeY;
-                enemySize[enemy].y = oldSizeX;
+                enemies[enemy].size.x = oldSizeY;
+                enemies[enemy].size.y = oldSizeX;
 
             }
             for (int b = 0; b < ballCount; ++b) {

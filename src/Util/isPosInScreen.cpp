@@ -64,10 +64,10 @@ bool Pos::isClippingOutsideScreen(Data::Types targetType, Vector2 position, int 
             }
             break;
         case Data::enemy:
-            if (position.x - enemySize[targetNumber].x >= 30 &&
-                position.x + enemySize[targetNumber].x <= screenWidth - 30) {
-                if (position.y - enemySize[targetNumber].y >= 30 &&
-                    position.y + enemySize[targetNumber].y <= screenHeight - 30) {
+            if (position.x - enemies[targetNumber].size.x >= 30 &&
+                position.x + enemies[targetNumber].size.x <= screenWidth - 30) {
+                if (position.y - enemies[targetNumber].size.y >= 30 &&
+                    position.y + enemies[targetNumber].size.y <= screenHeight - 30) {
                     return false;
                 }
             }
