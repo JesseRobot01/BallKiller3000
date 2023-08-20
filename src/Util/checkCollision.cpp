@@ -36,10 +36,10 @@ void Utils::checkAllCollisions(Data::Types targetType, Data::Types hasCollisionW
         if (hasCollisionWith == Data::enemy) {
             for (int e = 0; e < enemyCount; ++e) {
                 if (Utils::haveCollision(targetType, hasCollisionWith, e)) {
-                    EnemyAi::killPlayer(e, 0);
+                    enemies[e].killPlayer(0);
                 }
                 if (isGameMultiPlayerGame) {
-                    if (Utils::hasCollision(targetType, hasCollisionWith, 1, e)) { EnemyAi::killPlayer(e, 1); }
+                    if (Utils::hasCollision(targetType, hasCollisionWith, 1, e)) { enemies[e].killPlayer(0);; }
                 }
             }
         }

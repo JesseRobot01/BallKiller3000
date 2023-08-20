@@ -25,7 +25,7 @@ void EnemyAi::generateMove() {
 
             if (moveType == 1 || moveType == 2) {
                 moveTo = Vector2(Utils::randomFloat(-30, 30), Utils::randomFloat(-30, 30));
-                EnemyAi::move(enemy, moveTo);
+                enemies[enemy].move(moveTo);
                 pushBall = moveTo;
             }
 
@@ -36,14 +36,14 @@ void EnemyAi::generateMove() {
                     nearest = Utils::getNearest(Data::ball, enemies[enemy].pos);
 
                     moveDistance = Utils::randomFloat(1, 30);
-                    EnemyAi::moveTo(enemy, ballPos[nearest], moveDistance);
+                    enemies[enemy].moveTo(ballPos[nearest], moveDistance);
                     pushBall = enemies[enemy].pos.MoveTowards(ballPos[nearest], moveDistance) - enemies[enemy].pos;
                 }
                 if (enemies[enemy].preference == 3) {
                     if (!isGameOver) {
                         nearest = Utils::getNearest(Data::player, enemies[enemy].pos, enemy);
                         moveDistance = Utils::randomFloat(-1, 15);
-                        EnemyAi::moveTo(enemy, playerPos[nearest], moveDistance);
+                        enemies[enemy].moveTo(playerPos[nearest], moveDistance);
                         pushBall =
                                 enemies[enemy].pos.MoveTowards(playerPos[nearest], moveDistance) - enemies[enemy].pos;
 
@@ -54,7 +54,7 @@ void EnemyAi::generateMove() {
                     if (nearest == -1) return;
 
                     moveDistance = Utils::randomFloat(1, 30);
-                    EnemyAi::moveTo(enemy, enemies[nearest].pos, moveDistance);
+                    enemies[enemy].moveTo(enemies[nearest].pos, moveDistance);
                     pushBall = enemies[enemy].pos.MoveTowards(enemies[nearest].pos, moveDistance) - enemies[enemy].pos;
 
                 }
@@ -83,16 +83,16 @@ void EnemyAi::generateMove() {
     }
 }
 
-void EnemyAi::move(int enemyNum, raylib::Vector2 distance) {
-    if (!Pos::isClippingOutsideScreen(Data::enemy, enemies[enemyNum].pos + distance, enemyNum))
-        enemies[enemyNum].pos += distance;
+void Enemy::move(raylib::Vector2 distance) {
+    if (!Pos::isClippingOutsideScreen(Data::enemy, pos + distance, enemyNumber))
+        pos += distance;
 }
 
-void EnemyAi::moveTo(int enemyNum, raylib::Vector2 targetPos, float maxSteps) {
+void Enemy::moveTo(raylib::Vector2 targetPos, float maxSteps) {
     if (Pos::isPosInScreen(targetPos)) {
-        if (!Pos::isClippingOutsideScreen(Data::enemy, enemies[enemyNum].pos.MoveTowards(targetPos, maxSteps),
-                                          enemyNum)) {
-            enemies[enemyNum].pos = enemies[enemyNum].pos.MoveTowards(targetPos, maxSteps);
+        if (!Pos::isClippingOutsideScreen(Data::enemy, pos.MoveTowards(targetPos, maxSteps),
+                                          enemyNumber)) {
+            pos = pos.MoveTowards(targetPos, maxSteps);
         }
     }
 }

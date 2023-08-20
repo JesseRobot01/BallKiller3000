@@ -30,8 +30,9 @@ void GameHandler::checkLevelUp(bool firstTimeRun) {
             ballSize[b] = Utils::random(minimalBallSize, maximalBallSize);
         }
         for (int e = 0; e < enemyCount; ++e) {
+            enemies[e].enemyNumber = e;
             enemies[e].pos = Pos::generateRandomPos(Data::enemy);
-            EnemyAi::initializeEnemyAi(e);
+            enemies[e].initializeAi();
         }
     }
 }
