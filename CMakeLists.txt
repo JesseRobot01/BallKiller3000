@@ -115,3 +115,8 @@ if (APPLE)
     target_link_libraries(${PROJECT_NAME} "-framework Cocoa")
     target_link_libraries(${PROJECT_NAME} "-framework OpenGL")
 endif ()
+
+# Install the file
+install(TARGETS ${PROJECT_NAME}
+COMPONENT ${PROJECT_NAME}
+DESTINATION .)

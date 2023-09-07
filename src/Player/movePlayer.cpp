@@ -63,20 +63,20 @@ void Pos::getPlayerMoveInput() {
 }
 
 void Pos::movePlayer(Vector2 moveDistance, int playerNum) {
-    if (!Pos::isClippingOutsideScreen(Data::player, playerPos[playerNum] + moveDistance)) {
+    if (!Pos::isClippingOutsideScreen(Data::player, playerPos[playerNum] + moveDistance, playerNum)) {
         playerPos[playerNum] += moveDistance;
         Utils::checkAllCollisions(Data::player, Data::ball);
         return;
     }
 
     // if it can't move altogether, try moving it by axis.
-    if (!Pos::isClippingOutsideScreen(Data::player, playerPos[playerNum] + Vector2(moveDistance.x, 0))) {
+    if (!Pos::isClippingOutsideScreen(Data::player, playerPos[playerNum] + Vector2(moveDistance.x, 0), playerNum)) {
         playerPos[playerNum] += Vector2(moveDistance.x, 0);
         Utils::checkAllCollisions(Data::player, Data::ball);
     }
 
     // if it can't move altogether, try moving it by axis.
-    if (!Pos::isClippingOutsideScreen(Data::player, playerPos[playerNum] + Vector2(0, moveDistance.y))) {
+    if (!Pos::isClippingOutsideScreen(Data::player, playerPos[playerNum] + Vector2(0, moveDistance.y), playerNum)) {
         playerPos[playerNum] += Vector2(0, moveDistance.y);
         Utils::checkAllCollisions(Data::player, Data::ball);
     }

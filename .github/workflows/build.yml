@@ -59,6 +59,11 @@ jobs:
           ./emsdk activate latest
           cd ..
 
+      - name: Set up MSVC
+        if: ${{   matrix.artifact_name == 'BallKiller3000-Windows-MSVC-x64'}}
+        uses: ilammy/msvc-dev-cmd@v1
+
+
       - name: Set build number
         if: ${{inputs.need-commit-id == '1' }}
         shell: bash
@@ -89,27 +94,21 @@ jobs:
       - name: Prepare site files (HTML5)
         if: ${{ matrix.executable_name == 'index.html' }}
         run: |
-          mkdir _site
-          mv ${{github.workspace}}/build/BallKiller3000.html  ${{github.workspace}}/_site/${{ matrix.executable_name }}
-          mv ${{github.workspace}}/build/BallKiller3000.*  ${{github.workspace}}/_site/
-          mv ${{github.workspace}}/.github/custom/online/README.*  ${{github.workspace}}/_site/
+          mkdir install
+          mv ${{github.workspace}}/build/BallKiller3000.html  ${{github.workspace}}/install/${{ matrix.executable_name }}
+          mv ${{github.workspace}}/build/BallKiller3000.*  ${{github.workspace}}/install/
+          mv ${{github.workspace}}/.github/custom/online/README.*  ${{github.workspace}}/install/
+          
+
+      - name: Prepare Executable
+        if: ${{ matrix.executable_name != 'index.html' }}
+        run: cmake --install build --component BallKiller3000
 
       - name: Upload BallKiller3000
-        if: ${{ matrix.executable_name != 'index.html' }}
         uses: actions/upload-artifact@v3.1.1
         with:
           # Artifact name
           name: ${{ matrix.artifact_name }}
 
           # A file, directory or wildcard pattern that describes what to upload
-          path: ${{github.workspace}}/build/${{ matrix.executable_name }}
-
-      - name: Upload BallKiller3000 (HTML5)
-        if: ${{ matrix.executable_name == 'index.html'  && matrix.artifact_name != 'BallKiller3000-github_pages' }}
-        uses: actions/upload-artifact@v3.1.1
-        with:
-          # Artifact name
-          name: ${{ matrix.artifact_name }}
-
-          # A file, directory or wildcard pattern that describes what to upload
-          path: ${{github.workspace}}/_site
+          path: ${{github.workspace}}/install
