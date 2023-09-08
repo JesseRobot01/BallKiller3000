@@ -123,3 +123,11 @@ int main() {
 
     return 0;
 }
+
+
+// fix msvc release
+#if defined(MSVC)
+int WinMain(){
+   return main();
+}
+#endif

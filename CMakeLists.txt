@@ -88,6 +88,7 @@ target_link_libraries(${PROJECT_NAME} PUBLIC raylib raylib_cpp)
 
 # Disable console (for windows)
 if (CMAKE_BUILD_TYPE STREQUAL "Release")
+    #Disabled because it gave problems with msvc
     set_target_properties(${PROJECT_NAME} PROPERTIES WIN32_EXECUTABLE YES)
 endif ()
 
@@ -109,6 +110,11 @@ if (WIN32)
     endif ()
 endif ()
 
+if (MSVC)
+    target_compile_definitions(${PROJECT_NAME} PRIVATE MSVC)
+endif ()
+
+
 # Checks if OSX and links appropriate frameworks (only required on MacOS)
 if (APPLE)
     target_link_libraries(${PROJECT_NAME} "-framework IOKit")
@@ -118,5 +124,5 @@ endif ()
 
 # Install the file
 install(TARGETS ${PROJECT_NAME}
-COMPONENT ${PROJECT_NAME}
-DESTINATION .)
+        COMPONENT ${PROJECT_NAME}
+        DESTINATION .)
