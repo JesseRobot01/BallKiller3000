@@ -1,122 +1,142 @@
+#include <iostream>
 #include "raylib-cpp.hpp"
 #include "version.h"
-#include "pos.h"
+#include "player.h"
+#include "ball.h"
+#include "enemy.h"
+#include "data.h"
 #include "gameHandler.h"
-#include "enemyAi.h"
 #include "gui.h"
 
-#if defined(PLATFORM_WEB)
-#include <emscripten/emscripten.h>
-#endif
+// window
+float screenWidth = 800;
+float screenHeight = 450;
 
-// the variables
-int screenWidth = 800;
-int screenHeight = 450;
+// game states
+bool isGameActive;
+bool isGamePaused;
+bool isGameOver;
 
-
-raylib::Vector2 playerPos[2];
-raylib::Vector2 *ballPos;
-raylib::Vector2 *enemySize;
-float moveSpeed = 3;
-
-int score[2];
-int highScore;
-int lives[2];
 int level;
-int ballsInScreen;
+
+// entities
+Player *player;
+Ball *ball;
+Enemy *enemy;
+
+int playerCount;
 int ballCount;
-float *ballSize;
+int ballsInScreen;
 int enemyCount;
 int enemiesInScreen;
 
 
-bool isGameOver = false;
-bool hasGameStarted = false;
-bool isGamePaused = false;
-bool isGameMultiPlayerGame = false;
-
-bool isTouchingScreen[2] = {false, false};
-bool isControlStickBasePlayer = false;
-
-raylib::Vector2 controlStickStartPos[2];
-raylib::Vector2 controlStickCurrentPos[2];
-
-float playerSize[2] = {20, 20};
-
-
-
-float minimalBallSize = 20;
-float maximalBallSize = 40;
-
-Enemy *enemies;
-
 int main() {
+    // initialises the window
     SetConfigFlags(FLAG_WINDOW_RESIZABLE);
+    raylib::Window gameWindow((int) screenWidth, (int) screenHeight, "Ballkiller v"  BALL_KILLER_VERSION);
 
-    //initialise the variables
-    GameHandler::startGame();
+    // Set window properties
+    SetExitKey(KEY_NULL);
+    gameWindow.SetTargetFPS(60);
+    //TODO Remove unused debug shit. Maybe reformat in an GUI instead of console (OPTIONAL)
 
-    //initialises the window
-    raylib::Window window(screenWidth, screenHeight, "BallKiller3000 v" BALL_KILLER_VERSION);
 
-    SetExitKey(KEY_NULL); // Disable exit key, replace it with a pause menu
-    window.SetTargetFPS(60);
-
-    // main game loop (executes every frame)
-    while (!window.ShouldClose()) {
-        if (screenWidth != window.GetRenderWidth()) {
-            Gui::resizeWindow();
-        }
-        if (screenHeight != window.GetRenderHeight()) {
-
-            Gui::resizeWindow();
-        }
-
-        //fetch pause button
-        if (IsKeyPressed(KEY_ESCAPE) && !isGameOver && hasGameStarted) {
-            if (!isGamePaused) {
+    // Main game loop (executes every frame)
+    while (!gameWindow.ShouldClose()) {
+        if (IsKeyPressed(KEY_ESCAPE)) {
+            if (isGameActive) {
                 isGamePaused = true;
-            } else {
-                isGamePaused = false;
+            }
+        }
+        // Get window resize
+        if (screenWidth != gameWindow.GetRenderWidth()) {
+            Gui::resizeWindow();
+        }
+        if (screenHeight != gameWindow.GetRenderHeight()) {
+
+            Gui::resizeWindow();
+        }
+
+        gameWindow.BeginDrawing();
+        gameWindow.ClearBackground(RAYWHITE);
+
+
+        if (isGameActive) {
+            Gui::gameElements();
+
+            if (isGameOver) {
+                Gui::gameOver();
+            } else if (isGamePaused) {
+                Gui::pauseMenu();
+            }
+
+            if (!isGamePaused) {
+                for (int p = 0; p < playerCount; ++p) {
+                    player[p].getMove();
+                }
+                for (int e = 0; e < enemyCount; ++e) {
+                    enemy[e].generateMove();
+                }
+            }
+
+
+            Gui::gameOverlay();
+
+        } else {
+            Gui::startScreen();
+        }
+
+        // draw version
+        raylib::DrawText("v"  BALL_KILLER_VERSION,
+                         (int) screenWidth - (int) (std::string(BALL_KILLER_VERSION).length() * 5) - 10,
+                         (int) screenHeight - 15, 10, GRAY);
+
+        gameWindow.EndDrawing();
+
+        if (isGameActive && !isGameOver) {
+            //check game over
+            bool isPlayerAlive = false;
+            for (int p = 0; p < playerCount; ++p) {
+                if (!player[p].isDead) isPlayerAlive = true;
+            }
+            if (!isPlayerAlive) {
+                isGameOver = true;
+                if (playerCount == 2) {
+                    for (int p = 0; p < playerCount; ++p) {
+                        if (player[p].score > player[p].highScore)
+                            GameHandler::saveHigh(player[p].score, true, p);
+                    }
+                } else if (player[0].score > player[0].highScore)GameHandler::saveHigh(player[0].score);
+
+                for (int p = 0; p < playerCount; ++p) {
+                    if (player[p].score > player[p].highScore) player[p].highScore = player[p].score;
+                }
             }
         }
 
-        BeginDrawing();
-        ClearBackground(RAYWHITE);
-
-        Gui::renderGameGui();
-
-        if (hasGameStarted) {
-            Gui::renderGameContent();
-        } else { Gui::renderStartScreen(); }
-
-        if (isGamePaused) {
-            Gui::renderPauseMenu();
-        }
-
-        // move the player
-        if (hasGameStarted && !isGamePaused) {
-            if (!isGameOver) {
-                Gui::renderControlStick();
-                Pos::getPlayerMoveInput();
-            } else {
-                Gui::renderGameOver();
+        if (gameWindow.ShouldClose()) {
+            if (isGameActive) {
+                if (playerCount == 2) {
+                    for (int p = 0; p < playerCount; ++p) {
+                        if (player[p].score > player[p].highScore) GameHandler::saveHigh(player[p].score, true, p);
+                    }
+                } else if (player[0].score > player[0].highScore) GameHandler::saveHigh(player[0].score);
             }
+
+            gameWindow.Close();
         }
 
-        Gui::renderGameGui();
-
-        EndDrawing();
-
-        if (hasGameStarted && !isGamePaused) {
-            EnemyAi::generateMove();
-        }
-
-        if (window.ShouldClose()) {
-            GameHandler::saveHigh();
-            window.Close();
-        }
     }
 
     return 0;
 }
+
+// fix msvc release
+#if defined(MSVC)
+
+int WinMain() {
+    return main();
+}
+
+#endif
