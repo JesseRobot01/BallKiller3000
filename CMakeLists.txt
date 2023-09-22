@@ -8,27 +8,30 @@ set(BALL_KILLER_VERSION_PATCH 0)
 
 set(SOURCES
         src/main.cpp
-        src/Util/posGenerator.cpp
-        src/GameHandler/startGame.cpp
-        src/GameHandler/highScore.cpp
-        src/GameHandler/levelUp.cpp
-        src/Player/movePlayer.cpp
-        src/Util/isPosInScreen.cpp
-        src/Util/random.cpp
-        src/Util/checkCollision.cpp
-        src/ball.cpp
-        src/Enemy/initialize.cpp
-        src/Enemy/killPlayer.cpp
-        src/GameHandler/endGame.cpp
-        src/Enemy/move.cpp
-        src/Util/getNearest.cpp
-        src/Gui/resizeWindow.cpp
-        src/Gui/gameGui.cpp
-        src/Gui/gameContent.cpp
-        src/Gui/gameOver.cpp
-        src/Gui/startScreen.cpp
-        src/Gui/controlStick.cpp
-        src/Gui/pauseMenu.cpp)
+        src/gameHandler/startGame.cpp
+        src/data.h
+        src/gameHandler/highScore.cpp
+        src/gameHandler/levelUp.cpp
+        src/utils/random.cpp
+        src/balls.cpp
+        src/enemy/initialise.cpp
+        src/gui/gameElements.cpp
+        src/gui/gameOverlay.cpp
+        src/gui/pauseMenu.cpp
+        src/gui/gameOverScreen.cpp
+        src/gui/startScreen.cpp
+        src/utils/checkCollision.cpp
+        src/player/move.cpp
+        src/enemy/move.cpp
+        src/gui/resizeWindow.cpp
+        src/utils/getNearest.cpp
+)
+
+#
+if (CMAKE_BUILD_TYPE MATCHES Debug)
+    add_definitions(-DDEBUG)
+endif ()
+
 
 add_executable(${PROJECT_NAME} ${SOURCES})
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
@@ -88,7 +91,6 @@ target_link_libraries(${PROJECT_NAME} PUBLIC raylib raylib_cpp)
 
 # Disable console (for windows)
 if (CMAKE_BUILD_TYPE STREQUAL "Release")
-    #Disabled because it gave problems with msvc
     set_target_properties(${PROJECT_NAME} PROPERTIES WIN32_EXECUTABLE YES)
 endif ()
 
@@ -108,10 +110,9 @@ if (WIN32)
     if (NOT MSVC)
         set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -static-libgcc -static-libstdc++ -static -pthread")
     endif ()
-endif ()
-
-if (MSVC)
-    target_compile_definitions(${PROJECT_NAME} PRIVATE MSVC)
+    if (MSVC)
+        add_definitions(-DMSVC)
+    endif ()
 endif ()
 
 

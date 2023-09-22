@@ -3,19 +3,17 @@
 
 class Gui {
 public:
-    static void renderGameGui();
+    static void startScreen();
 
-    static void renderControlStick();
+    static void gameElements();
+
+    static void gameOverlay();
+
+    static void gameOver();
+
+    static void pauseMenu();
 
     static void resizeWindow();
-
-    static void renderGameContent();
-
-    static void renderGameOver();
-
-    static void renderStartScreen();
-
-    static void renderPauseMenu();
 };
 
-#endif
+#endif //BALLKILLER3000_GUI_H

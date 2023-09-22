@@ -3,16 +3,31 @@
 
 class GameHandler {
 public:
-    static void startGame();
+    static void startGame(bool multiPlayerGame = false);
 
-    static void checkLevelUp(bool firstTimeRun = false);
+    static void levelUp();
 
-    static int loadHigh();
 
-    static void saveHigh(bool forced = false);
+    /**
+     * Get the high score for single-player, multiplayer player one, or multiplayer player 2.
+     *
+     * @param multiPlayer Sets if it needs an multiplayer high score or a single-player high score.
+     * @param playerIndexNumber The index number of the player, ignored if it is an single-player game.
+     * The index number is the number the player has in the array. aka the playerNumber.
+     * @return The high score.
+     */
+    static int getHigh(bool multiPlayer = false, int playerIndexNumber = -1);
 
-    static void endGame(bool forced = false);
+    /**
+    * Saves the highScore to its own file. <br>
+            * WARNING!!! THIS OVERWRITES THE EXISTING HIGH SCORE. USE WITH CAUTION!!!
+    * @param scoreToSave The score to save.
+    * @param multiPlayer Sets if it saves an multiplayer high score or a single-player high score.
+    * @param playerIndexNumber The index number of the player, ignored if it is an single-player game.
+    * The index number is the number the player has in the array. aka the playerNumber.
+    */
+
+    static void saveHigh(int scoreToSave, bool multiPlayer = false, int playerIndexNumber = -1);
 };
-
 
 #endif
