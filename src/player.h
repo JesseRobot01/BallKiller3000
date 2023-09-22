@@ -30,6 +30,10 @@ public:
     raylib::Color controlStickBaseColour = ColorAlpha(GRAY, 0.75);
     raylib::Color controlStickDragColour = ColorAlpha(BLACK, 0.75);
 
+    bool isTouchingScreen;
+    bool isControlStickBasePlayer = false;
+    raylib::Vector2 controlStickStartPos;
+    raylib::Vector2 controlStickCurrentPos;
 
     bool hasCollision(Ball ballToCheck);
 

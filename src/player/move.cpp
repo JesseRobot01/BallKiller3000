@@ -9,11 +9,34 @@ void Player::getMove() {
 
     // first get the touch screen touch points
     if (GetTouchPointCount() > 0) {
-
+//TODO For multi player on touch screens. still need to be planned how it will work.
     }
     // now, check for the mouse
-    if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
+    if (IsMouseButtonDown(MOUSE_BUTTON_LEFT) && IsGestureDetected(GESTURE_DRAG)) {
+        if (!isTouchingScreen) {
+            isTouchingScreen = true;
+            isControlStickBasePlayer = pos.CheckCollision(GetMousePosition(), size + 30);
+            if (isControlStickBasePlayer) {
+                controlStickStartPos = pos;
+            } else {
+                controlStickStartPos = GetMousePosition();
+            }
+        }
+        if (isControlStickBasePlayer) {
+            controlStickStartPos = pos;
+            controlStickCurrentPos = GetMousePosition();
 
+        } else {
+            DrawCircleV(controlStickStartPos, 50, controlStickBaseColour);
+            controlStickCurrentPos = controlStickStartPos.MoveTowards(GetMousePosition(), 50);
+        }
+        DrawCircleV(controlStickCurrentPos, 30, controlStickDragColour);
+
+        moveTo = controlStickStartPos.MoveTowards(controlStickCurrentPos, speed) - controlStickStartPos;
+
+
+    } else {
+        isTouchingScreen = false;
     }
     // now, do the keyboard things.
     // first for two players
