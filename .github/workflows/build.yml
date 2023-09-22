@@ -26,9 +26,9 @@ jobs:
             artifact_name: BallKiller3000-Windows-x64
             executable_name: BallKiller3000.exe
 
-          #   - os: windows-latest
-          #     artifact_name: BallKiller3000-Windows-MSVC-x64
-          #     executable_name: BallKiller3000.exe
+          - os: windows-latest
+            artifact_name: BallKiller3000-Windows-MSVC-x64
+            executable_name: BallKiller3000.exe
 
 
           - os: ubuntu-latest
@@ -98,7 +98,7 @@ jobs:
           mv ${{github.workspace}}/build/BallKiller3000.html  ${{github.workspace}}/install/${{ matrix.executable_name }}
           mv ${{github.workspace}}/build/BallKiller3000.*  ${{github.workspace}}/install/
           mv ${{github.workspace}}/.github/custom/online/README.*  ${{github.workspace}}/install/
-          
+
 
       - name: Prepare Executable
         if: ${{ matrix.executable_name != 'index.html' }}
