@@ -2,8 +2,6 @@
 #include "../gui.h"
 #include "../gameHandler.h"
 
-//TODO pause system
-
 void Gui::pauseMenu() {
     // Define button sizes
     raylib::Rectangle continueButton(screenWidth / 2 - (float) MeasureText("Continue", 30) - 10,

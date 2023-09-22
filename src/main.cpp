@@ -39,7 +39,7 @@ int main() {
     // Set window properties
     SetExitKey(KEY_NULL);
     gameWindow.SetTargetFPS(60);
-    //TODO Remove unused debug shit. Maybe reformat in an GUI instead of console (OPTIONAL)
+
 
 
     // Main game loop (executes every frame)
@@ -50,10 +50,10 @@ int main() {
             }
         }
         // Get window resize
-        if (screenWidth != gameWindow.GetRenderWidth()) {
+        if (screenWidth != (float) gameWindow.GetRenderWidth()) {
             Gui::resizeWindow();
         }
-        if (screenHeight != gameWindow.GetRenderHeight()) {
+        if (screenHeight != (float) gameWindow.GetRenderHeight()) {
 
             Gui::resizeWindow();
         }
