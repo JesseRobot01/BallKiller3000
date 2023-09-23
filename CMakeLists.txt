@@ -39,6 +39,7 @@ target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
 # Determine the target platform
 if (WIN32)
     set(SYSTEM_NAME "win")
+    add_definitions(-DPLATFORM_WIN)
 elseif (EMSCRIPTEN)
     set(SYSTEM_NAME "html")
 elseif (UNIX AND NOT APPLE)
