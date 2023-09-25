@@ -80,6 +80,12 @@ void Enemy::rotate() {
     size.x = oldSize.y;
     size.y = oldSize.x;
 
+    if (!isInScreen()) {
+        //no
+        size.x = oldSize.x;
+        size.y = oldSize.y;
+    }
+
     for (int b = 0; b < ballCount; ++b) {
         if (hasCollision(ball[b])) {
             if (oldSize.y > oldSize.x)
