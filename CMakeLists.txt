@@ -2,9 +2,7 @@ cmake_minimum_required(VERSION 3.25)
 set(CMAKE_CXX_STANDARD 23)
 project(BallKiller3000)
 
-set(BALL_KILLER_VERSION_MAJOR 0)
-set(BALL_KILLER_VERSION_MINOR 3)
-set(BALL_KILLER_VERSION_PATCH 0)
+set(BALL_KILLER_VERSION 0.3)
 
 set(SOURCES
         src/main.cpp
@@ -50,7 +48,7 @@ else ()
     set(SYSTEM_NAME CMAKE_SYSTEM_NAME)
 endif ()
 
-# Get the commit hash from the command line
+# Get the commit hash and version from the command line
 option(COMMIT_HASH "Commit hash" "")
 if (COMMIT_HASH)
     set(COMMIT_HASH_STRING "-${COMMIT_HASH}")
@@ -58,8 +56,13 @@ else ()
     set(COMMIT_HASH_STRING "")
 endif ()
 
+option(VERSION_OVERRIDE "Version override" "")
+if (VERSION_OVERRIDE)
+    set(BALL_KILLER_VERSION "${VERSION_OVERRIDE}")
+endif ()
+
 # Create the version string with the system name
-set(FULL_VERSION "${BALL_KILLER_VERSION_MAJOR}.${BALL_KILLER_VERSION_MINOR}.${BALL_KILLER_VERSION_PATCH}-${SYSTEM_NAME}${COMMIT_HASH_STRING}")
+set(FULL_VERSION "${BALL_KILLER_VERSION}-${SYSTEM_NAME}${COMMIT_HASH_STRING}")
 
 configure_file(src/version.h.in ${CMAKE_CURRENT_BINARY_DIR}/version.h @ONLY)
 
