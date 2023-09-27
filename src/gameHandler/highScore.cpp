@@ -20,8 +20,8 @@ int GameHandler::getHigh(bool multiPlayer, int playerIndexNumber) {
 
 #ifdef DEBUG
     std::ifstream highScoreFile("./highScore.txt");
-#elif PLATFORM_WIN
-    std::ifstream highScoreFile("%appdata%/BallKiller3000/highScore.txt"); // for windows
+//#elif PLATFORM_WIN
+  //  std::ifstream highScoreFile("%appdata%/BallKiller3000/highScore.txt"); // for windows
 #else
     std::ifstream highScoreFile("./highScore.txt");
 #endif
@@ -95,10 +95,10 @@ void GameHandler::saveHigh(int scoreToSave, bool multiPlayer, int playerIndexNum
 
 #ifdef DEBUG
     std::ofstream highScoreFile("./highScore.txt");
-#elif PLATFORM_WIN
-    std::ofstream  highScoreFile("%appdata%/BallKiller3000/highScore.txt"); // for windows
+//#elif PLATFORM_WIN
+  //  std::ofstream  highScoreFile("%appdata%/BallKiller3000/highScore.txt"); // for windows
 #else
-    std::ofstream  highScoreFile("./highScore.txt");
+    std::ofstream highScoreFile("./highScore.txt");
 #endif
 
     highScoreFile << highScoreRaw;
