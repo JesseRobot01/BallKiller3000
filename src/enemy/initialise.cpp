@@ -11,7 +11,7 @@ void Enemy::initialise() {
     }
 
     // set ai
-    enemyAI = static_cast<aiTypes>(Utils::random(0, 3));
+    enemyAI = static_cast<aiTypes>(Utils::random(0, 6));
 
     if (enemyAI == playerPreference) {
         speed = 15;

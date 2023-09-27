@@ -22,6 +22,12 @@ private:
 
     void generatePlayerFindMove();
 
+    void generateBallScaredMove();
+
+    void generateEnemyScaredMove(); // aka generateDepression
+
+    void generatePlayerScaredMove();
+
     void move(Vector2 moveTo, bool isGettingPushed = false);
 
     void rotate();
@@ -47,10 +53,13 @@ public:
         neutral,
         ballPreference,
         enemyPreference,
-        playerPreference
+        playerPreference,
+        ballScared,
+        enemyScared, // or depression
+        playerScared
     };
 
-    aiTypes enemyAI;
+    aiTypes enemyAI = neutral;
 
     Color colour = YELLOW;
 

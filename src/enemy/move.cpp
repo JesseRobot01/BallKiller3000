@@ -32,6 +32,15 @@ void Enemy::generateMove() {
                 case playerPreference:
                     generatePlayerFindMove();
                     break;
+                case ballScared:
+                    generateBallScaredMove();
+                    break;
+                case enemyScared:
+                    generateEnemyScaredMove();
+                    break;
+                case playerScared:
+                    generatePlayerScaredMove();
+                    break;
             }
             break;
 
@@ -71,6 +80,34 @@ void Enemy::generatePlayerFindMove() {
     if (nearestPlayer == -1) return; // safeguard, think this will never happen. but to make sure.
     float moveDistance = Utils::randomFloat(1, speed);
     move(pos.MoveTowards(player[nearestPlayer].pos, moveDistance) - pos);
+}
+
+void Enemy::generateBallScaredMove() {
+    raylib::Vector2 moveTo;
+    int nearestBall = getNearestBall();
+    if (nearestBall == -1) generateNeutralMove(); //happy
+
+    float moveDistance = Utils::randomFloat(1, speed);
+    moveTo = pos.MoveTowards(ball[nearestBall].pos, moveDistance) - pos;
+    move(-moveTo);
+}
+
+void Enemy::generateEnemyScaredMove() {  // aka generateEnemyDepression
+    raylib::Vector2 moveTo;
+    if (enemiesInScreen == 1) generateNeutralMove(); //happy
+    int nearestEnemy = getNearestEnemy();
+    float moveDistance = Utils::randomFloat(1, speed);
+    moveTo = pos.MoveTowards(enemy[nearestEnemy].pos, moveDistance) - pos;
+    move(-moveTo);
+}
+
+void Enemy::generatePlayerScaredMove() {
+    raylib::Vector2 moveTo;
+    int nearestPlayer = getNearestPlayer();
+    if (nearestPlayer == -1) return; // safeguard, think this will never happen. but to make sure.
+    float moveDistance = Utils::randomFloat(1, speed);
+    moveTo = pos.MoveTowards((player[nearestPlayer].pos), moveDistance) - pos;
+    move(-moveTo);
 }
 
 void Enemy::rotate() {
