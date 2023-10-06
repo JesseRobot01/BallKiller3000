@@ -14,8 +14,6 @@
 - CMake
 - [Emscripten SDK](https://emscripten.org/docs/getting_started/downloads.html) (for building for the web) (optional)
 
-The build progress is only tested on windows with mingw and Ninja. but it should work fine with other build systems.
-
 ### Building
 
 Run these commands:
