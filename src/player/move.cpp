@@ -29,10 +29,12 @@ void Player::getMove() {
     } else {
         isTouchingScreen = false;
         isUsingMouse = false;
-        touchPointIndex = -1;
-
-        moveTo = getKeyboardMove();
     }
+
+    // now keyboard
+    output = getKeyboardMove();
+    if (output != Vector2(0, 0))
+        moveTo = output;
 
     move(moveTo);
 
