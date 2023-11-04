@@ -19,6 +19,8 @@ bool isGameOver;
 
 int level;
 
+int knownTouchPoints = 0;
+
 // entities
 Player *player;
 Ball *ball;

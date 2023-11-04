@@ -17,6 +17,8 @@ extern bool isGameOver;
 
 extern int level;
 
+extern int knownTouchPoints;
+
 // entities
 extern Player *player;
 extern Ball *ball;

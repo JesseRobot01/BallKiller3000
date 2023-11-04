@@ -6,40 +6,157 @@ void Player::getMove() {
     if (isDead) return; // no need if he's ded
 
     raylib::Vector2 moveTo;
+    raylib::Vector2 output;
+
+
+    //first check if there is a new or a removed touch
+
+    if (knownTouchPoints != GetTouchPointCount()) {
+        updateTouchPoints();
+        knownTouchPoints = GetTouchPointCount();
+    }
 
     // first get the touch screen touch points
-    if (GetTouchPointCount() > 0) {
-//TODO For multi player on touch screens. still need to be planned how it will work.
-    }
-    // now, check for the mouse
     if (IsMouseButtonDown(MOUSE_BUTTON_LEFT) && IsGestureDetected(GESTURE_DRAG)) {
+        //  now, check for the mouse
+        output = getMouseMove();
+        if (output != Vector2(0, 0))
+            moveTo = output;
+    } else if (GetTouchPointCount() > 1 && IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
+        output = getTouchPointMove();
+        if (output != Vector2(0, 0))
+            moveTo = output;
+    } else {
+        isTouchingScreen = false;
+        isUsingMouse = false;
+        touchPointIndex = -1;
+
+        moveTo = getKeyboardMove();
+    }
+
+    move(moveTo);
+
+    checkCollisionWithBalls();
+
+}
+
+raylib::Vector2 Player::getTouchPointMove() {
+    raylib::Vector2 moveTo;
+    if (touchPointIndex != -1) {
         if (!isTouchingScreen) {
             isTouchingScreen = true;
-            isControlStickBasePlayer = pos.CheckCollision(GetMousePosition(), size + 30);
+            isControlStickBasePlayer = pos.CheckCollision(GetTouchPosition(touchPointIndex), size + 30);
             if (isControlStickBasePlayer) {
                 controlStickStartPos = pos;
             } else {
-                controlStickStartPos = GetMousePosition();
+                controlStickStartPos = GetTouchPosition(touchPointIndex);
             }
         }
+
+
         if (isControlStickBasePlayer) {
             controlStickStartPos = pos;
-            controlStickCurrentPos = GetMousePosition();
 
+            controlStickCurrentPos = GetTouchPosition(touchPointIndex);
         } else {
             DrawCircleV(controlStickStartPos, 50, controlStickBaseColour);
-            controlStickCurrentPos = controlStickStartPos.MoveTowards(GetMousePosition(), 50);
+            controlStickCurrentPos = controlStickStartPos.MoveTowards(GetTouchPosition(touchPointIndex), 50);
         }
         DrawCircleV(controlStickCurrentPos, 30, controlStickDragColour);
 
         moveTo = controlStickStartPos.MoveTowards(controlStickCurrentPos, speed) - controlStickStartPos;
 
+        return moveTo;
+    }
+
+
+    return 0;
+
+}
+
+void Player::updateTouchPoints() {
+    // first reset
+    for (int p = 0; p < playerCount; ++p) {
+        player[p].touchPointIndex = -1;
+    }
+    for (int t = 0; t < GetTouchPointCount(); ++t) {
+        for (int p = 0; p < playerCount; ++p) {
+            if (player[p].touchPointIndex == -1) {
+                if (getWantedPlayer(GetTouchPosition(t)) == p) {
+                    player[p].touchPointIndex = t;
+                }
+            }
+        }
+
+    }
+}
+
+void Player::panicTouchPoints() {}
+
+raylib::Vector2 Player::getMouseMove() {
+    raylib::Vector2 moveTo;
+
+    // check if another player is using the mouse, because there can't be 2 mouses. and for touch screens there is a separate touch screen system.
+    for (int p = 0; p < playerCount; ++p) {
+        if (p != playerNumber) {
+            if (player[p].isUsingMouse) return Vector2(0, 0);
+        }
+    }
+
+    if (!isTouchingScreen) {
+
+        // check if this is the wanted player
+        if (getWantedPlayer(GetMousePosition()) != playerNumber) return 0;
+
+        isTouchingScreen = true;
+        isUsingMouse = true;
+        isControlStickBasePlayer = pos.CheckCollision(GetMousePosition(), size + 30);
+        if (isControlStickBasePlayer) {
+            controlStickStartPos = pos;
+        } else {
+            controlStickStartPos = GetMousePosition();
+        }
+    }
+
+    if (isControlStickBasePlayer) {
+        controlStickStartPos = pos;
+        controlStickCurrentPos = GetMousePosition();
 
     } else {
-        isTouchingScreen = false;
+        DrawCircleV(controlStickStartPos, 50, controlStickBaseColour);
+        controlStickCurrentPos = controlStickStartPos.MoveTowards(GetMousePosition(), 50);
     }
+    DrawCircleV(controlStickCurrentPos, 30, controlStickDragColour);
+
+    moveTo = controlStickStartPos.MoveTowards(controlStickCurrentPos, speed) - controlStickStartPos;
+
+    return moveTo;
+}
+
+
+int Player::getWantedPlayer(raylib::Vector2 posToCheck) {
+    // first drag.
+    for (int p = 0; p < playerCount; ++p) {
+        if (player[p].pos.CheckCollision(posToCheck, player[p].size + 30)) return p;
+    }
+
+    // now rect
+    float recSize = screenWidth / (float) playerCount;
+    for (int p = 0; p < playerCount; ++p) {
+        raylib::Rectangle rectangle = Rectangle(recSize * (float) p, 0, recSize,
+                                                screenHeight);
+
+        if (rectangle.CheckCollision(posToCheck)) return p;
+
+    }
+    return -1;
+}
+
+raylib::Vector2 Player::getKeyboardMove() const {
     // now, do the keyboard things.
     // first for two players
+    raylib::Vector2 moveTo;
+
     if (playerCount == 2) {
         if (playerNumber == 0) {
             if (IsKeyDown(KEY_W)) { moveTo.y -= speed; }
@@ -59,9 +176,7 @@ void Player::getMove() {
         if (IsKeyDown(KEY_S) || IsKeyDown(KEY_DOWN)) { moveTo.y += speed; }
         if (IsKeyDown(KEY_D) || IsKeyDown(KEY_RIGHT)) { moveTo.x += speed; }
     }
-    move(moveTo);
-    checkCollisionWithBalls();
-
+    return moveTo;
 }
 
 void Player::move(Vector2 moveTo) {

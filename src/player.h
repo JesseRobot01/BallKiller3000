@@ -12,6 +12,18 @@ class Player {
 private:
     void checkCollisionWithBalls();
 
+    raylib::Vector2 getTouchPointMove();
+
+    void updateTouchPoints();
+
+    void panicTouchPoints();
+
+    raylib::Vector2 getMouseMove();
+
+    static int getWantedPlayer(raylib::Vector2 posToCheck);
+
+    raylib::Vector2 getKeyboardMove() const;
+
 public:
     int playerNumber = -1;
     float size = 20;
@@ -32,6 +44,8 @@ public:
 
     bool isTouchingScreen;
     bool isControlStickBasePlayer = false;
+    bool isUsingMouse;
+    int touchPointIndex;
     raylib::Vector2 controlStickStartPos;
     raylib::Vector2 controlStickCurrentPos;
 
