@@ -52,6 +52,7 @@ void Gui::gameOver() {
         CheckCollisionPointRec(GetMousePosition(),
                                exitButton)) {
         isGameActive = false;
+        frameCounter = 0; // Resets the counter to start a new AI game
     }
 
 }

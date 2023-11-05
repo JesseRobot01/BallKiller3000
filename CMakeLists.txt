@@ -23,6 +23,7 @@ set(SOURCES
         src/enemy/move.cpp
         src/gui/resizeWindow.cpp
         src/utils/getNearest.cpp
+        src/player/AI.cpp
 )
 
 #

@@ -24,6 +24,8 @@ private:
 
     raylib::Vector2 getKeyboardMove() const;
 
+    void generateAIMove();
+
 public:
     int playerNumber = -1;
     float size = 20;
@@ -36,6 +38,7 @@ public:
     int lives = 2;
 
     bool isDead = false;
+    bool isAi = false;
 
     raylib::Color colour = RED;
     raylib::Color deadColour = GRAY;

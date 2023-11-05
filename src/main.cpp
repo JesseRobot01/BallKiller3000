@@ -7,6 +7,7 @@
 #include "data.h"
 #include "gameHandler.h"
 #include "gui.h"
+#include "utils.h"
 
 // window
 float screenWidth = 800;
@@ -16,10 +17,12 @@ float screenHeight = 450;
 bool isGameActive;
 bool isGamePaused;
 bool isGameOver;
+bool isGameAiGame;
 
 int level;
 
 int knownTouchPoints = 0;
+int frameCounter = 0;
 
 // entities
 Player *player;
@@ -49,6 +52,14 @@ int main() {
         if (IsKeyPressed(KEY_ESCAPE)) {
             if (isGameActive) {
                 isGamePaused = true;
+            }
+        }
+
+        if (!isGameActive) {
+            frameCounter++;
+
+            if (frameCounter == 60 * 3) {
+                GameHandler::startGame(Utils::random(0, 1), true);
             }
         }
         // Get window resize
@@ -86,6 +97,16 @@ int main() {
             Gui::gameOverlay();
 
         } else {
+            if (isGameAiGame) {
+                Gui::gameElements();
+                for (int p = 0; p < playerCount; ++p) {
+                    player[p].getMove();
+                }
+                for (int e = 0; e < enemyCount; ++e) {
+                    enemy[e].generateMove();
+                }
+            }
+
             Gui::startScreen();
         }
 

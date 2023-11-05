@@ -5,6 +5,11 @@
 void Player::getMove() {
     if (isDead) return; // no need if he's ded
 
+    if (isAi) {
+        generateAIMove();
+        return;
+    }
+
     raylib::Vector2 moveTo;
     raylib::Vector2 output;
 
@@ -201,9 +206,11 @@ void Player::move(Vector2 moveTo) {
                 }
             }
             pos = pos.MoveTowards(pos + moveTo, speed);
+            checkCollisionWithBalls();
             return;
         } else {
             pos = pos.MoveTowards(pos + moveTo, speed);
+            checkCollisionWithBalls();
             return;
         }
 
@@ -224,9 +231,11 @@ void Player::move(Vector2 moveTo) {
                 }
             }
             pos = pos.MoveTowards(Vector2(pos.x + moveTo.x, pos.y), speed);
+            checkCollisionWithBalls();
             return;
         } else {
             pos = pos.MoveTowards(Vector2(pos.x + moveTo.x, pos.y), speed);
+            checkCollisionWithBalls();
             return;
         }
     } else if (isInScreen(Vector2(pos.x, pos.y + moveTo.y))) {
@@ -245,10 +254,12 @@ void Player::move(Vector2 moveTo) {
                     else return;
                 }
             }
+            checkCollisionWithBalls();
             pos = pos.MoveTowards(Vector2(pos.x, pos.y + moveTo.y), speed);
             return;
         } else {
             pos = pos.MoveTowards(Vector2(pos.x, pos.y + moveTo.y), speed);
+            checkCollisionWithBalls();
             return;
         }
     }

@@ -47,6 +47,7 @@ void Gui::pauseMenu() {
                                quitButton)) {
         isGameActive = false;
         isGamePaused = false;
+        frameCounter = 0; // Resets the counter to start a new AI game
 
         if (playerCount == 2) {
             for (int p = 0; p < playerCount; ++p) {

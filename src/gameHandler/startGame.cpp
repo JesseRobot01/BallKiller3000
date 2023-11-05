@@ -2,9 +2,14 @@
 #include "../gameHandler.h"
 #include "../data.h"
 
-void GameHandler::startGame(bool multiPlayerGame) {
+void GameHandler::startGame(bool multiPlayerGame, bool AIGame) {
     // Activate game
-    isGameActive = true;
+    if (!AIGame) {
+        isGameActive = true;
+        isGameAiGame = false;
+    } else {
+        isGameAiGame = true;
+    }
     isGameOver = false;
 
     level = 0;
@@ -24,6 +29,7 @@ void GameHandler::startGame(bool multiPlayerGame) {
         player[p].playerNumber = p;
         player[p].highScore = getHigh();
         player[p].pos = Vector2(screenWidth / 2, screenHeight / 2);
+        player[p].isAi = AIGame;
 
         if (playerCount == 2) {
             if (p == 0) {

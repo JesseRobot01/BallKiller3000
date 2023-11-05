@@ -3,7 +3,7 @@
 
 class GameHandler {
 public:
-    static void startGame(bool multiPlayerGame = false);
+    static void startGame(bool multiPlayerGame = false, bool isAiGame = false);
 
     static void levelUp();
 

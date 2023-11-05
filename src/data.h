@@ -14,10 +14,12 @@ extern float screenHeight;
 extern bool isGameActive;
 extern bool isGamePaused;
 extern bool isGameOver;
+extern bool isGameAiGame;
 
 extern int level;
 
 extern int knownTouchPoints;
+extern int frameCounter;
 
 // entities
 extern Player *player;

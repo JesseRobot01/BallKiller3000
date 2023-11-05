@@ -23,7 +23,7 @@ public:
         return Vector2(random(0.0, screenWidth), random(0.0, screenHeight));
     }
 
-    static int getNearestBall(raylib::Vector2 pos, int ignoreNumber = -1);
+    static int getNearestBall(raylib::Vector2 pos, bool ignoreAlmostDead = false, int ignoreNumber = -1);
 
     static int getNearestEnemy(raylib::Vector2 pos, int ignoreNumber = -1);
 
