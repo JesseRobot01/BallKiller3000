@@ -98,8 +98,6 @@ void Player::updateTouchPoints() {
     }
 }
 
-void Player::panicTouchPoints() {}
-
 raylib::Vector2 Player::getMouseMove() {
     raylib::Vector2 moveTo;
 

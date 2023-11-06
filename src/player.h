@@ -16,8 +16,6 @@ private:
 
     void updateTouchPoints();
 
-    void panicTouchPoints();
-
     raylib::Vector2 getMouseMove();
 
     static int getWantedPlayer(raylib::Vector2 posToCheck);
