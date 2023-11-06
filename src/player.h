@@ -20,7 +20,7 @@ private:
 
     static int getWantedPlayer(raylib::Vector2 posToCheck);
 
-    raylib::Vector2 getKeyboardMove() const;
+    raylib::Vector2 getKeyboardMove();
 
     void generateAIMove();
 

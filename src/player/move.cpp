@@ -157,31 +157,26 @@ int Player::getWantedPlayer(raylib::Vector2 posToCheck) {
     return -1;
 }
 
-raylib::Vector2 Player::getKeyboardMove() const {
+raylib::Vector2 Player::getKeyboardMove() {
     // now, do the keyboard things.
     // first for two players
     raylib::Vector2 moveTo;
 
-    if (playerCount == 2) {
-        if (playerNumber == 0) {
-            if (IsKeyDown(KEY_W)) { moveTo.y -= speed; }
-            if (IsKeyDown(KEY_A)) { moveTo.x -= speed; }
-            if (IsKeyDown(KEY_S)) { moveTo.y += speed; }
-            if (IsKeyDown(KEY_D)) { moveTo.x += speed; }
-        }
-        if (playerNumber == 1) {
-            if (IsKeyDown(KEY_UP)) { moveTo.y -= speed; }
-            if (IsKeyDown(KEY_LEFT)) { moveTo.x -= speed; }
-            if (IsKeyDown(KEY_DOWN)) { moveTo.y += speed; }
-            if (IsKeyDown(KEY_RIGHT)) { moveTo.x += speed; }
-        }
-    } else {
-        if (IsKeyDown(KEY_W) || IsKeyDown(KEY_UP)) { moveTo.y -= speed; }
-        if (IsKeyDown(KEY_A) || IsKeyDown(KEY_LEFT)) { moveTo.x -= speed; }
-        if (IsKeyDown(KEY_S) || IsKeyDown(KEY_DOWN)) { moveTo.y += speed; }
-        if (IsKeyDown(KEY_D) || IsKeyDown(KEY_RIGHT)) { moveTo.x += speed; }
+    if (playerNumber == 0) {
+        if (IsKeyDown(KEY_W)) { moveTo.y = -speed; }
+        if (IsKeyDown(KEY_A)) { moveTo.x = -speed; }
+        if (IsKeyDown(KEY_S)) { moveTo.y = +speed; }
+        if (IsKeyDown(KEY_D)) { moveTo.x = +speed; }
     }
+    if (playerNumber == 1 || playerCount == 1) {
+        if (IsKeyDown(KEY_UP)) { moveTo.y = -speed; }
+        if (IsKeyDown(KEY_LEFT)) { moveTo.x = -speed; }
+        if (IsKeyDown(KEY_DOWN)) { moveTo.y = +speed; }
+        if (IsKeyDown(KEY_RIGHT)) { moveTo.x = +speed; }
+    }
+
     return moveTo;
+
 }
 
 void Player::move(Vector2 moveTo) {

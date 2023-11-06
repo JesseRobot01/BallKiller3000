@@ -50,6 +50,6 @@ void Gui::startScreen() {
     if (IsGestureDetected(GESTURE_TAP) &&
         CheckCollisionPointRec(GetMousePosition(),
                                multiPlayerButton)) {
-        GameHandler::startGame(true);
+        GameHandler::startGame(2);
     }
 }
