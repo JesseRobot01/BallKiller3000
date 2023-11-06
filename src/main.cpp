@@ -59,7 +59,7 @@ int main() {
             frameCounter++;
 
             if (frameCounter == 60 * 3) {
-                GameHandler::startGame(10, true);
+                GameHandler::startGame(Utils::random(1,2), true);
             }
         }
         // Get window resize
