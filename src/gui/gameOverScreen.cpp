@@ -40,7 +40,7 @@ void Gui::gameOver() {
                      30, RED);
 
     //handle buttons
-    if (IsKeyPressed(KEY_ENTER)) GameHandler::startGame(playerCount == 2);
+    if (IsKeyPressed(KEY_ENTER)) GameHandler::startGame();
 
     if (IsGestureDetected(GESTURE_TAP) &&
         CheckCollisionPointRec(GetMousePosition(),
