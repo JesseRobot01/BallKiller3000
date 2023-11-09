@@ -3,8 +3,6 @@
 #include "../data.h"
 
 void GameHandler::startGame(int gamePlayerCount, bool AIGame) {
-    std::cout << GameHandler::getHigh(true, 2);
-    GameHandler::saveHigh(99, true, 2);
     // Activate game
     if (!AIGame) {
         isGameActive = true;
