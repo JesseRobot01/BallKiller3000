@@ -52,7 +52,9 @@ raylib::Vector2 Player::getTouchPointMove() {
     if (touchPointIndex != -1) {
         if (!isTouchingScreen) {
             isTouchingScreen = true;
-            isControlStickBasePlayer = pos.CheckCollision(GetTouchPosition(touchPointIndex), size + 30);
+            if (dragEnabled)
+                isControlStickBasePlayer = pos.CheckCollision(GetTouchPosition(touchPointIndex),
+                                                              size + dragSensitivity);
             if (isControlStickBasePlayer) {
                 controlStickStartPos = pos;
             } else {
@@ -66,8 +68,10 @@ raylib::Vector2 Player::getTouchPointMove() {
 
             controlStickCurrentPos = GetTouchPosition(touchPointIndex);
         } else {
-            DrawCircleV(controlStickStartPos, 50, controlStickBaseColour);
-            controlStickCurrentPos = controlStickStartPos.MoveTowards(GetTouchPosition(touchPointIndex), 50);
+            if (controlStickEnabled) {
+                DrawCircleV(controlStickStartPos, 50, controlStickBaseColour);
+                controlStickCurrentPos = controlStickStartPos.MoveTowards(GetTouchPosition(touchPointIndex), 50);
+            } else {return 0;}
         }
         DrawCircleV(controlStickCurrentPos, 30, controlStickDragColour);
 
@@ -115,7 +119,9 @@ raylib::Vector2 Player::getMouseMove() {
 
         isTouchingScreen = true;
         isUsingMouse = true;
-        isControlStickBasePlayer = pos.CheckCollision(GetMousePosition(), size + 30);
+        if (dragEnabled)
+            isControlStickBasePlayer = pos.CheckCollision(GetMousePosition(), size + dragSensitivity);
+
         if (isControlStickBasePlayer) {
             controlStickStartPos = pos;
         } else {
@@ -128,8 +134,10 @@ raylib::Vector2 Player::getMouseMove() {
         controlStickCurrentPos = GetMousePosition();
 
     } else {
-        DrawCircleV(controlStickStartPos, 50, controlStickBaseColour);
-        controlStickCurrentPos = controlStickStartPos.MoveTowards(GetMousePosition(), 50);
+        if (controlStickEnabled) {
+            DrawCircleV(controlStickStartPos, 50, controlStickBaseColour);
+            controlStickCurrentPos = controlStickStartPos.MoveTowards(GetMousePosition(), 50);
+        } else { return 0; }
     }
     DrawCircleV(controlStickCurrentPos, 30, controlStickDragColour);
 

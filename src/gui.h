@@ -14,6 +14,8 @@ public:
     static void pauseMenu();
 
     static void resizeWindow();
+
+    static void settings();
 };
 
 #endif //BALLKILLER3000_GUI_H

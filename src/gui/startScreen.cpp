@@ -13,6 +13,16 @@ void Gui::startScreen() {
             // Yes, I know, multi-player button has single-player in its code, but this makes it the same size.
                                         (float) MeasureText("Single-Player", 30) + 20, 50);
 
+    raylib::Rectangle settingsButton(screenWidth / 2 - (float) MeasureText("Single-Player", 30) - 10,
+                                     screenHeight / 2 + 95,
+                                     (float) MeasureText("Single-Player", 30) + 20, 50);
+
+    raylib::Rectangle quitButton(screenWidth / 2 + 30 - 10,
+                                 screenHeight / 2 + 95,
+                                 (float) MeasureText("Single-Player", 30) + 20, 50);
+
+
+
     // Draw the elements
     // Draw the background
     DrawRectangle(0, 0, (int) screenWidth, (int) screenHeight, ColorAlpha(GRAY, 0.625));
@@ -27,6 +37,8 @@ void Gui::startScreen() {
 
     DrawRectangleRec(singlePlayerButton, ColorAlpha(RED, 0.25));
     DrawRectangleRec(multiPlayerButton, ColorAlpha(RED, 0.25));
+    DrawRectangleRec(settingsButton, ColorAlpha(RED, 0.25));
+    DrawRectangleRec(quitButton, ColorAlpha(RED, 0.25));
 
     raylib::DrawText("Single-Player",
                      (int) screenWidth / 2 - MeasureText("Single-Player", 30),
@@ -39,17 +51,38 @@ void Gui::startScreen() {
                      (int) screenHeight / 2 + 45,
                      30, RED);
 
+    raylib::DrawText("Settings",
+                     (int) screenWidth / 2 - MeasureText("Single-Player", 30) - 10 +
+                     (MeasureText("Single-Player", 30) + 20 - MeasureText("Settings", 30)) / 2,
+                     (int) screenHeight / 2 + 105,
+                     30, RED);
+
+    raylib::DrawText("Quit",
+                     (int) screenWidth / 2 - MeasureText("Quit", 30) / 2 + MeasureText("Single-Player", 30) / 2 + 30,
+                     (int) screenHeight / 2 + 105,
+                     30, RED);
+
 
     // Handles Buttons
-    if (IsGestureDetected(GESTURE_TAP) &&
+    if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT) &&
         CheckCollisionPointRec(GetMousePosition(),
                                singlePlayerButton)) {
 
         GameHandler::startGame();
     }
-    if (IsGestureDetected(GESTURE_TAP) &&
+    if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT) &&
         CheckCollisionPointRec(GetMousePosition(),
                                multiPlayerButton)) {
         GameHandler::startGame(2);
+    }
+    if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT) &&
+        CheckCollisionPointRec(GetMousePosition(),
+                               settingsButton)) {
+        isSettingsPageShown = true;
+    }
+    if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT) &&
+        CheckCollisionPointRec(GetMousePosition(),
+                               quitButton)) {
+        CloseWindow();
     }
 }

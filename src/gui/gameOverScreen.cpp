@@ -42,13 +42,13 @@ void Gui::gameOver() {
     //handle buttons
     if (IsKeyPressed(KEY_ENTER)) GameHandler::startGame();
 
-    if (IsGestureDetected(GESTURE_TAP) &&
+    if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT) &&
         CheckCollisionPointRec(GetMousePosition(),
                                restartButton)) {
 
         GameHandler::startGame(playerCount == 2);
     }
-    if (IsGestureDetected(GESTURE_TAP) &&
+    if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT) &&
         CheckCollisionPointRec(GetMousePosition(),
                                exitButton)) {
         isGameActive = false;

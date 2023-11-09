@@ -15,11 +15,16 @@ extern bool isGameActive;
 extern bool isGamePaused;
 extern bool isGameOver;
 extern bool isGameAiGame;
+extern bool isSettingsPageShown;
 
 extern int level;
 
 extern int knownTouchPoints;
 extern int frameCounter;
+
+extern bool controlStickEnabled;
+extern bool dragEnabled;
+extern float dragSensitivity;
 
 // entities
 extern Player *player;

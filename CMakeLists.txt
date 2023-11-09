@@ -24,6 +24,7 @@ set(SOURCES
         src/gui/resizeWindow.cpp
         src/utils/getNearest.cpp
         src/player/AI.cpp
+        src/gui/settingsPage.cpp
 )
 
 #

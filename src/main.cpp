@@ -18,11 +18,16 @@ bool isGameActive;
 bool isGamePaused;
 bool isGameOver;
 bool isGameAiGame;
+bool isSettingsPageShown;
 
 int level;
 
 int knownTouchPoints = 0;
 int frameCounter = 0;
+
+bool controlStickEnabled = true;
+bool dragEnabled = true;
+float dragSensitivity = 30;
 
 // entities
 Player *player;
@@ -59,7 +64,7 @@ int main() {
             frameCounter++;
 
             if (frameCounter == 60 * 3) {
-                GameHandler::startGame(Utils::random(1,2), true);
+                GameHandler::startGame(Utils::random(1, 2), true);
             }
         }
         // Get window resize
@@ -81,7 +86,7 @@ int main() {
             if (isGameOver) {
                 Gui::gameOver();
             } else if (isGamePaused) {
-                Gui::pauseMenu();
+                if (!isSettingsPageShown) Gui::pauseMenu();
             }
 
             if (!isGamePaused) {
@@ -107,8 +112,9 @@ int main() {
                 }
             }
 
-            Gui::startScreen();
+            if (!isSettingsPageShown) Gui::startScreen();
         }
+        if (isSettingsPageShown) Gui::settings();
 
         // draw version
         raylib::DrawText("v"  BALL_KILLER_VERSION,

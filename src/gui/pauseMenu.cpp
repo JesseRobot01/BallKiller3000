@@ -12,6 +12,10 @@ void Gui::pauseMenu() {
                                  screenHeight / 2 + 35,
                                  (float) MeasureText("Continue", 30) + 20, 50);
 
+    raylib::Rectangle settingsButton(screenWidth / 2 - (float) MeasureText("Continue", 30) - 10,
+                                     screenHeight / 2 + 100,
+                                     (float) MeasureText("Continue", 30) * 2 + 50, 50);
+
     // Draw the elements
     // Draw the background
     DrawRectangle(0, 0, (int) screenWidth, (int) screenHeight, ColorAlpha(GRAY, 0.625));
@@ -23,6 +27,8 @@ void Gui::pauseMenu() {
 
     DrawRectangleRec(continueButton, ColorAlpha(RED, 0.25));
     DrawRectangleRec(quitButton, ColorAlpha(RED, 0.25));
+    DrawRectangleRec(settingsButton, ColorAlpha(RED, 0.25));
+
 
     raylib::DrawText("Continue",
                      (int) screenWidth / 2 - MeasureText("Continue", 30),
@@ -35,14 +41,18 @@ void Gui::pauseMenu() {
                      (int) screenHeight / 2 + 45,
                      30, RED);
 
+    raylib::DrawText("Settings", (int) screenWidth / 2 - MeasureText("Continue", 30) - 10 +
+                                 (MeasureText("Continue", 30) * 2 + 50 -
+                                  MeasureText("Settings", 30)) / 2, (int) screenHeight / 2 + 110, 30, RED);
+
     //handle buttons
-    if (IsGestureDetected(GESTURE_TAP) &&
+    if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT) &&
         CheckCollisionPointRec(GetMousePosition(),
                                continueButton)) {
 
         isGamePaused = false;
     }
-    if (IsGestureDetected(GESTURE_TAP) &&
+    if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT) &&
         CheckCollisionPointRec(GetMousePosition(),
                                quitButton)) {
         isGameActive = false;
@@ -55,5 +65,7 @@ void Gui::pauseMenu() {
             }
         } else if (player[0].score > player[0].highScore) GameHandler::saveHigh(player[0].score);
     }
+    if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT) &&
+        CheckCollisionPointRec(GetMousePosition(), settingsButton)) { isSettingsPageShown = true; }
 
 }
